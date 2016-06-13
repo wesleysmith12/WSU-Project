@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="0dp"
+    android:padding="0dp"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recipe"
+            android:textSize="20sp"
+            android:textIsSelectable="true"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="3dp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start"
+            android:background="@android:color/holo_green_light"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/MainButton"
+        android:text="Gathers items before reading recipe IE"
+        android:id="@+id/button1"
+        android:layout_marginBottom="-5dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Retrieval inefficient (>2 trips each cup.) IE"
+        android:id="@+id/button2"
+        style="@style/MainButton"
+        android:layout_marginBottom="-5dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Does not efficiently locate recipe (index/TOC) IE"
+        android:id="@+id/button3"
+        style="@style/MainButton"
+        android:layout_marginBottom="-5dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gathers creamy PB, not chunky IE"
+        android:id="@+id/button4"
+        style="@style/MainButton"
+        android:layout_marginBottom="-5dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gathers table salt, not kosher IE"
+        android:id="@+id/button5"
+        style="@style/MainButton"
+        android:layout_marginBottom="-5dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gathers espresso, not coffee IE"
+        android:id="@+id/button6"
+        style="@style/MainButton"
+        android:layout_marginBottom="-5dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gathers extra items IE"
+        android:id="@+id/button7"
+        style="@style/MainButton"
+        android:layout_marginBottom="-5dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Does not gather 1-2 nonessential items IE"
+        android:id="@+id/button8"
+        style="@style/MainButton"
+        android:layout_marginBottom="-5dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Carries all items to bag, not bag to items IE"
+        android:id="@+id/button9"
+        style="@style/MainButton"
+        android:layout_marginBottom="-5dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Makes change after finishing task IE"
+        android:id="@+id/button10"
+        style="@style/MainButton"
+        android:layout_marginBottom="-5dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Does not gather 1+ essential items IC"
+        android:id="@+id/button11"
+        style="@style/MainButton"
+        android:layout_marginBottom="-5dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Does not gather 3+ nonessential items IC"
+        android:id="@+id/button12"
+        style="@style/MainButton"
+        android:layout_marginBottom="-5dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Locates wrong recipe and gathers items IC"
+        android:id="@+id/button13"
+        style="@style/MainButton"
+        android:layout_marginBottom="-5dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Does not finish task IC"
+        android:id="@+id/button14"
+        style="@style/MainButton"
+        android:layout_marginBottom="-5dp"/>
+
+</LinearLayout>

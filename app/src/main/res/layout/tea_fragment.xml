@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:layout_margin="0dp"
+    android:padding="0dp"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tea"
+            android:textSize="20sp"
+            android:textIsSelectable="true"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="3dp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start"
+            android:background="@android:color/holo_green_light"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Looks in multiple locations"
+        android:id="@+id/button1"
+        style="@style/MainButton"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Waits for tea, not multitasking Get tea but not placed in H2O"
+        android:id="@+id/button2"
+        style="@style/MainButton"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Make tea more than once Timer not set"
+        android:id="@+id/button3"
+        style="@style/MainButton"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Did not wait >3 minutes Does not take tea when ready"
+        android:id="@+id/button4"
+        style="@style/MainButton"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Does not bring tea to door No Tea in H2O"
+        android:id="@+id/button5"
+        style="@style/MainButton"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No H2O in thermos Makes coffee instead of tea"
+        android:id="@+id/button6"
+        style="@style/MainButton"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Does not finish task"
+        android:id="@+id/button7"
+        style="@style/MainButton"/>
+
+</LinearLayout>
