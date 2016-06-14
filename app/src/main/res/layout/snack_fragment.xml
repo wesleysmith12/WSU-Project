@@ -32,12 +32,6 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Snack"
-        android:id="@+id/button0"
-        style="@style/MainButton"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Looks in multiple locations IE"
         android:id="@+id/button1"
         style="@style/MainButton"/>

@@ -34,13 +34,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/MainButton"
-        android:text="Exit"
-        android:id="@+id/button0"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/MainButton"
         android:text="Makes multiple trips to door IE"
         android:id="@+id/button1" />
     <Button

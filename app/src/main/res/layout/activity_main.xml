@@ -10,90 +10,87 @@
     android:weightSum="1"
     android:showDividers="end">
 
-    <GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent">
 
         <fragment
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:name="com.example.wesle.wsuuioption1.RecipeFragment"
-            android:id="@+id/fragment5"
-            android:layout_row="0"
-            android:layout_column="0"
+            android:id="@+id/fragment"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             tools:layout="@layout/recipe_fragment" />
 
         <fragment
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:name="com.example.wesle.wsuuioption1.ChangeFragment"
+            android:name="com.example.wesle.wsuuioption1.PhoneFragment"
             android:id="@+id/fragment2"
-            android:layout_row="0"
-            android:layout_column="1"
-            tools:layout="@layout/change_fragment" />
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/fragment"
+            android:layout_toEndOf="@+id/fragment"
+            tools:layout="@layout/phone_fragment" />
+
+        <fragment
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:name="com.example.wesle.wsuuioption1.MiscFragment"
+            android:id="@+id/fragment3"
+            tools:layout="@layout/misc_fragment"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+        <fragment
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:name="com.example.wesle.wsuuioption1.ChangeFragment"
+            android:id="@+id/fragment8"
+            tools:layout="@layout/change_fragment"
+            android:layout_below="@+id/fragment2"
+            android:layout_alignRight="@+id/fragment2"
+            android:layout_alignEnd="@+id/fragment2" />
+
+        <fragment
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:name="com.example.wesle.wsuuioption1.TravelBagFragment"
+            android:id="@+id/fragment4"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/fragment2"
+            tools:layout="@layout/travel_bag_fragment" />
 
         <fragment
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:name="com.example.wesle.wsuuioption1.SnackFragment"
             android:id="@+id/fragment6"
-            android:layout_row="0"
-            android:layout_column="2"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/fragment4"
+            android:layout_toEndOf="@+id/fragment4"
             tools:layout="@layout/snack_fragment" />
 
         <fragment
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:name="com.example.wesle.wsuuioption1.TeaFragment"
-            android:id="@+id/fragment4"
-            android:layout_row="0"
-            android:layout_column="3"
-            tools:layout="@layout/tea_fragment" />
-
-        <fragment
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:name="com.example.wesle.wsuuioption1.Fragment1"
-            android:id="@+id/fragment"
-            android:layout_row="1"
-            android:layout_column="0"
-            tools:layout="@layout/fragment_1" />
-
-        <fragment
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:name="com.example.wesle.wsuuioption1.MiscFragment"
-            android:id="@+id/fragment9"
-            android:layout_row="2"
-            android:layout_column="0"
-            tools:layout="@layout/misc_fragment" />
-
-        <fragment
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:name="com.example.wesle.wsuuioption1.PhoneFragment"
-            android:id="@+id/fragment8"
-            android:layout_row="1"
-            android:layout_column="1"
-            tools:layout="@layout/phone_fragment" />
-
-        <fragment
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:name="com.example.wesle.wsuuioption1.ChangeFragment"
-            android:id="@+id/fragment3"
-            android:layout_row="1"
-            android:layout_column="2"
-            tools:layout="@layout/change_fragment" />
-
-        <fragment
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:name="com.example.wesle.wsuuioption1.TravelBagFragment"
             android:id="@+id/fragment7"
-            android:layout_row="1"
-            android:layout_column="3"
-            tools:layout="@layout/travel_bag_fragment" />
+            tools:layout="@layout/tea_fragment"
+            android:layout_below="@+id/fragment4"
+            android:layout_toRightOf="@+id/fragment2"
+            android:layout_toEndOf="@+id/fragment2" />
 
-    </GridLayout>
+        <fragment
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:name="com.example.wesle.wsuuioption1.ExitFragment"
+            android:id="@+id/fragment5"
+            android:layout_below="@+id/fragment6"
+            android:layout_toRightOf="@+id/fragment4"
+            android:layout_toEndOf="@+id/fragment4"
+            tools:layout="@layout/exit_fragment" />
+
+    </RelativeLayout>
 </LinearLayout>
