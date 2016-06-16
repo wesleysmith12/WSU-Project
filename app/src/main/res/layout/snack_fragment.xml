@@ -18,63 +18,57 @@
             android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp" />
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Start"
-            android:background="@android:color/holo_green_light"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="4dp" />
+            android:id="@+id/snackstart"
+            style="@style/StartStop"/>
     </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Looks in multiple locations IE"
+        android:text="Looks in multiple locations"
         android:id="@+id/button1"
         style="@style/MainButton"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Takes more than one snack IE"
+        android:text="Takes more than one snack"
         android:id="@+id/button2"
         style="@style/MainButton"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chooses candy, not milk choc. IE"
+        android:text="Chooses candy, not milk choc."
         android:id="@+id/button3"
         style="@style/MainButton"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Changes snack after finishing task IE"
+        android:text="Changes snack after finishing task"
         android:id="@+id/button4"
         style="@style/MainButton"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chooses non-snack item IC"
+        android:text="Chooses non-snack item"
         android:id="@+id/button5"
         style="@style/MainButton"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chooses dark choc. IC"
+        android:text="Chooses dark choc."
         android:id="@+id/button6"
         style="@style/MainButton"/>
     <Button
             android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Does not bring snack to door IC"
+        android:text="Does not bring snack to door"
         android:id="@+id/button7"
         style="@style/MainButton"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Does not finish task IC"
+        android:text="Does not finish task"
         android:id="@+id/button8"
         style="@style/MainButton"/>
 

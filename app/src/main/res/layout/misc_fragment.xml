@@ -4,30 +4,27 @@
     android:layout_height="match_parent">
 
     <Button
-        style="@style/MainButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MiscButton"
+        android:background="@drawable/colorbutton"
         android:text="additional NTRA"
-        android:id="@+id/button" />
+        android:id="@+id/button"
+        android:allowUndo="false" />
 
     <Button
-        style="@style/MainButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MiscButton"
+        android:background="@drawable/colorbutton"
         android:text="perseveration"
         android:id="@+id/button15" />
 
     <Button
-        style="@style/MainButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MiscButton"
+        android:background="@drawable/colorbutton"
         android:text="wandering"
         android:id="@+id/button16" />
 
     <Button
-        style="@style/MainButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MiscButton"
+        android:background="@drawable/colorbutton"
         android:text="requests help"
         android:id="@+id/button17" />
 </LinearLayout>

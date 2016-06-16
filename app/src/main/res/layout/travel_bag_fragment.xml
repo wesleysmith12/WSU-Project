@@ -17,44 +17,38 @@
             android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp" />
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Start"
-            android:background="@android:color/holo_green_light"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="4dp" />
+            android:id="@+id/travelstart"
+            style="@style/StartStop"/>
     </LinearLayout>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Looks in multiple locations IE"
+        android:text="Looks in multiple locations"
         android:id="@+id/button1"
         style="@style/MainButton"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Carries items to door by hand IE"
+        android:text="Carries items to door by hand"
         android:id="@+id/button2"
         style="@style/MainButton"/>
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="209dp"
         android:layout_height="wrap_content"
-        android:text="Uses alternative carrier, not bag IE"
+        android:text="Uses alternative carrier, not bag"
         android:id="@+id/button3"
         style="@style/MainButton"/>
     <Button
-        android:layout_width="313dp"
+        android:layout_width="214dp"
         android:layout_height="wrap_content"
-        android:text="Does not put items in bag (exception: tea, $, phone by hand) IC"
+        android:text="Does not put items in bag (exception: tea, $, phone by hand)"
         android:id="@+id/button4"
         style="@style/MainButton"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Does not finish task IC"
+        android:text="Does not finish task"
         android:id="@+id/button5"
         style="@style/MainButton"/>
 

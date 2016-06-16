@@ -18,57 +18,37 @@
             android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp" />
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Start"
-            android:background="@android:color/holo_green_light"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="4dp" />
+            android:id="@+id/phonestart"
+            style="@style/StartStop"/>
     </LinearLayout>
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Looks in multiple locations IE"
-        android:id="@+id/button1"
+        android:text="Looks in multiple locations"
+        android:id="@+id/phone1"
         style="@style/MainButton"/>
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Call is not last task before exit IE"
-        android:id="@+id/button2"
+        android:text="Call is not last task before exit"
+        android:id="@+id/phone2"
         style="@style/MainButton"/>
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Calls but does not mention leaving IE"
-        android:id="@+id/button3"
+        android:text="Calls but does not mention leaving"
+        android:id="@+id/phone3"
         style="@style/MainButton"/>
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Makes call more than once IE"
-        android:id="@+id/button4"
+        android:text="Makes call more than once"
+        android:id="@+id/phone4"
         style="@style/MainButton"/>
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Does not call IC"
-        android:id="@+id/button5"
+        android:text="Does not call"
+        android:id="@+id/phone5"
         style="@style/MainButton"/>
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gets phone but does not call IC"
-        android:id="@+id/button6"
+        android:text="Gets phone but does not call"
+        android:id="@+id/phone6"
         style="@style/MainButton"/>
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Does not finish task IC"
-        android:id="@+id/button7"
+        android:text="Does not finish task"
+        android:id="@+id/phone7"
         style="@style/MainButton"/>
 
 </LinearLayout>

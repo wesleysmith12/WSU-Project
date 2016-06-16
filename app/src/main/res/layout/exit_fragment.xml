@@ -19,40 +19,26 @@
             android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp" />
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Start"
-            android:background="@android:color/holo_green_light"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="4dp" />
+            android:id="@+id/exitstart"
+            style="@style/StartStop"/>
     </LinearLayout>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/MainButton"
-        android:text="Makes multiple trips to door IE"
-        android:id="@+id/button1" />
+        android:text="Makes multiple trips to door"
+        android:id="@+id/exit1" />
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/MainButton"
-        android:text="Not one of last 2 tasks IE"
-        android:id="@+id/button2" />
+        android:text="Not one of last 2 tasks"
+        android:id="@+id/exit2" />
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/MainButton"
-        android:text="Does not bring bag to door IC"
-        android:id="@+id/button3" />
+        android:text="Does not bring bag to door"
+        android:id="@+id/exit3" />
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/MainButton"
-        android:text="Does not finish task IC"
-        android:id="@+id/button4" />
+        android:text="Does not finish task"
+        android:id="@+id/exit4" />
 
 </LinearLayout>

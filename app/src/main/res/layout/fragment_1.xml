@@ -18,47 +18,43 @@
             android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp" />
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Start"
-            android:background="@android:color/holo_green_light"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="4dp" />
+            android:id="@+id/moviestart"
+            style="@style/StartStop"/>
     </LinearLayout>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Look in multiple locations"
-        android:id="@+id/button1"
+        android:id="@+id/movie1"
         android:layout_weight="0.02"
         style="@style/MainButton" />
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Records >$7 senior, >$11 adult Returns to schedule after finishing task"
-        android:id="@+id/button2"
+        android:text="Records >$7 senior, >$11 adult"
+        android:id="@+id/movie2"
         style="@style/MainButton" />
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Records cost for only one person Does not record answers"
-        android:id="@+id/button3"
+        android:text="Returns to schedule after finishing task"
+        android:id="@+id/movie3"
         style="@style/MainButton"/>
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Records >$3.50 senior, >$5.50 adult Records leaving after 6:35"
-        android:id="@+id/button4"
+        android:text="Records cost for only one person"
+        android:id="@+id/movie4"
         style="@style/MainButton"/>
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:text="Does not record answers"
+        android:id="@+id/movie5"
+        style="@style/MainButton"/>
+    <Button
+        android:text="Records >$3.50 senior, >$5.50 adult"
+        android:id="@+id/movie6"
+        style="@style/MainButton"/>
+    <Button
+        android:text="Records leaving after 6:35"
+        android:id="@+id/movie7"
+        style="@style/MainButton"/>
+    <Button
         android:text="Does not finish task"
-        android:id="@+id/button5"
+        android:id="@+id/movie8"
         style="@style/MainButton" />
 
 </LinearLayout>

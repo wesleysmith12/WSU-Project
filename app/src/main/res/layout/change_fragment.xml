@@ -16,63 +16,41 @@
             android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp" />
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Start"
-            android:background="@android:color/holo_green_light"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="4dp" />
+            android:id="@+id/moneystart"
+            style="@style/StartStop" />
     </LinearLayout>
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/MainButton"
-        android:text="Looks in multiple locations IE"
-        android:id="@+id/button1" />
+        android:text="Looks in multiple locations"
+        android:id="@+id/money1" />
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/MainButton"
-        android:text="Gathers $ before checking schedule IE"
-        android:id="@+id/button2" />
+        android:text="Gathers $ before checking schedule"
+        android:id="@+id/money2" />
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/MainButton"
-        android:text="Gathers more $ than recorded IE"
-        android:id="@+id/button3" />
+        android:text="Gathers more $ than recorded"
+        android:id="@+id/money3" />
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/MainButton"
-        android:text="Adjusts $ after finishing task IE"
-        android:id="@+id/button4" />
+        android:text="Adjusts $ after finishing task"
+        android:id="@+id/money4" />
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/MainButton"
-        android:text="Gathers less $ than recorded IC"
-        android:id="@+id/button5" />
+        android:text="Gathers less $ than recorded"
+        android:id="@+id/money5" />
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/MainButton"
-        android:text="Does not take $ out of pocket at end IC"
-        android:id="@+id/button6" />
+        android:text="Does not take $ out of pocket at end"
+        android:id="@+id/money6" />
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/MainButton"
-        android:text="Does not bring $ to door IC"
-        android:id="@+id/button7" />
+        android:text="Does not bring $ to door"
+        android:id="@+id/money7" />
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/MainButton"
-        android:text="Does not finish task IC"
-        android:id="@+id/button8" />
+        android:text="Does not finish task"
+        android:id="@+id/money8" />
 
 </LinearLayout>
