@@ -7,8 +7,7 @@
         style="@style/MiscButton"
         android:background="@drawable/colorbutton"
         android:text="additional NTRA"
-        android:id="@+id/button"
-        android:allowUndo="false" />
+        android:id="@+id/button" />
 
     <Button
         style="@style/MiscButton"

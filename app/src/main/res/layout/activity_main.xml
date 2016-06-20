@@ -30,9 +30,9 @@
             android:name="com.example.wesle.wsuuioption1.PhoneFragment"
             android:id="@+id/fragment2"
             tools:layout="@layout/phone_fragment"
-            android:layout_below="@+id/fragment7"
-            android:layout_alignRight="@+id/fragment3"
-            android:layout_alignEnd="@+id/fragment3" />
+            android:layout_alignTop="@+id/fragment4"
+            android:layout_toRightOf="@+id/fragment4"
+            android:layout_toEndOf="@+id/fragment4" />
 
         <fragment
             android:layout_width="wrap_content"
@@ -50,9 +50,9 @@
             android:name="com.example.wesle.wsuuioption1.SnackFragment"
             android:id="@+id/fragment6"
             tools:layout="@layout/snack_fragment"
-            android:layout_below="@+id/fragment8"
-            android:layout_toRightOf="@+id/fragment3"
-            android:layout_toEndOf="@+id/fragment3" />
+            android:layout_alignTop="@+id/fragment4"
+            android:layout_toRightOf="@+id/fragment2"
+            android:layout_toEndOf="@+id/fragment2" />
 
         <fragment
             android:layout_width="wrap_content"
