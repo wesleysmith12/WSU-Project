@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="horizontal">
+<LinearLayout
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_weight="1">
+        <Button
+            android:id="@+id/buttonS1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Recipe"
+            android:onClick="selectFrag" />
+        <Button
+            android:id="@+id/buttonS2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="selectFrag"
+            android:text="Money" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Movie"
+            android:id="@+id/buttonS3"
+            android:layout_gravity="left|top"
+            android:onClick="selectFrag"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tea"
+            android:id="@+id/buttonS4"
+            android:layout_gravity="left|top"
+            android:onClick="selectFrag"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Travel Bag"
+            android:id="@+id/buttonS5"
+            android:layout_gravity="left|top"
+            android:onClick="selectFrag"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:id="@+id/buttonS6"
+            android:layout_gravity="left|top"
+            android:onClick="selectFrag"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Snack"
+            android:id="@+id/buttonS7"
+            android:layout_gravity="left|top"
+            android:onClick="selectFrag"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Exit"
+            android:id="@+id/buttonS8"
+            android:layout_gravity="left|top"
+            android:onClick="selectFrag"/>
+</LinearLayout>
+
+<FrameLayout
+    android:id="@+id/fragment_place"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1">
+</FrameLayout>
+
+</LinearLayout>
