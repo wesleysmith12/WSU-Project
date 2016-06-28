@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_margin="0dp"
     android:padding="0dp"
     android:weightSum="1">
@@ -21,24 +21,34 @@
         <Button
             android:text="Start"
             android:id="@+id/exitstart"
-            style="@style/StartStop"/>
+            style="@style/MainButton"/>
     </LinearLayout>
 
-    <Button
-        style="@style/MainButton"
-        android:text="Makes multiple trips to door"
-        android:id="@+id/exit1" />
-    <Button
-        style="@style/MainButton"
-        android:text="Not one of last 2 tasks"
-        android:id="@+id/exit2" />
-    <Button
-        style="@style/MainButton"
-        android:text="Does not bring bag to door"
-        android:id="@+id/exit3" />
-    <Button
-        style="@style/MainButton"
-        android:text="Does not finish task"
-        android:id="@+id/exit4" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            style="@style/MainButton"
+            android:layout_width="wrap_content"
+            android:text="Makes multiple trips to door"
+            android:id="@+id/exit1" />
+        <Button
+            style="@style/MainButton"
+            android:text="Not one of last 2 tasks"
+            android:id="@+id/exit2" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            style="@style/MainButton"
+            android:text="Does not bring bag to door"
+            android:id="@+id/exit3" />
+        <Button
+            style="@style/MainButton"
+            android:text="Does not finish task"
+            android:id="@+id/exit4" />
+    </LinearLayout>
+
 
 </LinearLayout>

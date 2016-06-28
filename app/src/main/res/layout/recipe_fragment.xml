@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_margin="0dp"
     android:padding="0dp"
-    android:weightSum="1">
+    >
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -20,7 +20,7 @@
         <Button
             android:text="Start"
             android:id="@+id/recipestart"
-            style="@style/StartStop"/>
+            style="@style/MainButton"/>
     </LinearLayout>
 
     <Button
@@ -28,15 +28,16 @@
         android:text="Gathers items before reading recipe"
         android:id="@+id/recipe1" />
     <Button
-        android:layout_width="235dp"
+
         android:text="Retrieval inefficient (>2 trips each cup.)"
         android:id="@+id/recipe2"
         style="@style/MainButton" />
     <Button
-        android:layout_width="235dp"
+
         android:text="Does not efficiently locate recipe (index/TOC)"
         android:id="@+id/recipe3"
-        style="@style/MainButton"/>
+        style="@style/MainButton"
+        android:layout_width="291dp" />
     <Button
         android:text="Gathers creamy PB, not chunky"
         android:id="@+id/recipe4"
@@ -54,12 +55,12 @@
         android:id="@+id/recipe7"
         style="@style/MainButton"/>
     <Button
-        android:layout_width="235dp"
+
         android:text="Does not gather 1-2 nonessential items"
         android:id="@+id/recipe8"
         style="@style/MainButton"/>
     <Button
-        android:layout_width="235dp"
+
         android:text="Carries all items to bag, not bag to items"
         android:id="@+id/recipe9"
         style="@style/MainButton"/>
@@ -72,12 +73,12 @@
         android:id="@+id/recipe11"
         style="@style/MainButton"/>
     <Button
-        android:layout_width="235dp"
+
         android:text="Does not gather 3+ nonessential items"
         android:id="@+id/recipe12"
         style="@style/MainButton"/>
     <Button
-        android:layout_width="235dp"
+
         android:text="Locates wrong recipe and gathers items"
         android:id="@+id/recipe13"
         style="@style/MainButton"/>

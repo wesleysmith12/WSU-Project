@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_margin="0dp"
     android:padding="0dp"
     android:weightSum="1">
@@ -20,7 +20,7 @@
         <Button
             android:text="Start"
             android:id="@+id/phonestart"
-            style="@style/StartStop"/>
+            style="@style/MainButton"/>
     </LinearLayout>
     <Button
         android:text="Looks in multiple locations"
@@ -33,7 +33,8 @@
     <Button
         android:text="Calls but does not mention leaving"
         android:id="@+id/phone3"
-        style="@style/MainButton"/>
+        style="@style/MainButton"
+        android:layout_width="wrap_content"/>
     <Button
         android:text="Makes call more than once"
         android:id="@+id/phone4"

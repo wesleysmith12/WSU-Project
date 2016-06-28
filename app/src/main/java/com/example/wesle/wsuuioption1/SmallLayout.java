@@ -27,26 +27,36 @@ public class SmallLayout extends Activity {
     }
 
     public void selectFrag(View view) {
-        Fragment fr;
+        Fragment fr = new RecipeFragment();
 
         if(orientation == 2) {
-            Toast.makeText(SmallLayout.this, "landscape", Toast.LENGTH_SHORT).show();
-            if (view == findViewById(R.id.buttonS1)) {
+            Toast.makeText(SmallLayout.this, "you are in the small layout in the landscape orientation", Toast.LENGTH_SHORT).show();
+
+            switch(view.getId()){
+            case R.id.button1:
                 fr = new RecipeFragment();
-            } else if (view == findViewById(R.id.buttonS2)) {
+                break;
+            case R.id.buttonS2:
                 fr = new ChangeFragment();
-            } else if (view == findViewById(R.id.buttonS3)) {
+                break;
+            case R.id.buttonS3:
                 fr = new Fragment1();
-            } else if (view == findViewById(R.id.buttonS4)) {
+                break;
+            case R.id.buttonS4:
                 fr = new TeaFragment();
-            } else if (view == findViewById(R.id.buttonS5)) {
+                break;
+            case R.id.buttonS5:
                 fr = new TravelBagFragment();
-            } else if (view == findViewById(R.id.buttonS6)) {
+                break;
+            case R.id.buttonS6:
                 fr = new PhoneFragment();
-            } else if (view == findViewById(R.id.buttonS7)) {
+                break;
+            case R.id.buttonS7:
                 fr = new SnackFragment();
-            } else {
+                break;
+            case R.id.buttonS8:
                 fr = new ExitFragment();
+                break;
             }
 
             FragmentManager fm = getFragmentManager();
