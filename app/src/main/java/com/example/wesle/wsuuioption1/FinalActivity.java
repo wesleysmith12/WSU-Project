@@ -1,8 +1,10 @@
 package com.example.wesle.wsuuioption1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,8 +13,8 @@ import java.io.IOException;
 
 public class FinalActivity extends AppCompatActivity {
 
-    FileOutputStream fos;
-    String FILENAME = "internalString";
+    //FileOutputStream fos;
+    //String FILENAME = "internalString";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +22,13 @@ public class FinalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_final);
     }
 
-    public void uploadDataToFile() throws IOException{
+    //go to next activity
+    public void nextActivity(View v){
+        Intent i = new Intent(this, SummaryActivity.class);
+        startActivity(i);
+    }
+
+    //public void uploadDataToFile() throws IOException{
         // Save data via file
         /*
         File f = new File(FILENAME);
@@ -40,6 +48,6 @@ public class FinalActivity extends AppCompatActivity {
         }catch (IOException e){
             e.printStackTrace();
         }
-        */
-    }
+
+    }*/
 }

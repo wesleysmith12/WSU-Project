@@ -25,36 +25,36 @@
 
     <Button
         android:text="Looks in multiple locations"
-        android:id="@+id/button1"
+        android:id="@+id/snack1"
         style="@style/MainButton"/>
     <Button
         android:text="Takes more than one snack"
-        android:id="@+id/button2"
+        android:id="@+id/snack2"
         style="@style/MainButton"/>
     <Button
         android:text="Chooses candy, not milk choc."
-        android:id="@+id/button3"
+        android:id="@+id/snack3"
         style="@style/MainButton"/>
     <Button
         android:layout_width="226dp"
         android:text="Changes snack after finishing task"
-        android:id="@+id/button4"
+        android:id="@+id/snack4"
         style="@style/MainButton"/>
     <Button
         android:text="Chooses non-snack item"
-        android:id="@+id/button5"
+        android:id="@+id/snack5"
         style="@style/MainButton"/>
     <Button
         android:text="Chooses dark choc."
-        android:id="@+id/button6"
+        android:id="@+id/snack6"
         style="@style/MainButton"/>
     <Button
         android:text="Does not bring snack to door"
-        android:id="@+id/button7"
+        android:id="@+id/snack7"
         style="@style/MainButton"/>
     <Button
         android:text="Does not finish task"
-        android:id="@+id/button8"
+        android:id="@+id/snack8"
         style="@style/MainButton"/>
 
 </LinearLayout>

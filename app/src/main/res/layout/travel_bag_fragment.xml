@@ -23,24 +23,24 @@
     </LinearLayout>
     <Button
         android:text="Looks in multiple locations"
-        android:id="@+id/button1"
+        android:id="@+id/travel1"
         style="@style/MainButton"/>
     <Button
         android:text="Carries items to door by hand"
-        android:id="@+id/button2"
+        android:id="@+id/travel2"
         style="@style/MainButton"/>
     <Button
         android:text="Uses alternative carrier, not bag"
-        android:id="@+id/button3"
+        android:id="@+id/travel3"
         style="@style/MainButton"/>
     <Button
         android:layout_width="wrap_content"
         android:text="Does not put items in bag (exception: tea, $, phone by hand)"
-        android:id="@+id/button4"
+        android:id="@+id/travel4"
         style="@style/MainButton"/>
     <Button
         android:text="Does not finish task"
-        android:id="@+id/button5"
+        android:id="@+id/travel5"
         style="@style/MainButton"/>
 
 </LinearLayout>

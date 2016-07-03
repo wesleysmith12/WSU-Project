@@ -17,7 +17,8 @@
         android:id="@+id/button9"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="nextActivity"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,7 +37,8 @@
         android:id="@+id/textView8"
         android:layout_below="@+id/textView7"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="37dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -46,7 +48,8 @@
         android:id="@+id/textView9"
         android:layout_below="@+id/textView8"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="36dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -54,29 +57,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Cost of movie determined prior to retrieving first food item:"
         android:id="@+id/textView4"
+        android:layout_marginTop="84dp"
+        android:layout_below="@+id/textView9"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView9" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Yes"
-        android:id="@+id/radioButton"
-        android:checked="false"
-        android:layout_alignBottom="@+id/textView4"
-        android:layout_toRightOf="@+id/textView4"
-        android:layout_toEndOf="@+id/textView4" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No"
-        android:id="@+id/radioButton2"
-        android:checked="false"
-        android:layout_above="@+id/textView5"
-        android:layout_toRightOf="@+id/radioButton"
-        android:layout_toEndOf="@+id/radioButton" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -84,29 +68,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Recipe read prior to retrieving first food item:"
         android:id="@+id/textView5"
-        android:layout_below="@+id/radioButton"
+        android:layout_above="@+id/checkBox"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Yes"
-        android:id="@+id/radioButton3"
-        android:layout_alignBottom="@+id/textView5"
-        android:layout_toRightOf="@+id/textView5"
-        android:layout_toEndOf="@+id/textView5"
-        android:checked="false" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No"
-        android:id="@+id/radioButton4"
-        android:checked="false"
-        android:layout_alignTop="@+id/radioButton3"
-        android:layout_toRightOf="@+id/radioButton3"
-        android:layout_toEndOf="@+id/radioButton3" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -114,7 +78,7 @@
         android:inputType="time"
         android:ems="10"
         android:id="@+id/editText3"
-        android:layout_alignBottom="@+id/textView7"
+        android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/textView7"
         android:layout_toEndOf="@+id/textView7" />
 
@@ -124,9 +88,11 @@
         android:inputType="numberDecimal"
         android:ems="10"
         android:id="@+id/editText4"
-        android:layout_above="@+id/textView9"
-        android:layout_toRightOf="@+id/textView8"
-        android:layout_toEndOf="@+id/textView8" />
+        android:layout_alignTop="@+id/textView8"
+        android:layout_alignLeft="@+id/editText5"
+        android:layout_alignStart="@+id/editText5"
+        android:layout_alignRight="@+id/editText6"
+        android:layout_alignEnd="@+id/editText6" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -134,9 +100,10 @@
         android:inputType="numberDecimal"
         android:ems="10"
         android:id="@+id/editText5"
-        android:layout_above="@+id/textView4"
-        android:layout_toRightOf="@+id/textView8"
-        android:layout_toEndOf="@+id/textView8" />
+        android:layout_alignTop="@+id/textView9"
+        android:layout_toRightOf="@+id/textView9"
+        android:layout_alignRight="@+id/editText6"
+        android:layout_alignEnd="@+id/editText6" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -144,7 +111,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Comments"
         android:id="@+id/textView6"
-        android:layout_below="@+id/radioButton3"
+        android:layout_alignTop="@+id/editText6"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -154,9 +121,28 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/editText6"
-        android:layout_below="@+id/radioButton3"
+        android:layout_below="@+id/checkBox2"
         android:layout_toRightOf="@+id/textView6"
-        android:layout_alignRight="@+id/radioButton4"
-        android:layout_alignEnd="@+id/radioButton4" />
+        android:layout_marginTop="69dp"
+        android:layout_alignRight="@+id/editText3"
+        android:layout_alignEnd="@+id/editText3" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBox"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_toRightOf="@+id/textView4"
+        android:layout_toEndOf="@+id/textView4"
+        android:checked="false" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBox2"
+        android:checked="false"
+        android:layout_alignTop="@+id/textView5"
+        android:layout_toRightOf="@+id/textView5"
+        android:layout_toEndOf="@+id/textView5" />
 
 </RelativeLayout>

@@ -21,6 +21,10 @@
             android:text="Start"
             android:id="@+id/moviestart"
             style="@style/MainButton"/>
+        <!--<Button
+            android:text="Pause"
+            android:id="@+id/moviepause"
+            style="@style/MainButton"/>-->
     </LinearLayout>
 
     <Button

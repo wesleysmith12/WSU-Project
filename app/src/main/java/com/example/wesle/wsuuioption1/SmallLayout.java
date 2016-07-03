@@ -33,7 +33,7 @@ public class SmallLayout extends Activity {
             Toast.makeText(SmallLayout.this, "you are in the small layout in the landscape orientation", Toast.LENGTH_SHORT).show();
 
             switch(view.getId()){
-            case R.id.button1:
+            case R.id.buttonS1:
                 fr = new RecipeFragment();
                 break;
             case R.id.buttonS2:

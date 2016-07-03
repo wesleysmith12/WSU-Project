@@ -58,9 +58,9 @@
             android:name="com.example.wesle.wsuuioption1.ExitFragment"
             android:id="@+id/fragment5"
             tools:layout="@layout/exit_fragment"
-            android:layout_below="@+id/fragment4"
-            android:layout_toRightOf="@+id/fragment8"
-            android:layout_toEndOf="@+id/fragment8" />
+            android:layout_alignBottom="@+id/fragment9"
+            android:layout_alignRight="@+id/fragment4"
+            android:layout_alignEnd="@+id/fragment4" />
 
 
         <Button
@@ -109,29 +109,27 @@
             android:id="@+id/fragment4"
             tools:layout="@layout/travel_bag_fragment"
             android:layout_below="@+id/fragment9"
-            android:layout_toRightOf="@+id/fragment8"
-            android:layout_toEndOf="@+id/fragment8" />
+            android:layout_toRightOf="@+id/fragment8" />
 
-        <Button
+        <!--<Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Undo"
             android:id="@+id/undobutton"
             android:onClick="undo"
-            android:layout_alignBottom="@+id/fragment8"
-            android:layout_toLeftOf="@+id/fragment2"
-            android:layout_toStartOf="@+id/fragment2"
-            android:layout_marginRight="164dp"
-            android:layout_marginEnd="164dp" />
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/fragment5"
+            android:layout_alignEnd="@+id/fragment5" />-->
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Start"
             android:id="@+id/mainstart"
-            android:layout_alignTop="@+id/undobutton"
-            android:layout_toLeftOf="@+id/fragment2"
-            android:layout_toStartOf="@+id/fragment2" />
+            android:layout_above="@+id/fragment"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:onClick="startNOT"/>
 
         <!--android:onClick="onClick2"-->
 
