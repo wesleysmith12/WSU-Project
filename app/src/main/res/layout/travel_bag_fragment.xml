@@ -34,7 +34,7 @@
         android:id="@+id/travel3"
         style="@style/MainButton"/>
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="263dp"
         android:text="Does not put items in bag (exception: tea, $, phone by hand)"
         android:id="@+id/travel4"
         style="@style/MainButton"/>
