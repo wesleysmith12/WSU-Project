@@ -9,7 +9,7 @@
 
     <fragment
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="187dp"
         android:name="com.example.wesle.wsuuioption1.OverallSumFragment"
         android:id="@+id/fragment18"
         tools:layout="@layout/fragment_overall_sum"
@@ -28,7 +28,7 @@
 
     <fragment
         android:layout_width="wrap_content"
-        android:layout_height="208dp"
+        android:layout_height="wrap_content"
         android:name="com.example.wesle.wsuuioption1.MovieSumFragment"
         android:id="@+id/fragment10"
         android:layout_row="0"
@@ -54,7 +54,7 @@
         tools:layout="@layout/fragment_snack_sum" />
 
     <fragment
-        android:layout_width="wrap_content"
+        android:layout_width="339dp"
         android:layout_height="wrap_content"
         android:name="com.example.wesle.wsuuioption1.ChangeSumFragment"
         android:id="@+id/fragment13"

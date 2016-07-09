@@ -7,23 +7,23 @@
         style="@style/MiscButton"
         android:background="@drawable/colorbutton"
         android:text="additional NTRA"
-        android:id="@+id/button" />
+        android:id="@+id/misc1" />
 
     <Button
         style="@style/MiscButton"
         android:background="@drawable/colorbutton"
         android:text="perseveration"
-        android:id="@+id/button15" />
+        android:id="@+id/misc2" />
 
     <Button
         style="@style/MiscButton"
         android:background="@drawable/colorbutton"
         android:text="wandering"
-        android:id="@+id/button16" />
+        android:id="@+id/misc3" />
 
     <Button
         style="@style/MiscButton"
         android:background="@drawable/colorbutton"
         android:text="requests help"
-        android:id="@+id/button17" />
+        android:id="@+id/misc4" />
 </LinearLayout>
