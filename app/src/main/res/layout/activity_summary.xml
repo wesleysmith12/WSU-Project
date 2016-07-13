@@ -4,16 +4,46 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:weightSum="1">
 
-
-    <fragment
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="187dp"
-        android:name="com.example.wesle.wsuuioption1.OverallSumFragment"
-        android:id="@+id/fragment18"
-        tools:layout="@layout/fragment_overall_sum"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="File Name: "
+        android:id="@+id/textView16"
+        android:layout_gravity="right" />
+
+    <EditText
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/filename"
+        android:layout_gravity="right" />
+
+        <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Export"
+        android:id="@+id/export"
+        android:onClick="exportData"/>
+
+        <fragment
+            android:layout_width="395dp"
+            android:layout_height="187dp"
+            android:name="com.example.wesle.wsuuioption1.OverallSumFragment"
+            android:id="@+id/fragment18"
+            tools:layout="@layout/fragment_overall_sum"
+            android:layout_marginLeft="40dp"/>
+
+    </LinearLayout>
 
     <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -24,7 +54,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.wesle.wsuuioption1.SummaryActivity"
-    android:layout_gravity="center_horizontal">
+    android:layout_gravity="center_horizontal"
+        android:layout_weight="0.75">
 
     <fragment
         android:layout_width="wrap_content"
@@ -73,7 +104,7 @@
 
     <fragment
         android:layout_width="236dp"
-        android:layout_height="261dp"
+        android:layout_height="303dp"
         android:name="com.example.wesle.wsuuioption1.RecipeSumFragment"
         android:id="@+id/fragment15"
         android:layout_row="1"

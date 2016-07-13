@@ -26,7 +26,7 @@
         android:id="@+id/tea1"
         style="@style/MainButton"/>
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="270dp"
         android:text="Waits for tea, not multitasking"
         android:id="@+id/tea2"
         style="@style/MainButton"/>

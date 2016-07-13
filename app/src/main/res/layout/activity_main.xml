@@ -20,7 +20,7 @@
             android:name="com.example.wesle.wsuuioption1.RecipeFragment"
             android:id="@+id/fragment"
             tools:layout="@layout/recipe_fragment"
-            android:layout_below="@+id/fragment3"
+            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
@@ -50,7 +50,10 @@
             android:id="@+id/fragment3"
             tools:layout="@layout/misc_fragment"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_toRightOf="@+id/mainstart"
+            android:layout_toEndOf="@+id/mainstart"
+            android:layout_marginLeft="45dp"
+            android:layout_marginStart="45dp" />
 
         <fragment
             android:layout_width="wrap_content"
@@ -58,9 +61,9 @@
             android:name="com.example.wesle.wsuuioption1.ExitFragment"
             android:id="@+id/fragment5"
             tools:layout="@layout/exit_fragment"
-            android:layout_alignBottom="@+id/fragment8"
-            android:layout_toRightOf="@+id/fragment9"
-            android:layout_toEndOf="@+id/fragment9" />
+            android:layout_alignBottom="@+id/fragment2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
 
         <Button
@@ -68,9 +71,9 @@
             android:layout_height="wrap_content"
             android:text="Continue"
             android:id="@+id/Continue"
-            android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/fragment9"
-            android:layout_alignEnd="@+id/fragment9" />
+            android:layout_alignBottom="@+id/fragment3"
+            android:layout_alignRight="@+id/fragment4"
+            android:layout_alignEnd="@+id/fragment4" />
 
         <fragment
             android:layout_width="wrap_content"
@@ -78,7 +81,7 @@
             android:name="com.example.wesle.wsuuioption1.Fragment1"
             android:id="@+id/fragment7"
             tools:layout="@layout/fragment_1"
-            android:layout_alignTop="@+id/fragment"
+            android:layout_below="@+id/fragment3"
             android:layout_toRightOf="@+id/fragment"
             android:layout_toEndOf="@+id/fragment" />
 
@@ -88,9 +91,9 @@
             android:name="com.example.wesle.wsuuioption1.ChangeFragment"
             android:id="@+id/fragment8"
             tools:layout="@layout/change_fragment"
-            android:layout_alignTop="@+id/fragment2"
-            android:layout_toRightOf="@+id/fragment2"
-            android:layout_toEndOf="@+id/fragment2" />
+            android:layout_alignBottom="@+id/fragment9"
+            android:layout_toRightOf="@+id/fragment7"
+            android:layout_toEndOf="@+id/fragment7" />
 
         <fragment
             android:layout_width="wrap_content"
@@ -99,8 +102,7 @@
             android:id="@+id/fragment9"
             tools:layout="@layout/tea_fragment"
             android:layout_below="@+id/fragment4"
-            android:layout_toRightOf="@+id/fragment8"
-            android:layout_toEndOf="@+id/fragment8" />
+            android:layout_toRightOf="@+id/fragment8" />
 
         <fragment
             android:layout_width="wrap_content"
@@ -127,10 +129,10 @@
             android:layout_height="wrap_content"
             android:text="Start"
             android:id="@+id/mainstart"
-            android:layout_above="@+id/fragment"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:onClick="startNOT"/>
+            android:onClick="startNOT"
+            android:layout_above="@+id/fragment7"
+            android:layout_toRightOf="@+id/fragment5"
+            android:layout_toEndOf="@+id/fragment5" />
 
         <!--android:onClick="onClick2"-->
 

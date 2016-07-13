@@ -28,8 +28,12 @@
     </LinearLayout>
 
     <Button
-        android:text="Look in multiple locations"
+        android:text="@string/look_in_multiple_locations"
         android:id="@+id/movie1"
+        style="@style/MainButton" />
+    <Button
+        android:text="Records leaving before 6:25"
+        android:id="@+id/movie9"
         style="@style/MainButton" />
     <Button
         android:text="Records >$7 senior, >$11 adult"

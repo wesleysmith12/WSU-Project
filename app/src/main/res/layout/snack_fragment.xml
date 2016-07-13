@@ -36,7 +36,7 @@
         android:id="@+id/snack3"
         style="@style/MainButton"/>
     <Button
-        android:layout_width="226dp"
+        android:layout_width="wrap_content"
         android:text="Changes snack after finishing task"
         android:id="@+id/snack4"
         style="@style/MainButton"/>
