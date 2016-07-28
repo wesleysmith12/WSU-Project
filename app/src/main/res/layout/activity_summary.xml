@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:weightSum="1">
 
         <TextView
         android:layout_width="wrap_content"
@@ -20,7 +21,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="File Name: "
         android:id="@+id/textView16"
-        android:layout_gravity="right" />
+        android:layout_gravity="right"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
 
     <EditText
         android:layout_width="210dp"
@@ -33,15 +36,23 @@
         android:layout_height="wrap_content"
         android:text="Export"
         android:id="@+id/export"
-        android:onClick="exportData"/>
+        android:onClick="exportData" />
 
         <fragment
-            android:layout_width="395dp"
-            android:layout_height="187dp"
+            android:layout_width="wrap_content"
+            android:layout_height="227dp"
             android:name="com.example.wesle.wsuuioption1.OverallSumFragment"
             android:id="@+id/fragment18"
             tools:layout="@layout/fragment_overall_sum"
-            android:layout_marginLeft="40dp"/>
+            android:layout_marginLeft="40dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restart"
+            android:id="@+id/restart"
+            android:focusable="true"
+            android:layout_weight="2.60" />
 
     </LinearLayout>
 
@@ -130,4 +141,5 @@
         tools:layout="@layout/fragment_exit_sum" />
 
 </GridLayout>
+
 </LinearLayout>

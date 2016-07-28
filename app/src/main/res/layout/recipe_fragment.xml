@@ -16,11 +16,20 @@
             android:textSize="20sp"
             android:textIsSelectable="true"
             android:layout_marginLeft="3dp"
-            android:layout_marginTop="3dp" />
+            android:layout_marginTop="3dp"
+            android:textColor="#000000"
+            android:textStyle="bold"/>
         <Button
             android:text="Start"
             android:id="@+id/recipestart"
             style="@style/MainButton"/>
+        <Button
+            android:text="Ingredients"
+            android:id="@+id/ingredients"
+            style="@style/MainButton"
+            android:onClick="ingredients"
+            android:layout_gravity="right"
+            android:layout_marginLeft="90dp" />
     </LinearLayout>
 
     <Button
@@ -28,16 +37,14 @@
         android:text="Gathers items before reading recipe"
         android:id="@+id/recipe1" />
     <Button
-
         android:text="Retrieval inefficient (>2 trips each cup.)"
         android:id="@+id/recipe2"
         style="@style/MainButton" />
     <Button
-
         android:text="Does not efficiently locate recipe (index/TOC)"
         android:id="@+id/recipe3"
         style="@style/MainButton"
-        android:layout_width="wrap_content" />
+        android:layout_width="345dp" />
     <Button
         android:text="Gathers creamy PB, not chunky"
         android:id="@+id/recipe4"
@@ -47,7 +54,7 @@
         android:id="@+id/recipe5"
         style="@style/MainButton"/>
     <Button
-        android:text="Gathers espresso, not coffee"
+        android:text="Gathers coffee, not espresso"
         android:id="@+id/recipe6"
         style="@style/MainButton"/>
     <Button
@@ -68,6 +75,12 @@
         android:text="Makes change after finishing task"
         android:id="@+id/recipe10"
         style="@style/MainButton"/>
+
+    <Button
+        android:text="Gathers granulated sugar, not powdered"
+        android:id="@+id/recipe15"
+        style="@style/MainButton"/>
+
     <Button
         android:text="Does not gather 1+ essential items"
         android:id="@+id/recipe11"

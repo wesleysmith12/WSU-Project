@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Cost of movie determined prior to retrieving first food item:"
+        android:text="Cost of movie  determined prior to first attempt at retrieving change"
         android:id="@+id/textView4"
         android:layout_below="@+id/editText5"
         android:layout_alignParentLeft="true"
@@ -78,7 +78,7 @@
         android:inputType="numberDecimal"
         android:ems="10"
         android:id="@+id/editText4"
-        android:layout_above="@+id/editText5"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/recorded"
         android:layout_toEndOf="@+id/recorded" />
 
@@ -98,7 +98,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Comments"
         android:id="@+id/textView6"
-        android:layout_below="@+id/checkBox2"
+        android:layout_alignTop="@+id/comments"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -108,7 +108,7 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/comments"
-        android:layout_below="@+id/textView5"
+        android:layout_below="@+id/cat3"
         android:layout_toRightOf="@+id/textView6"
         android:layout_toEndOf="@+id/textView6" />
 
@@ -126,7 +126,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/checkBox2"
         android:checked="false"
-        android:layout_below="@+id/textView4"
+        android:layout_above="@+id/textView7"
         android:layout_toRightOf="@+id/textView4"
         android:layout_toEndOf="@+id/textView4" />
 
@@ -137,5 +137,92 @@
         android:layout_below="@+id/finish"
         android:layout_alignRight="@+id/textView5"
         android:layout_alignEnd="@+id/textView5" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Phone call placed near end (no new task aside exit initiated): "
+        android:id="@+id/textView7"
+        android:layout_below="@+id/textView5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBox3"
+        android:checked="false"
+        android:layout_alignBottom="@+id/textView7"
+        android:layout_alignLeft="@+id/checkBox2"
+        android:layout_alignStart="@+id/checkBox2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Other Buttons:"
+        android:id="@+id/textView19"
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/cat1"
+        android:layout_below="@+id/textView19"
+        android:layout_toLeftOf="@+id/editText5"
+        android:layout_toStartOf="@+id/editText5" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/cat2"
+        android:layout_below="@+id/cat1"
+        android:layout_alignLeft="@+id/cat1"
+        android:layout_alignStart="@+id/cat1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/cat3"
+        android:layout_below="@+id/cat2"
+        android:layout_alignLeft="@+id/cat2"
+        android:layout_alignStart="@+id/cat2" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/error1"
+        android:layout_alignBottom="@+id/cat1"
+        android:layout_toRightOf="@+id/cat1"
+        android:layout_alignRight="@+id/error2"
+        android:layout_alignEnd="@+id/error2" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/error2"
+        android:layout_above="@+id/cat3"
+        android:layout_toRightOf="@+id/gathered"
+        android:layout_alignRight="@+id/comments"
+        android:layout_alignEnd="@+id/comments" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/error3"
+        android:layout_above="@+id/comments"
+        android:layout_alignLeft="@+id/error2"
+        android:layout_alignStart="@+id/error2"
+        android:layout_alignRight="@+id/comments"
+        android:layout_alignEnd="@+id/comments" />
 
 </RelativeLayout>

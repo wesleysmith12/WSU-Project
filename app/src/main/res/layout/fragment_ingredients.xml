@@ -1,0 +1,108 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.wesle.wsuuioption1.Ingredients"
+    android:background="#ffffff">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Essential"
+            android:id="@+id/textView8" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cereal"
+            android:id="@+id/cereal"
+            android:checked="false"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chocolate Chips"
+            android:id="@+id/chocolate"
+            android:checked="false"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/peanut"
+            android:layout_toStartOf="@+id/peanut" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vanilla"
+            android:id="@+id/vanilla"
+            android:checked="false"
+            android:layout_alignTop="@+id/kosher"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crunchy Peanut Butter"
+            android:id="@+id/peanut"
+            android:checked="false"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Nonessential"
+            android:id="@+id/textView9" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Espresso Powder"
+            android:id="@+id/espresso"
+            android:layout_alignBottom="@+id/textView21"
+            android:layout_alignLeft="@+id/vanilla"
+            android:layout_alignStart="@+id/vanilla"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kosher Salt"
+            android:id="@+id/kosher"
+            android:layout_alignBottom="@+id/textView22"
+            android:layout_alignLeft="@+id/vanilla"
+            android:layout_alignStart="@+id/vanilla"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Powdered Sugar"
+            android:id="@+id/sugar"
+            android:layout_alignBottom="@+id/textView23"
+            android:layout_alignLeft="@+id/espresso"
+            android:layout_alignStart="@+id/espresso"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Marshmallows"
+            android:id="@+id/marsh"
+            android:layout_alignBottom="@+id/textView25"
+            android:layout_alignLeft="@+id/sugar"
+            android:layout_alignStart="@+id/sugar"
+            android:checked="false" />
+    </LinearLayout>
+
+
+</FrameLayout>

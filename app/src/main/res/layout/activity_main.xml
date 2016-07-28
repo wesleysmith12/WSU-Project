@@ -50,10 +50,8 @@
             android:id="@+id/fragment3"
             tools:layout="@layout/misc_fragment"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/mainstart"
-            android:layout_toEndOf="@+id/mainstart"
-            android:layout_marginLeft="45dp"
-            android:layout_marginStart="45dp" />
+            android:layout_toLeftOf="@+id/fragment4"
+            android:layout_toStartOf="@+id/fragment4" />
 
         <fragment
             android:layout_width="wrap_content"
@@ -61,19 +59,9 @@
             android:name="com.example.wesle.wsuuioption1.ExitFragment"
             android:id="@+id/fragment5"
             tools:layout="@layout/exit_fragment"
-            android:layout_alignBottom="@+id/fragment2"
+            android:layout_below="@+id/fragment"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
-
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Continue"
-            android:id="@+id/Continue"
-            android:layout_alignBottom="@+id/fragment3"
-            android:layout_alignRight="@+id/fragment4"
-            android:layout_alignEnd="@+id/fragment4" />
 
         <fragment
             android:layout_width="wrap_content"
@@ -91,9 +79,9 @@
             android:name="com.example.wesle.wsuuioption1.ChangeFragment"
             android:id="@+id/fragment8"
             tools:layout="@layout/change_fragment"
-            android:layout_alignBottom="@+id/fragment9"
-            android:layout_toRightOf="@+id/fragment7"
-            android:layout_toEndOf="@+id/fragment7" />
+            android:layout_below="@+id/fragment6"
+            android:layout_toRightOf="@+id/fragment2"
+            android:layout_toEndOf="@+id/fragment2" />
 
         <fragment
             android:layout_width="wrap_content"
@@ -110,7 +98,7 @@
             android:name="com.example.wesle.wsuuioption1.TravelBagFragment"
             android:id="@+id/fragment4"
             tools:layout="@layout/travel_bag_fragment"
-            android:layout_below="@+id/Continue"
+            android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/fragment6"
             android:layout_toEndOf="@+id/fragment6" />
 
@@ -125,14 +113,28 @@
             android:layout_alignEnd="@+id/fragment5" />-->
 
         <Button
-            android:layout_width="wrap_content"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Start"
+            android:text="Start NOT"
             android:id="@+id/mainstart"
             android:onClick="startNOT"
-            android:layout_above="@+id/fragment7"
-            android:layout_toRightOf="@+id/fragment5"
-            android:layout_toEndOf="@+id/fragment5" />
+            android:layout_alignTop="@+id/fragment9"
+            android:layout_alignLeft="@+id/Continue"
+            android:layout_alignStart="@+id/Continue"
+            android:layout_above="@+id/fragment8" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Continue"
+            android:id="@+id/Continue"
+            android:visibility="invisible"
+            android:layout_below="@+id/fragment7"
+            android:layout_toRightOf="@+id/fragment9"
+            android:layout_toEndOf="@+id/fragment9"
+            android:layout_alignBottom="@+id/fragment" />
 
         <!--android:onClick="onClick2"-->
 

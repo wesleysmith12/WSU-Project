@@ -1,14 +1,24 @@
 package com.example.wesle.wsuuioption1;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Environment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,9 +39,10 @@ public class SummaryActivity extends AppCompatActivity {
         movieIneff, teaIneff, snackIneff, changeIneff, phoneIneff, recipeIneff, travelIneff, exitIneff,
         movieIncom, teaIncom, snackIncom, changeIncom, phoneIncom, recipeIncom, travelIncom, exitIncom,
         movieInac, teaInac, snackInac, changeInac, phoneInac, recipeInac, travelInac, exitInac,
-        taskPlanning, totalExecution, overallQuality, overallAccuracy, correctSequencing, errorTotals;
+        taskPlanning, totalExecution, overallQuality, overallAccuracy, correctSequencing, errorTotals,
+        inefficientTotal, incompleteTotal, inaccurateTotal;
 
-    private Button export;
+    private Button export, restart;
     private EditText dataFileName;
 
     private int totalAccuracyScorex = 0;
@@ -43,6 +54,7 @@ public class SummaryActivity extends AppCompatActivity {
 
     int defaultValue = 0;
     String defaultString = "not found";
+    private PopupWindow myPopup;
 
     //public String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/prototype";
 
@@ -54,6 +66,10 @@ public class SummaryActivity extends AppCompatActivity {
 
         SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
 
+        int totalIncomplete = sharedPref.getInt("totalIncomplete", 0);
+        int totalInaccurate = sharedPref.getInt("totalInaccurate", 0);
+        int totalInefficient = sharedPref.getInt("totalInefficient", 0);
+
         totalAccuracyScorex = sharedPref.getInt("movieScore", defaultValue) + sharedPref.getInt("teaScore", defaultValue) +
                 sharedPref.getInt("snackScore", defaultValue) + sharedPref.getInt("moneyScore", defaultValue) +
                 sharedPref.getInt("phoneScore", defaultValue) + sharedPref.getInt("recipeScore", defaultValue) +
@@ -61,6 +77,7 @@ public class SummaryActivity extends AppCompatActivity {
 
         dataFileName = (EditText) findViewById(R.id.filename);
         export = (Button) findViewById(R.id.export);
+        restart = (Button) findViewById(R.id.restart);
 
         taskPlanning = (TextView) findViewById(R.id.taskplanningtime);
         totalExecution = (TextView) findViewById(R.id.totaltxecutiontime);
@@ -68,6 +85,9 @@ public class SummaryActivity extends AppCompatActivity {
         overallAccuracy = (TextView) findViewById(R.id.overaltotalaccuracy);
         correctSequencing = (TextView) findViewById(R.id.correctsequencingtotal);
         errorTotals = (TextView) findViewById(R.id.errortotals);
+        inefficientTotal = (TextView) findViewById(R.id.inefficient);
+        incompleteTotal = (TextView) findViewById(R.id.incomplete);
+        inaccurateTotal = (TextView) findViewById(R.id.inaccurate);
 
         movieScore = (TextView) findViewById(R.id.moviecompletionscore);
         teaScore = (TextView) findViewById(R.id.teacompletionscore);
@@ -153,6 +173,9 @@ public class SummaryActivity extends AppCompatActivity {
         overallAccuracy.setText(String.valueOf(totalAccuracyScorex));
         correctSequencing.setText(correctSequencingx);
         errorTotals.setText(String.valueOf(errorTotalsx));
+        inaccurateTotal.setText(String.valueOf(totalInaccurate));
+        incompleteTotal.setText(String.valueOf(totalIncomplete));
+        inefficientTotal.setText(String.valueOf(totalInefficient));
 
         String movieScoreF = Integer.toString(sharedPref.getInt("movieScore", defaultValue));
         String teaScoreF = Integer.toString(sharedPref.getInt("teaScore", defaultValue));
@@ -222,14 +245,14 @@ public class SummaryActivity extends AppCompatActivity {
         travelSeq.setText(travelSeqF);
         exitSeq.setText(exitSeqF);
 
-        String movieSimF = Integer.toString(sharedPref.getInt("movieSim", defaultValue));
-        String teaSimF = Integer.toString(sharedPref.getInt("teaSim", defaultValue));
-        String snackSimF = Integer.toString(sharedPref.getInt("snackSim", defaultValue));
-        String changeSimF = Integer.toString(sharedPref.getInt("moneySim", defaultValue));
-        String phoneSimF = Integer.toString(sharedPref.getInt("phoneSim", defaultValue));
-        String recipeSimF = Integer.toString(sharedPref.getInt("recipeSim", defaultValue));
-        String travelSimF = Integer.toString(sharedPref.getInt("travelSim", defaultValue));
-        String exitSimF = Integer.toString(sharedPref.getInt("exitSim", defaultValue));
+        String movieSimF = Integer.toString(sharedPref.getInt("movieSim", 10));
+        String teaSimF = Integer.toString(sharedPref.getInt("teaSim", 10));
+        String snackSimF = Integer.toString(sharedPref.getInt("snackSim", 10));
+        String changeSimF = Integer.toString(sharedPref.getInt("moneySim", 10));
+        String phoneSimF = Integer.toString(sharedPref.getInt("phoneSim", 10));
+        String recipeSimF = Integer.toString(sharedPref.getInt("recipeSim", 10));
+        String travelSimF = Integer.toString(sharedPref.getInt("travelSim", 10));
+        String exitSimF = Integer.toString(sharedPref.getInt("exitSim", 10));
         movieSimu.setText(movieSimF);
         teaSimu.setText(teaSimF);
         snackSimu.setText(snackSimF);
@@ -311,8 +334,77 @@ public class SummaryActivity extends AppCompatActivity {
         }catch(FileNotFoundExceptione e){e.printStackTrace();}*/
 
 
+        restart = (Button)findViewById(R.id.restart);
+        restart.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder a_builder = new AlertDialog.Builder(SummaryActivity.this);
+                        a_builder.setMessage("Do you want restart app? All data will be lost")
+                                .setCancelable(false)
+                                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        restart();
+                                    }
+                                })
+                                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                }) ;
+                        AlertDialog alert = a_builder.create();
+                        alert.setTitle("Restart");
+                        alert.show();
+                    }
+                }
+        );
 
     }
+
+    public void restart(){
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.
+                INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        return true;
+    }
+
+
+    /*public void restart(View v) {
+        restart = (Button)findViewById(R.id.restart);
+        restart.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder a_builder = new AlertDialog.Builder(SummaryActivity.this);
+                        a_builder.setMessage("Do you want to Close this App !!!")
+                                .setCancelable(false)
+                                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                    }
+                                })
+                                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                }) ;
+                        AlertDialog alert = a_builder.create();
+                        alert.setTitle("Alert !!!");
+                        alert.show();
+                    }
+                }
+        );
+    }*/
 
     public void exportData(View v){
         String enteredName = dataFileName.getText().toString();
@@ -324,6 +416,10 @@ public class SummaryActivity extends AppCompatActivity {
         String overallQualityx= sharedPref.getString("overallQuality", defaultString);
         int correctSequencingx = sharedPref.getInt("correctSequencing", defaultValue);
         String errorTotalsx = Integer.toString(sharedPref.getInt("errortotals", defaultValue));
+
+        int totalIncomplete = sharedPref.getInt("totalIncomplete", 0);
+        int totalInaccurate = sharedPref.getInt("totalInaccurate", 0);
+        int totalInefficient = sharedPref.getInt("totalInefficient", 0);
 
         String movieScoreF = Integer.toString(sharedPref.getInt("movieScore", defaultValue));
         String teaScoreF = Integer.toString(sharedPref.getInt("teaScore", defaultValue));
@@ -428,27 +524,36 @@ public class SummaryActivity extends AppCompatActivity {
             if(isExternalStorageAvailable()){
                 try {
                     FileOutputStream fos = new FileOutputStream(myExternalFile + ".txt");
-                    fos.write((" , , Movie, Tea, Snack, Change, Phone, Recipe, Travel, Exit,").getBytes());
+                    //fos.write((" , , Movie, Tea, Snack, Change, Phone, Recipe, Travel, Exit,").getBytes());
+                    fos.write((" , , Score, Time, Multitask Time, Sequence, Simultaneous, Inefficient, Incomplete, Inaccurate,").getBytes());
                     fos.write("\n".getBytes());
-                    fos.write(("Score, " + movieScoreF + "," + teaScoreF + "," + snackScoreF + "," + changeScoreF + "," + phoneScoreF + "," + recipeScoreF + "," + travelScoreF + "," + exitScoreF + ",").getBytes());
+                    //fos.write(("Score, " + movieScoreF + "," + teaScoreF + "," + snackScoreF + "," + changeScoreF + "," + phoneScoreF + "," + recipeScoreF + "," + travelScoreF + "," + exitScoreF + ",").getBytes());
+                    fos.write(("Movie, " + movieScoreF + "," + movieTimeF + "," + movieMTimeF + "," + movieSeqF + "," + movieSimF + "," + movieIneffF + "," + movieIncomF + "," + movieInacF + ",").getBytes());
                     fos.write("\n".getBytes());
-                    fos.write(("Time, " + movieTimeF + "," + teaTimeF + "," + snackTimeF + "," + moneyTimeF + "," + phoneTimeF + "," + recipeTimeF + "," + travelTimeF + "," + exitTimeF + ",").getBytes());
+                    fos.write(("Tea, " + teaScoreF + "," + teaTimeF + "," + teaMTimeF + "," + teaSeqF + "," + teaSimF + "," + teaIneffF + "," + teaIncomF + "," + teaInacF + ",").getBytes());
+                    //fos.write(("Time, " + movieTimeF + "," + teaTimeF + "," + snackTimeF + "," + moneyTimeF + "," + phoneTimeF + "," + recipeTimeF + "," + travelTimeF + "," + exitTimeF + ",").getBytes());
                     fos.write("\n".getBytes());
-                    fos.write(("Multitask Time, " + movieMTimeF + "," + teaMTimeF + "," + snackMTimeF + "," + changeMTimeF + "," + phoneMTimeF + "," + recipeMTimeF + "," + travelMTimeF + "," + exitMTimeF + ",").getBytes());
+                    //fos.write(("Multitask Time, " + movieMTimeF + "," + teaMTimeF + "," + snackMTimeF + "," + changeMTimeF + "," + phoneMTimeF + "," + recipeMTimeF + "," + travelMTimeF + "," + exitMTimeF + ",").getBytes());
+                    fos.write(("Snack, " + snackScoreF + "," + snackTimeF + "," + snackMTimeF + "," + snackSeqF + "," + snackSimF + "," + snackIneffF + "," + snackIncomF + "," + snackInacF + ",").getBytes());
                     fos.write("\n".getBytes());
-                    fos.write(("Sequence, " + movieSeqF + "," + teaSeqF + "," + snackSeqF + "," + changeSeqF + "," + phoneSeqF + "," + recipeSeqF + "," + travelSeqF + "," + exitSeqF + ",").getBytes());
+                    //fos.write(("Sequence, " + movieSeqF + "," + teaSeqF + "," + snackSeqF + "," + changeSeqF + "," + phoneSeqF + "," + recipeSeqF + "," + travelSeqF + "," + exitSeqF + ",").getBytes());
+                    fos.write(("Change, " + changeScoreF + "," + moneyTimeF + "," + changeMTimeF + "," + changeSeqF + "," + changeSimF + "," + changeIneffF + "," + changeIncomF + "," + changeInacF + ",").getBytes());
                     fos.write("\n".getBytes());
-                    fos.write(("Simultaneous, " + movieSimF + "," + teaSimF + "," + snackSimF + "," + changeSimF + "," + phoneSimF + "," + recipeSimF + "," + travelSimF + "," + exitSimF + ",").getBytes());
+                    fos.write(("Phone, " + phoneScoreF + "," + phoneTimeF + "," + phoneMTimeF + "," + phoneSeqF + "," + phoneSimF + "," + phoneIneffF + "," + phoneIncomF + "," + phoneInacF + ",").getBytes());
+                    //fos.write(("Simultaneous, " + movieSimF + "," + teaSimF + "," + snackSimF + "," + changeSimF + "," + phoneSimF + "," + recipeSimF + "," + travelSimF + "," + exitSimF + ",").getBytes());
                     fos.write("\n".getBytes());
-                    fos.write(("Inefficient, " + movieIneffF + "," + teaIneffF + "," + snackIneffF + "," + changeIneffF + "," + phoneIneffF + "," + recipeIneffF + "," + travelIneffF + "," + exitIneffF + ",").getBytes());
+                    //fos.write(("Inefficient, " + movieIneffF + "," + teaIneffF + "," + snackIneffF + "," + changeIneffF + "," + phoneIneffF + "," + recipeIneffF + "," + travelIneffF + "," + exitIneffF + ",").getBytes());
+                    fos.write(("Recipe, " + recipeScoreF + "," + recipeTimeF + "," + recipeMTimeF + "," + recipeSeqF + "," + recipeSimF + "," + recipeIneffF + "," + recipeIncomF + "," + recipeInacF + ",").getBytes());
                     fos.write("\n".getBytes());
-                    fos.write(("Score, " + movieIncomF + "," + teaIncomF + "," + snackIncomF + "," + changeIncomF + "," + phoneIncomF + "," + recipeIncomF + "," + travelIncomF + "," + exitIncomF + ",").getBytes());
+                    //fos.write(("Score, " + movieIncomF + "," + teaIncomF + "," + snackIncomF + "," + changeIncomF + "," + phoneIncomF + "," + recipeIncomF + "," + travelIncomF + "," + exitIncomF + ",").getBytes());
+                    fos.write(("Travel, " + travelScoreF + "," + travelTimeF + "," + travelMTimeF + "," + travelSeqF + "," + travelSimF + "," + travelIneffF + "," + travelIncomF + "," + travelInacF + ",").getBytes());
                     fos.write("\n".getBytes());
-                    fos.write(("Inaccurate, " + movieInacF + "," + teaInacF + "," + snackInacF + "," + changeInacF + "," + phoneInacF + "," + recipeInacF + "," + travelInacF + "," + exitInacF + ",").getBytes());
+                    //fos.write(("Inaccurate, " + movieInacF + "," + teaInacF + "," + snackInacF + "," + changeInacF + "," + phoneInacF + "," + recipeInacF + "," + travelInacF + "," + exitInacF + ",").getBytes());
+                    fos.write(("Exit, " + exitScoreF + "," + exitTimeF + "," + exitMTimeF + "," + exitSeqF + "," + exitSimF + "," + exitIneffF + "," + exitIncomF + "," + exitInacF + ",").getBytes());
                     fos.write("\n".getBytes());
-                    fos.write(("Summary:, Planning, Total Time, Overall Quality, Overall Accuracy, Sequencing Total, Error Total").getBytes());
+                    fos.write(("Summary:, Planning, Total Time, Overall Quality, Overall Accuracy, Sequencing Total, Error Total, Inefficient Total, IncompleteTotal, Inaccurate Total").getBytes());
                     fos.write("\n".getBytes());
-                    fos.write(("," + planningTime + "," + totalExecutionx + "," + overallQualityx + "," + totalAccuracyScorex + "," + correctSequencingx + "," + errorTotalsx + ",").getBytes());
+                    fos.write(("," + planningTime + "," + totalExecutionx + "," + overallQualityx + "," + totalAccuracyScorex + "," + correctSequencingx + "," + errorTotalsx + "," + totalInefficient + "," + totalIncomplete + "," + totalInaccurate).getBytes());
                     fos.write("\n".getBytes());
                     fos.write(("COMMENTS: " + "," + comments).getBytes());
                     fos.write("\n".getBytes());
@@ -463,22 +568,345 @@ public class SummaryActivity extends AppCompatActivity {
             }else{
                 Toast.makeText(SummaryActivity.this, "External storage unavailable", Toast.LENGTH_LONG).show();
             }
+            ////// save errors file
+            if (!isExternalStorageAvailable()) {
+                Toast.makeText(SummaryActivity.this, "Storage space unavailable", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                myExternalFile = new File(getExternalFilesDir(filepath), enteredName + "errors");
+            }
+
+            if(isExternalStorageAvailable()){
+                try {
+                    FileOutputStream fos = new FileOutputStream(myExternalFile + ".txt");
+                    //fos.write((" , , Movie, Tea, Snack, Change, Phone, Recipe, Travel, Exit,").getBytes());
+                    /*fos.write((" , , Score, Time, Multitask Time, Sequence, Simultaneous, Inefficient, Incomplete, Inaccurate,").getBytes());
+                    fos.write("\n".getBytes());
+                    //fos.write(("Score, " + movieScoreF + "," + teaScoreF + "," + snackScoreF + "," + changeScoreF + "," + phoneScoreF + "," + recipeScoreF + "," + travelScoreF + "," + exitScoreF + ",").getBytes());
+                    fos.write(("Movie, " + movieScoreF + "," + movieTimeF + "," + movieMTimeF + "," + movieSeqF + "," + movieSimF + "," + movieIneffF + "," + movieIncomF + "," + movieInacF + ",").getBytes());
+                    fos.write("\n".getBytes());
+                    fos.write(("Tea, " + teaScoreF + "," + teaTimeF + "," + teaMTimeF + "," + teaSeqF + "," + teaSimF + "," + teaIneffF + "," + teaIncomF + "," + teaInacF + ",").getBytes());
+                    //fos.write(("Time, " + movieTimeF + "," + teaTimeF + "," + snackTimeF + "," + moneyTimeF + "," + phoneTimeF + "," + recipeTimeF + "," + travelTimeF + "," + exitTimeF + ",").getBytes());
+                    fos.write("\n".getBytes());
+                    //fos.write(("Multitask Time, " + movieMTimeF + "," + teaMTimeF + "," + snackMTimeF + "," + changeMTimeF + "," + phoneMTimeF + "," + recipeMTimeF + "," + travelMTimeF + "," + exitMTimeF + ",").getBytes());
+                    fos.write(("Snack, " + snackScoreF + "," + snackTimeF + "," + snackMTimeF + "," + snackSeqF + "," + snackSimF + "," + snackIneffF + "," + snackIncomF + "," + snackInacF + ",").getBytes());
+                    fos.write("\n".getBytes());
+                    //fos.write(("Sequence, " + movieSeqF + "," + teaSeqF + "," + snackSeqF + "," + changeSeqF + "," + phoneSeqF + "," + recipeSeqF + "," + travelSeqF + "," + exitSeqF + ",").getBytes());
+                    fos.write(("Change, " + changeScoreF + "," + moneyTimeF + "," + changeMTimeF + "," + changeSeqF + "," + changeSimF + "," + changeIneffF + "," + changeIncomF + "," + changeInacF + ",").getBytes());
+                    fos.write("\n".getBytes());
+                    fos.write(("Phone, " + phoneScoreF + "," + phoneTimeF + "," + phoneMTimeF + "," + phoneSeqF + "," + phoneSimF + "," + phoneIneffF + "," + phoneIncomF + "," + phoneInacF + ",").getBytes());
+                    //fos.write(("Simultaneous, " + movieSimF + "," + teaSimF + "," + snackSimF + "," + changeSimF + "," + phoneSimF + "," + recipeSimF + "," + travelSimF + "," + exitSimF + ",").getBytes());
+                    fos.write("\n".getBytes());*/
+
+                    fos.write(("Errors:").getBytes());
+                    fos.write("\n".getBytes());
+                    if(!sharedPref.getString("movie1b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("movie1b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("movie9b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("movie9b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("movie2b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("movie2b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("movie3b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("movie3b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("movie4b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("movie4b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("movie5b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("movie5b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("movie6b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("movie6b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("movie7b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("movie7b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("movie8b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("movie8b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("money1b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("money1b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("money2b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("money2b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("money3b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("money3b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("money4b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("money4b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("money5b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("money5b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("money6b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("money6b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("money7b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("money7b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("money8b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("money8b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("exit1b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("exit1b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("exit2b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("exit2b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("exit3b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("exit3b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("exit4b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("exit4b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("phone1b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("phone1b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("phone2b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("phone2b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("phone3b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("phone3b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("phone4b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("phone4b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("phone5b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("phone5b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("phone6b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("phone6b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("phone7b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("phone7b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("recipe1b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("recipe1b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("recipe2b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("recipe2b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("recipe3b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("recipe3b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("recipe4b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("recipe4b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("recipe5b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("recipe5b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("recipe6b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("recipe6b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("recipe7b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("recipe7b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("recipe8b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("recipe8b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("recipe9b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("recipe9b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("recipe10b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("recipe10b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("recipe11b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("recipe11b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("recipe12b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("recipe12b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("recipe13b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("recipe13b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("recipe14b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("recipe14b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("recipe15b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("recipe15b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("snack1b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("snack1b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("snack2b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("snack2b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("snack3b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("snack3b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("snack4b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("snack4b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("snack5b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("snack5b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("snack6b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("snack6b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("snack7b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("snack7b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("snack8b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("snack8b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("tea1b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("tea1b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("tea2b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("tea2b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("tea3b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("tea3b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("tea4b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("tea4b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("tea5b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("tea5b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("tea6b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("tea6b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("tea7b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("tea7b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("tea8b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("tea8b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("tea9b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("tea9b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("tea10b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("tea10b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("tea11b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("tea11b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("travel1b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("travel1b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("travel2b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("travel2b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("travel3b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("travel3b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("travel4b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("travel4b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("travel5b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("travel5b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("misc1b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("misc1b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("misc2b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("misc2b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("misc3b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("misc3b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(!sharedPref.getString("misc4b", " ").equals(" ")){
+                        fos.write((sharedPref.getString("misc4b", " ")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+
+                    fos.close();
+                    //Toast.makeText(SummaryActivity.this, "File is written and saved to external storage", Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(SummaryActivity.this, "File did not write", Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                Toast.makeText(SummaryActivity.this, "External storage unavailable", Toast.LENGTH_LONG).show();
+            }
         }
 
-
-
-        //if(a != null){
-            Toast.makeText(SummaryActivity.this, "You need a filename with only number and letters", Toast.LENGTH_LONG).show();
-
+            //Toast.makeText(SummaryActivity.this, "You need a filename with only number and letters", Toast.LENGTH_LONG).show();
     }
 
     public boolean validateFileName(String name){
-        if(name == null){
+        if(name == null || name.length() == 0){
             Toast.makeText(SummaryActivity.this, "You need a filename", Toast.LENGTH_LONG).show();
             return false;
         }
         for(int i = 0; i < name.length(); i++){
             if(!Character.isLetter(name.charAt(i)) && !Character.isDigit(name.charAt(i))){
+                Toast.makeText(SummaryActivity.this, "Only use numbers and letters in your filename", Toast.LENGTH_LONG).show();
                 return false;
             }
         }
@@ -496,3 +924,33 @@ public class SummaryActivity extends AppCompatActivity {
     }
 
 }
+
+
+/*
+    FileOutputStream fos = new FileOutputStream(myExternalFile + ".txt");
+fos.write((" , , Movie, Tea, Snack, Change, Phone, Recipe, Travel, Exit,").getBytes());
+        fos.write("\n".getBytes());
+        fos.write(("Score, " + movieScoreF + "," + teaScoreF + "," + snackScoreF + "," + changeScoreF + "," + phoneScoreF + "," + recipeScoreF + "," + travelScoreF + "," + exitScoreF + ",").getBytes());
+        fos.write("\n".getBytes());
+        fos.write(("Time, " + movieTimeF + "," + teaTimeF + "," + snackTimeF + "," + moneyTimeF + "," + phoneTimeF + "," + recipeTimeF + "," + travelTimeF + "," + exitTimeF + ",").getBytes());
+        fos.write("\n".getBytes());
+        fos.write(("Multitask Time, " + movieMTimeF + "," + teaMTimeF + "," + snackMTimeF + "," + changeMTimeF + "," + phoneMTimeF + "," + recipeMTimeF + "," + travelMTimeF + "," + exitMTimeF + ",").getBytes());
+        fos.write("\n".getBytes());
+        fos.write(("Sequence, " + movieSeqF + "," + teaSeqF + "," + snackSeqF + "," + changeSeqF + "," + phoneSeqF + "," + recipeSeqF + "," + travelSeqF + "," + exitSeqF + ",").getBytes());
+        fos.write("\n".getBytes());
+        fos.write(("Simultaneous, " + movieSimF + "," + teaSimF + "," + snackSimF + "," + changeSimF + "," + phoneSimF + "," + recipeSimF + "," + travelSimF + "," + exitSimF + ",").getBytes());
+        fos.write("\n".getBytes());
+        fos.write(("Inefficient, " + movieIneffF + "," + teaIneffF + "," + snackIneffF + "," + changeIneffF + "," + phoneIneffF + "," + recipeIneffF + "," + travelIneffF + "," + exitIneffF + ",").getBytes());
+        fos.write("\n".getBytes());
+        fos.write(("Score, " + movieIncomF + "," + teaIncomF + "," + snackIncomF + "," + changeIncomF + "," + phoneIncomF + "," + recipeIncomF + "," + travelIncomF + "," + exitIncomF + ",").getBytes());
+        fos.write("\n".getBytes());
+        fos.write(("Inaccurate, " + movieInacF + "," + teaInacF + "," + snackInacF + "," + changeInacF + "," + phoneInacF + "," + recipeInacF + "," + travelInacF + "," + exitInacF + ",").getBytes());
+        fos.write("\n".getBytes());
+        fos.write(("Summary:, Planning, Total Time, Overall Quality, Overall Accuracy, Sequencing Total, Error Total").getBytes());
+        fos.write("\n".getBytes());
+        fos.write(("," + planningTime + "," + totalExecutionx + "," + overallQualityx + "," + totalAccuracyScorex + "," + correctSequencingx + "," + errorTotalsx + ",").getBytes());
+        fos.write("\n".getBytes());
+        fos.write(("COMMENTS: " + "," + comments).getBytes());
+        fos.write("\n".getBytes());
+        fos.write(("misc buttons" + "," + miscButtons).getBytes());
+        fos.close();*/

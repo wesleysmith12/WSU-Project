@@ -6,7 +6,9 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,10 +28,11 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
     //String FILENAME = "internalString";
     private TextView gathered, recorded, leavesHouse;
     private EditText changeRecorded, changeGathered, comments;
-    private CheckBox recipeRead, costOfMovie;
+    private CheckBox recipeRead, costOfMovie, phoneCall;
     private TimePicker time;
     private int minutes;
     private int hours;
+    private boolean alreadyCalculated = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,13 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
 
         //SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
         time = (TimePicker) findViewById(R.id.timePicker);
+
+        //this code makes so that the clock is pm by default
+        if(time.getCurrentHour() < 12)
+        {
+            time.setCurrentHour(time.getCurrentHour()+12);
+        }
+
         leavesHouse = (TextView) findViewById(R.id.leaveshouse);
         gathered = (TextView) findViewById(R.id.gathered);
         recorded = (TextView) findViewById(R.id.recorded);
@@ -45,7 +55,7 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
         changeGathered = (EditText) findViewById(R.id.editText5);
         comments = (EditText) findViewById(R.id.comments);
         /*if(sharedPref.getInt("movieScore", 1) == 4){
-            time.setVisibility(View.GONE);
+                time.setVisibility(View.GONE);
             leavesHouse.setVisibility(View.GONE);
         }
         if(sharedPref.getInt("moneyScore", 1) == 4){
@@ -62,8 +72,17 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
 
         recipeRead = (CheckBox) findViewById(R.id.checkBox2);
         costOfMovie = (CheckBox) findViewById(R.id.checkBox);
+        phoneCall = (CheckBox) findViewById(R.id.checkBox3);
 
        /* if(leavesHouse.getT())*/
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.
+                INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        return true;
     }
 
     //go to next activity
@@ -83,7 +102,9 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
 
         editor.apply();
 
-        if(compareChange() || moneyScore == 4) {
+        if(moneyScore == 4 || compareChange()) {
+            alreadyCalculated = true;
+
             Intent i = new Intent(this, SummaryActivity.class);
             //save sequencing with calculateSequencing()
             startActivity(i);
@@ -93,12 +114,21 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public int calculateSequencing(){
+        if(alreadyCalculated){
+            return 0;
+        }
         int sequencing = 0;
+        SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
+        boolean phoneCallEnd = sharedPref.getBoolean("phoneCallEnd", false);
 
         if(recipeRead.isChecked()){
             sequencing++;
         }
         if(costOfMovie.isChecked()){
+            sequencing++;
+        }
+        if(phoneCall.isChecked() && !phoneCallEnd)
+        {
             sequencing++;
         }
         return sequencing;
@@ -135,6 +165,9 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public boolean compareChange(){
+        if(alreadyCalculated){
+            return true;
+        }
 
         if(changeRecorded.length() == 0 || changeGathered.length() == 0){
             return false;
@@ -152,29 +185,86 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
         int moneyInac = sharedPref.getInt("moninac", 0);
         int moneyIncom = sharedPref.getInt("monincom", 0);
         int errorTotals = sharedPref.getInt("errorTotals", 0);
-        if(changeRecordedText > changeGatheredText && !lessMoney){
-            if(moneyScore == 1 || moneyScore == 2){
-                moneyScore = 2;
+        if(changeRecordedText > changeGatheredText){ //didn't get enough money: inaccurate and inefficient
+            if(lessMoney){
+                //do nothing
+            }else if(moreMoney){
+                if(moneyScore == 1 || moneyScore == 2){
+                    moneyScore = 3;
+                }
+                moneyIneff--;
+                errorTotals--;
+                moneyIncom++;
+                moneyInac++;
+                errorTotals+=2;
+                editor.putInt("moneyScore", moneyScore);
+                editor.putInt("monineff", moneyIneff);
+                editor.putInt("monincom", moneyIncom);
+                editor.putInt("moninac", moneyInac);
+                lessMoney = true;
+            }else{
+                //neither error button was pressed
+                moneyIncom++;
+                moneyInac++;
+                errorTotals+=2;
+                editor.putInt("moneyScore", moneyScore);
+                editor.putInt("monineff", moneyIneff);
+                editor.putInt("monincom", moneyIncom);
+                editor.putInt("moninac", moneyInac);
+                lessMoney = true;
             }
-            moneyIncom++;
-            moneyInac++;
-            errorTotals+=2;
-            editor.putInt("moneyScore", moneyScore);
-            //editor.putInt("monineff", moneyInefficient);
-            editor.putInt("monincom", moneyIncom);
-            editor.putInt("moninac", moneyInac);
-            lessMoney = true;
-        }else if(changeRecordedText < changeGatheredText && !moreMoney){
-            if(moneyScore == 1){
-                moneyScore = 2;
+        }else if(changeRecordedText < changeGatheredText){ //grabbed too much money
+            if(moreMoney){
+                //do nothing
+            }else if(lessMoney){
+                moneyInac--;
+                moneyIncom--;
+                errorTotals-=2;
+                if(moneyScore == 3 && moneyIncom == 0 && moneyInac == 0){
+                    moneyScore = 2;
+                }
+                moneyIneff++;
+                errorTotals++;
+                editor.putInt("moneyScore", moneyScore);
+                editor.putInt("monineff", moneyIneff);
+                editor.putInt("monincom", moneyIncom);
+                editor.putInt("moninac", moneyInac);
+                moreMoney = true;
+            }else{
+                // neither button was pressed
+                if(moneyScore == 1){
+                    moneyScore = 2;
+                }
+                moneyIneff++;
+                errorTotals++;
+                editor.putInt("moneyScore", moneyScore);
+                editor.putInt("monineff", moneyIneff);
+                editor.putInt("monincom", moneyIncom);
+                editor.putInt("moninac", moneyInac);
+                moreMoney = true;
+
             }
-            moneyIneff++;
-            errorTotals++;
+
+        }else if(changeRecordedText == changeGatheredText){
+            if(lessMoney){
+                moneyInac--;
+                moneyIncom--;
+                errorTotals-=2;
+                if(moneyScore == 3 && moneyIncom == 0){
+                    moneyScore = 2;
+                }
+
+            }else if(moreMoney){
+                moneyIneff--;
+                errorTotals--;
+                if(moneyScore == 2 && moneyIneff == 0){
+                    moneyScore = 1;
+                }
+            }
             editor.putInt("moneyScore", moneyScore);
             editor.putInt("monineff", moneyIneff);
-            //editor.putInt("monincom", moneyIncomplete);
-            //editor.putInt("moninac", moneyInaccurate);
-            moreMoney = true;
+            editor.putInt("monincom", moneyIncom);
+            editor.putInt("moninac", moneyInac);
         }
         editor.putInt("errorTotals", errorTotals);
         editor.putBoolean("moreMoney", moreMoney);
@@ -187,9 +277,15 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
 
     public void calculateTime(View v){
 
+        if(alreadyCalculated){
+            return;
+        }
         SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         int movieScore = sharedPref.getInt("movieScore", 0);
+        if(movieScore == 4){
+            return;
+        }
         int movieInef = sharedPref.getInt("movineff", 0);
         int movieIncom = sharedPref.getInt("movincom", 0);
         int movieInac = sharedPref.getInt("movinac", 0);
@@ -199,14 +295,15 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
 
         minutes = time.getCurrentMinute();
         hours = time.getCurrentHour();
-        if(minutes < 25 && hours <= 18 && !movieEarly){
+        if(minutes < 25 && (hours == 18 || hours == 17 || hours == 16 || hours == 15 || hours == 14 || hours == 13 || hours == 12 || hours == 11 ||
+                hours == 10 || hours == 9 || hours == 8 || hours == 7 || hours == 6) && !movieEarly){
             if(movieScore == 1){
                 movieScore = 2;
             }
             movieInef++;
             errorTotals++;
             //Toast.makeText(FinalActivity.this, "early", Toast.LENGTH_SHORT).show();
-        }else if(minutes > 35 && hours >= 18 && !movieLate){
+        }else if(minutes > 35 && (hours == 18 || hours == 19 || hours == 20 || hours == 21 || hours == 22 || hours == 23) && !movieLate){
             if(movieScore == 1 || movieScore == 2){
                 movieScore = 3;
             }
