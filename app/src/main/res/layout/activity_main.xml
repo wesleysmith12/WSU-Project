@@ -136,6 +136,17 @@
             android:layout_toEndOf="@+id/fragment9"
             android:layout_alignBottom="@+id/fragment" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Other Error"
+            android:id="@+id/otherbutton1"
+            android:onClick="otherButton"
+            android:layout_alignBottom="@+id/fragment4"
+            android:layout_toRightOf="@+id/fragment9"
+            android:layout_toEndOf="@+id/fragment9"
+            android:visibility="visible" />
+
         <!--android:onClick="onClick2"-->
 
     </RelativeLayout>

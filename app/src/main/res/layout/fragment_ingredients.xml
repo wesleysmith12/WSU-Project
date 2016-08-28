@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.wesle.wsuuioption1.Ingredients"
-    android:background="#ffffff">
+    android:background="#ffffff"
+    android:padding="20dp">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,7 +15,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Essential"
-            android:id="@+id/textView8" />
+            android:id="@+id/textView8"
+            android:textSize="25dp"/>
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -24,7 +26,8 @@
             android:checked="false"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:textSize="20dp"/>
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -34,17 +37,8 @@
             android:checked="false"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/peanut"
-            android:layout_toStartOf="@+id/peanut" />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vanilla"
-            android:id="@+id/vanilla"
-            android:checked="false"
-            android:layout_alignTop="@+id/kosher"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_toStartOf="@+id/peanut"
+            android:textSize="20dp"/>
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -54,14 +48,27 @@
             android:checked="false"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:textSize="20dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Nonessential"
-            android:id="@+id/textView9" />
+            android:id="@+id/textView9"
+            android:textSize="25dp"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vanilla"
+            android:id="@+id/vanilla"
+            android:checked="false"
+            android:layout_alignTop="@+id/kosher"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="20dp"/>
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -71,7 +78,8 @@
             android:layout_alignBottom="@+id/textView21"
             android:layout_alignLeft="@+id/vanilla"
             android:layout_alignStart="@+id/vanilla"
-            android:checked="false" />
+            android:checked="false"
+            android:textSize="20dp"/>
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -81,7 +89,8 @@
             android:layout_alignBottom="@+id/textView22"
             android:layout_alignLeft="@+id/vanilla"
             android:layout_alignStart="@+id/vanilla"
-            android:checked="false" />
+            android:checked="false"
+            android:textSize="20dp"/>
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -91,7 +100,8 @@
             android:layout_alignBottom="@+id/textView23"
             android:layout_alignLeft="@+id/espresso"
             android:layout_alignStart="@+id/espresso"
-            android:checked="false" />
+            android:checked="false"
+            android:textSize="20dp"/>
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -101,7 +111,8 @@
             android:layout_alignBottom="@+id/textView25"
             android:layout_alignLeft="@+id/sugar"
             android:layout_alignStart="@+id/sugar"
-            android:checked="false" />
+            android:checked="false"
+            android:textSize="20dp"/>
     </LinearLayout>
 
 

@@ -523,7 +523,7 @@ public class SummaryActivity extends AppCompatActivity {
 
             if(isExternalStorageAvailable()){
                 try {
-                    FileOutputStream fos = new FileOutputStream(myExternalFile + ".txt");
+                    FileOutputStream fos = new FileOutputStream(myExternalFile + ".csv");
                     //fos.write((" , , Movie, Tea, Snack, Change, Phone, Recipe, Travel, Exit,").getBytes());
                     fos.write((" , , Score, Time, Multitask Time, Sequence, Simultaneous, Inefficient, Incomplete, Inaccurate,").getBytes());
                     fos.write("\n".getBytes());
@@ -558,6 +558,56 @@ public class SummaryActivity extends AppCompatActivity {
                     fos.write(("COMMENTS: " + "," + comments).getBytes());
                     fos.write("\n".getBytes());
                     fos.write(("misc buttons" + "," + miscButtons).getBytes());
+                    if(sharedPref.getString("moviecomments", "").length() > 0){
+                        fos.write((sharedPref.getString("moviecomments", "")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(sharedPref.getString("teacomments", "").length() > 0){
+                        fos.write((sharedPref.getString("teacomments", "")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(sharedPref.getString("snackcomments", "").length() > 0){
+                        fos.write((sharedPref.getString("snackcomments", "")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(sharedPref.getString("moneycomments", "").length() > 0){
+                        fos.write((sharedPref.getString("moneycomments", "")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(sharedPref.getString("phonecomments", "").length() > 0){
+                        fos.write((sharedPref.getString("phonecomments", "")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(sharedPref.getString("recipecomments", "").length() > 0){
+                        fos.write((sharedPref.getString("recipecomments", "")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(sharedPref.getString("travelcomments", "").length() > 0){
+                        fos.write((sharedPref.getString("travelcomments", "")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+                    if(sharedPref.getString("exitcomments", "").length() > 0){
+                        fos.write((sharedPref.getString("exitcomments", "")).getBytes());
+                        fos.write("\n".getBytes());
+                    }
+
+                    //write other error data to file
+                    if(!sharedPref.getString("error1", "NOERROR").equals("NOERROR")){
+
+                        fos.write(("Other errors added by clinician:").getBytes());
+                        fos.write("\n".getBytes());
+
+                        fos.write((sharedPref.getString("errorone","error category not found") + ": " + sharedPref.getString("error1", "")).getBytes());
+                        fos.write("\n".getBytes());
+                        if(!sharedPref.getString("error2", "NOERROR").equals("NOERROR")){
+                            fos.write((sharedPref.getString("errortwo","error category not found") + ": " + sharedPref.getString("error2", "")).getBytes());
+                            fos.write("\n".getBytes());
+                            if(!sharedPref.getString("error3", "NOERROR").equals("NOERROR")){
+                                fos.write((sharedPref.getString("errorthree","error category not found") + ": " + sharedPref.getString("error3", "")).getBytes());
+                                fos.write("\n".getBytes());
+                            }
+                        }
+                    }
                     fos.close();
 
                     Toast.makeText(SummaryActivity.this, "File is written and saved to external storage", Toast.LENGTH_SHORT).show();
@@ -569,34 +619,19 @@ public class SummaryActivity extends AppCompatActivity {
                 Toast.makeText(SummaryActivity.this, "External storage unavailable", Toast.LENGTH_LONG).show();
             }
             ////// save errors file
-            if (!isExternalStorageAvailable()) {
+            /*if (!isExternalStorageAvailable()) {
                 Toast.makeText(SummaryActivity.this, "Storage space unavailable", Toast.LENGTH_SHORT).show();
             }
             else {
                 myExternalFile = new File(getExternalFilesDir(filepath), enteredName + "errors");
             }
 
+
+            //this code prints out buttons that were pressed during experiment.
+
             if(isExternalStorageAvailable()){
                 try {
-                    FileOutputStream fos = new FileOutputStream(myExternalFile + ".txt");
-                    //fos.write((" , , Movie, Tea, Snack, Change, Phone, Recipe, Travel, Exit,").getBytes());
-                    /*fos.write((" , , Score, Time, Multitask Time, Sequence, Simultaneous, Inefficient, Incomplete, Inaccurate,").getBytes());
-                    fos.write("\n".getBytes());
-                    //fos.write(("Score, " + movieScoreF + "," + teaScoreF + "," + snackScoreF + "," + changeScoreF + "," + phoneScoreF + "," + recipeScoreF + "," + travelScoreF + "," + exitScoreF + ",").getBytes());
-                    fos.write(("Movie, " + movieScoreF + "," + movieTimeF + "," + movieMTimeF + "," + movieSeqF + "," + movieSimF + "," + movieIneffF + "," + movieIncomF + "," + movieInacF + ",").getBytes());
-                    fos.write("\n".getBytes());
-                    fos.write(("Tea, " + teaScoreF + "," + teaTimeF + "," + teaMTimeF + "," + teaSeqF + "," + teaSimF + "," + teaIneffF + "," + teaIncomF + "," + teaInacF + ",").getBytes());
-                    //fos.write(("Time, " + movieTimeF + "," + teaTimeF + "," + snackTimeF + "," + moneyTimeF + "," + phoneTimeF + "," + recipeTimeF + "," + travelTimeF + "," + exitTimeF + ",").getBytes());
-                    fos.write("\n".getBytes());
-                    //fos.write(("Multitask Time, " + movieMTimeF + "," + teaMTimeF + "," + snackMTimeF + "," + changeMTimeF + "," + phoneMTimeF + "," + recipeMTimeF + "," + travelMTimeF + "," + exitMTimeF + ",").getBytes());
-                    fos.write(("Snack, " + snackScoreF + "," + snackTimeF + "," + snackMTimeF + "," + snackSeqF + "," + snackSimF + "," + snackIneffF + "," + snackIncomF + "," + snackInacF + ",").getBytes());
-                    fos.write("\n".getBytes());
-                    //fos.write(("Sequence, " + movieSeqF + "," + teaSeqF + "," + snackSeqF + "," + changeSeqF + "," + phoneSeqF + "," + recipeSeqF + "," + travelSeqF + "," + exitSeqF + ",").getBytes());
-                    fos.write(("Change, " + changeScoreF + "," + moneyTimeF + "," + changeMTimeF + "," + changeSeqF + "," + changeSimF + "," + changeIneffF + "," + changeIncomF + "," + changeInacF + ",").getBytes());
-                    fos.write("\n".getBytes());
-                    fos.write(("Phone, " + phoneScoreF + "," + phoneTimeF + "," + phoneMTimeF + "," + phoneSeqF + "," + phoneSimF + "," + phoneIneffF + "," + phoneIncomF + "," + phoneInacF + ",").getBytes());
-                    //fos.write(("Simultaneous, " + movieSimF + "," + teaSimF + "," + snackSimF + "," + changeSimF + "," + phoneSimF + "," + recipeSimF + "," + travelSimF + "," + exitSimF + ",").getBytes());
-                    fos.write("\n".getBytes());*/
+                    FileOutputStream fos = new FileOutputStream(myExternalFile + ".csv");
 
                     fos.write(("Errors:").getBytes());
                     fos.write("\n".getBytes());
@@ -886,17 +921,16 @@ public class SummaryActivity extends AppCompatActivity {
                     }
 
                     fos.close();
-                    //Toast.makeText(SummaryActivity.this, "File is written and saved to external storage", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SummaryActivity.this, "File saved", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(SummaryActivity.this, "File did not write", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(SummaryActivity.this, "File did not write", Toast.LENGTH_SHORT).show();
                 }
             }else{
                 Toast.makeText(SummaryActivity.this, "External storage unavailable", Toast.LENGTH_LONG).show();
-            }
+            }*/
         }
 
-            //Toast.makeText(SummaryActivity.this, "You need a filename with only number and letters", Toast.LENGTH_LONG).show();
     }
 
     public boolean validateFileName(String name){
@@ -916,41 +950,9 @@ public class SummaryActivity extends AppCompatActivity {
     public boolean isExternalStorageAvailable() {
         String extStorageState = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(extStorageState)) {
-            //Toast.makeText(SummaryActivity.this, "Storage space available", Toast.LENGTH_SHORT).show();
             return true;
         }
-        //Toast.makeText(SummaryActivity.this, "Storage space unavailable", Toast.LENGTH_SHORT).show();
         return false;
     }
 
 }
-
-
-/*
-    FileOutputStream fos = new FileOutputStream(myExternalFile + ".txt");
-fos.write((" , , Movie, Tea, Snack, Change, Phone, Recipe, Travel, Exit,").getBytes());
-        fos.write("\n".getBytes());
-        fos.write(("Score, " + movieScoreF + "," + teaScoreF + "," + snackScoreF + "," + changeScoreF + "," + phoneScoreF + "," + recipeScoreF + "," + travelScoreF + "," + exitScoreF + ",").getBytes());
-        fos.write("\n".getBytes());
-        fos.write(("Time, " + movieTimeF + "," + teaTimeF + "," + snackTimeF + "," + moneyTimeF + "," + phoneTimeF + "," + recipeTimeF + "," + travelTimeF + "," + exitTimeF + ",").getBytes());
-        fos.write("\n".getBytes());
-        fos.write(("Multitask Time, " + movieMTimeF + "," + teaMTimeF + "," + snackMTimeF + "," + changeMTimeF + "," + phoneMTimeF + "," + recipeMTimeF + "," + travelMTimeF + "," + exitMTimeF + ",").getBytes());
-        fos.write("\n".getBytes());
-        fos.write(("Sequence, " + movieSeqF + "," + teaSeqF + "," + snackSeqF + "," + changeSeqF + "," + phoneSeqF + "," + recipeSeqF + "," + travelSeqF + "," + exitSeqF + ",").getBytes());
-        fos.write("\n".getBytes());
-        fos.write(("Simultaneous, " + movieSimF + "," + teaSimF + "," + snackSimF + "," + changeSimF + "," + phoneSimF + "," + recipeSimF + "," + travelSimF + "," + exitSimF + ",").getBytes());
-        fos.write("\n".getBytes());
-        fos.write(("Inefficient, " + movieIneffF + "," + teaIneffF + "," + snackIneffF + "," + changeIneffF + "," + phoneIneffF + "," + recipeIneffF + "," + travelIneffF + "," + exitIneffF + ",").getBytes());
-        fos.write("\n".getBytes());
-        fos.write(("Score, " + movieIncomF + "," + teaIncomF + "," + snackIncomF + "," + changeIncomF + "," + phoneIncomF + "," + recipeIncomF + "," + travelIncomF + "," + exitIncomF + ",").getBytes());
-        fos.write("\n".getBytes());
-        fos.write(("Inaccurate, " + movieInacF + "," + teaInacF + "," + snackInacF + "," + changeInacF + "," + phoneInacF + "," + recipeInacF + "," + travelInacF + "," + exitInacF + ",").getBytes());
-        fos.write("\n".getBytes());
-        fos.write(("Summary:, Planning, Total Time, Overall Quality, Overall Accuracy, Sequencing Total, Error Total").getBytes());
-        fos.write("\n".getBytes());
-        fos.write(("," + planningTime + "," + totalExecutionx + "," + overallQualityx + "," + totalAccuracyScorex + "," + correctSequencingx + "," + errorTotalsx + ",").getBytes());
-        fos.write("\n".getBytes());
-        fos.write(("COMMENTS: " + "," + comments).getBytes());
-        fos.write("\n".getBytes());
-        fos.write(("misc buttons" + "," + miscButtons).getBytes());
-        fos.close();*/

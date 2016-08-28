@@ -21,6 +21,11 @@
             android:text="Start"
             android:id="@+id/moneystart"
             style="@style/MainButton" />
+        <Button
+            android:text="Comments"
+            android:id="@+id/moneycomments"
+            style="@style/MainButton"
+            android:onClick="comments"/>
     </LinearLayout>
     <Button
         style="@style/MainButton"

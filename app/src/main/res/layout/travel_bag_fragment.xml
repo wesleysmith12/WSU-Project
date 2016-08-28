@@ -22,6 +22,11 @@
             android:text="Start"
             android:id="@+id/travelstart"
             style="@style/MainButton"/>
+        <Button
+            android:text="Comments"
+            android:id="@+id/travelcomments"
+            style="@style/MainButton"
+            android:onClick="comments"/>
     </LinearLayout>
     <Button
         android:text="Looks in multiple locations"

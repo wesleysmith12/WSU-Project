@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -30,9 +32,20 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
     private EditText changeRecorded, changeGathered, comments;
     private CheckBox recipeRead, costOfMovie, phoneCall;
     private TimePicker time;
+    private RadioGroup radioGroup1, radioGroup2, radioGroup3;
     private int minutes;
     private int hours;
     private boolean alreadyCalculated = false;
+    private boolean checkBoxesChecked = false;
+    private RadioButton radioY, radioN, radioY2, radioN2, radioY3, radioN3;
+
+    TextView errorsHeader;
+    TextView error1;
+    EditText errorDescription1;
+    TextView error2;
+    EditText errorDescription2;
+    TextView error3;
+    EditText errorDescription3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,33 +61,75 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
             time.setCurrentHour(time.getCurrentHour()+12);
         }
 
+        SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
         leavesHouse = (TextView) findViewById(R.id.leaveshouse);
         gathered = (TextView) findViewById(R.id.gathered);
         recorded = (TextView) findViewById(R.id.recorded);
         changeRecorded = (EditText) findViewById(R.id.editText4);
         changeGathered = (EditText) findViewById(R.id.editText5);
         comments = (EditText) findViewById(R.id.comments);
+        radioGroup1 = (RadioGroup) findViewById(R.id.radiogroup1);
+        radioGroup2 = (RadioGroup) findViewById(R.id.radiogroup2);
+        radioGroup3 = (RadioGroup) findViewById(R.id.radiogroup3);
+        radioY = (RadioButton) findViewById(R.id.radioButton);
+        radioN = (RadioButton) findViewById(R.id.radioButton2);
+        radioY2 = (RadioButton) findViewById(R.id.radioButton3);
+        radioN2 = (RadioButton) findViewById(R.id.radioButton4);
+        radioY3 = (RadioButton) findViewById(R.id.radioButton5);
+        radioN3 = (RadioButton) findViewById(R.id.radioButton6);
         /*if(sharedPref.getInt("movieScore", 1) == 4){
                 time.setVisibility(View.GONE);
             leavesHouse.setVisibility(View.GONE);
-        }
+        }*/
         if(sharedPref.getInt("moneyScore", 1) == 4){
             gathered.setVisibility(View.GONE);
             recorded.setVisibility(View.GONE);
             changeGathered.setVisibility(View.GONE);
             changeRecorded.setVisibility(View.GONE);
-        }*/
+        }
+
+
+        errorsHeader = (TextView) findViewById(R.id.othererrorsheader);
+        error1 = (TextView) findViewById(R.id.error1catagory);
+        errorDescription1 = (EditText) findViewById(R.id.error1description);
+        error2 = (TextView) findViewById(R.id.error2catagory);
+        errorDescription2 = (EditText) findViewById(R.id.error2description);
+        error3 = (TextView) findViewById(R.id.error3catagory);
+        errorDescription3 = (EditText) findViewById(R.id.error3description);
+
+        int errors = sharedPref.getInt("othererrortotal", 0);
+
+        if(errors > 0){
+            for(int i = 0; i<errors; i++){
+                switch(i){
+                    case 0:
+                        error1.setText(sharedPref.getString("errorone", "ERROR CATEGORY NOT FOUND"));
+                        error1.setVisibility(View.VISIBLE);
+                        errorsHeader.setVisibility(View.VISIBLE);
+                        errorDescription1.setVisibility(View.VISIBLE);
+                        break;
+                    case 1:
+                        error2.setText(sharedPref.getString("errortwo", "ERROR CATEGORY NOT FOUND"));
+                        error2.setVisibility(View.VISIBLE);
+                        errorDescription2.setVisibility(View.VISIBLE);
+                        break;
+                    case 2:
+                        error3.setText(sharedPref.getString("errorthree", "ERROR CATEGORY NOT FOUND"));
+                        error3.setVisibility(View.VISIBLE);
+                        errorDescription3.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+        }
 
         //leavesHouse = (EditText) findViewById(R.id.editText3);
         //leavesHouse.setInputType(InputType.TYPE_CLASS_DATETIME);
         //String leavesHouseTime = leavesHouse.getText().toString();
-        ;
-
-        recipeRead = (CheckBox) findViewById(R.id.checkBox2);
-        costOfMovie = (CheckBox) findViewById(R.id.checkBox);
-        phoneCall = (CheckBox) findViewById(R.id.checkBox3);
 
        /* if(leavesHouse.getT())*/
+        editor.apply();
     }
 
     @Override
@@ -102,33 +157,80 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
 
         editor.apply();
 
-        if(moneyScore == 4 || compareChange()) {
+        boolean errorsComplete = validateErrors();
+
+        if(errorsComplete && checkBoxesChecked && (moneyScore == 4 || compareChange())) {
             alreadyCalculated = true;
 
             Intent i = new Intent(this, SummaryActivity.class);
             //save sequencing with calculateSequencing()
             startActivity(i);
         }else{
-            Toast.makeText(FinalActivity.this, "Enter change gathered, and recorded", Toast.LENGTH_SHORT).show();
+            if(!checkBoxesChecked){
+                Toast.makeText(FinalActivity.this, "Answer all questions by checking yes or no", Toast.LENGTH_SHORT).show();
+            }
+            if(!compareChange() && moneyScore!= 4){
+                Toast.makeText(FinalActivity.this, "Enter change gathered, and recorded", Toast.LENGTH_SHORT).show();
+            }
+            if(!errorsComplete){
+                Toast.makeText(FinalActivity.this, "Enter other error descriptions", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
+    public boolean validateErrors(){
+        boolean a = true;
+        SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        int errors = sharedPref.getInt("othererrortotal", 0);
+
+        if(errors == 0){
+            return true;
+        }
+        if(errors >= 1){
+            if(errorDescription1.getText().length() == 0) {
+                editor.putString("error1", errorDescription1.getText().toString());
+                a = false;
+            }
+        }
+        if(errors >= 2){
+            if(errorDescription2.getText().length() == 0) {
+                editor.putString("error2", errorDescription2.getText().toString());
+                a = false;
+            }
+        }
+        if(errors == 3){
+            if(errorDescription3.getText().length() == 0) {
+                editor.putString("error3", errorDescription3.getText().toString());
+                a = false;
+            }
+        }
+        editor.apply();
+        return a;
+    }
+
     public int calculateSequencing(){
+        if(radioGroup1.getCheckedRadioButtonId() == -1 || radioGroup1.getCheckedRadioButtonId() == -1 ||
+                radioGroup1.getCheckedRadioButtonId() == -1){
+            return 0;
+        }else{
+            checkBoxesChecked = true;
+        }
         if(alreadyCalculated){
             return 0;
         }
         int sequencing = 0;
-        SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
-        boolean phoneCallEnd = sharedPref.getBoolean("phoneCallEnd", false);
+        //this portion is no longer calculated, it is done manually by user
+        /*SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
+        boolean phoneCallEnd = sharedPref.getBoolean("phoneCallEnd", false);*/
 
-        if(recipeRead.isChecked()){
+        if(radioGroup1.getCheckedRadioButtonId() == radioY.getId()){
             sequencing++;
         }
-        if(costOfMovie.isChecked()){
+        if(radioGroup2.getCheckedRadioButtonId() == radioY2.getId()){
             sequencing++;
         }
-        if(phoneCall.isChecked() && !phoneCallEnd)
-        {
+        if(radioGroup3.getCheckedRadioButtonId() ==  radioY3.getId()/* && !phoneCallEnd*/) {
             sequencing++;
         }
         return sequencing;
@@ -308,8 +410,7 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
                 movieScore = 3;
             }
             movieInac++;
-            movieIncom++;
-            errorTotals+=2;
+            errorTotals++;
             //Toast.makeText(FinalActivity.this, "late", Toast.LENGTH_SHORT).show();
         }
         editor.putInt("movieScore", movieScore);

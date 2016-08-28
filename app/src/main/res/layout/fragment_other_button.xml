@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context="com.example.wesle.wsuuioption1.OtherButton">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/radiogroup">
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Recipe"
+            android:id="@+id/recipebutton"
+            android:checked="false"
+            android:textSize="20dp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Movie"
+            android:id="@+id/moviebutton"
+            android:checked="false"
+            android:textSize="20dp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Snack"
+            android:id="@+id/snackbutton"
+            android:checked="false"
+            android:textSize="20dp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Travel"
+            android:id="@+id/travelbutton"
+            android:checked="false"
+            android:textSize="20dp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:id="@+id/phonebutton"
+            android:checked="false"
+            android:textSize="20dp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Money"
+            android:id="@+id/moneybutton"
+            android:checked="false"
+            android:textSize="20dp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tea"
+            android:id="@+id/teabutton"
+            android:checked="false"
+            android:textSize="20dp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Exit"
+            android:id="@+id/exitbutton"
+            android:checked="false"
+            android:textSize="20dp" />
+    </RadioGroup>
+
+</LinearLayout>

@@ -23,10 +23,11 @@
             android:text="Start"
             android:id="@+id/moviestart"
             style="@style/MainButton"/>
-        <!--<Button
-            android:text="Pause"
-            android:id="@+id/moviepause"
-            style="@style/MainButton"/>-->
+        <Button
+            android:text="Comments"
+            android:id="@+id/moviecomments"
+            style="@style/MainButton"
+            android:onClick="comments"/>
     </LinearLayout>
 
     <Button

@@ -23,6 +23,11 @@
             android:text="Start"
             android:id="@+id/phonestart"
             style="@style/MainButton"/>
+        <Button
+            android:text="Comments"
+            android:id="@+id/phonecomments"
+            style="@style/MainButton"
+            android:onClick="comments"/>
     </LinearLayout>
     <Button
         android:text="Looks in multiple locations"

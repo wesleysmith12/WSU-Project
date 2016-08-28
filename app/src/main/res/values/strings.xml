@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Night Out Task</string>
+    <string name="help">Help</string>
+    <string name="about">About</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="look_in_multiple_locations">Look in multiple locations</string>
+</resources>

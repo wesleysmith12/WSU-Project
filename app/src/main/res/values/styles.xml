@@ -1,0 +1,46 @@
+<resources xmlns:android="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="MainButton">
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="MiscButton">
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:background">#981e32</item>
+        <item name="android:padding">7sp</item>
+        <item name="android:layout_margin">5sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="StartStop">
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">50dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:background">@android:color/holo_green_dark</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+</resources>
+
+<!--
+
+android:textSize="9dp"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:layout_marginBottom="-10dp"-->

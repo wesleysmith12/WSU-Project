@@ -25,6 +25,11 @@
             android:text="Start"
             android:id="@+id/exitstart"
             style="@style/MainButton"/>
+        <Button
+            android:text="Comments"
+            android:id="@+id/exitcomments"
+            style="@style/MainButton"
+            android:onClick="comments"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
