@@ -30,14 +30,14 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
     //String FILENAME = "internalString";
     private TextView gathered, recorded, leavesHouse;
     private EditText changeRecorded, changeGathered, comments;
-    private CheckBox recipeRead, costOfMovie, phoneCall;
     private TimePicker time;
     private RadioGroup radioGroup1, radioGroup2, radioGroup3;
     private int minutes;
     private int hours;
     private boolean alreadyCalculated = false;
     private boolean checkBoxesChecked = false;
-    private RadioButton radioY, radioN, radioY2, radioN2, radioY3, radioN3;
+    private RadioButton radioY, radioY2, radioY3;
+    private TimePicker timePicker;
 
     TextView errorsHeader;
     TextView error1;
@@ -56,9 +56,13 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
         time = (TimePicker) findViewById(R.id.timePicker);
 
         //this code makes so that the clock is pm by default
-        if(time.getCurrentHour() < 12)
-        {
-            time.setCurrentHour(time.getCurrentHour()+12);
+        try{
+            if(time.getCurrentHour() < 12)
+            {
+                time.setCurrentHour(time.getCurrentHour()+12);
+            }
+        }catch(NullPointerException e) {
+
         }
 
         SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
@@ -74,11 +78,8 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
         radioGroup2 = (RadioGroup) findViewById(R.id.radiogroup2);
         radioGroup3 = (RadioGroup) findViewById(R.id.radiogroup3);
         radioY = (RadioButton) findViewById(R.id.radioButton);
-        radioN = (RadioButton) findViewById(R.id.radioButton2);
         radioY2 = (RadioButton) findViewById(R.id.radioButton3);
-        radioN2 = (RadioButton) findViewById(R.id.radioButton4);
         radioY3 = (RadioButton) findViewById(R.id.radioButton5);
-        radioN3 = (RadioButton) findViewById(R.id.radioButton6);
         /*if(sharedPref.getInt("movieScore", 1) == 4){
                 time.setVisibility(View.GONE);
             leavesHouse.setVisibility(View.GONE);
@@ -124,9 +125,9 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
             }
         }
 
-        //leavesHouse = (EditText) findViewById(R.id.editText3);
-        //leavesHouse.setInputType(InputType.TYPE_CLASS_DATETIME);
-        //String leavesHouseTime = leavesHouse.getText().toString();
+        //timePicker = (TimePicker) findViewById(R.id.timePicker);
+//        leavesHouse.setInputType(InputType.TYPE_CLASS_DATETIME);
+//        String leavesHouseTime = leavesHouse.getText().toString();
 
        /* if(leavesHouse.getT())*/
         editor.apply();
@@ -136,7 +137,12 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
     public boolean onTouchEvent(MotionEvent event) {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.
                 INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        try{
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }catch(NullPointerException e){
+
+        }
+
         return true;
     }
 
@@ -166,19 +172,14 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
             //save sequencing with calculateSequencing()
             startActivity(i);
         }else{
-            if(!checkBoxesChecked){
-                Toast.makeText(FinalActivity.this, "Answer all questions by checking yes or no", Toast.LENGTH_SHORT).show();
-            }
-            if(!compareChange() && moneyScore!= 4){
-                Toast.makeText(FinalActivity.this, "Enter change gathered, and recorded", Toast.LENGTH_SHORT).show();
-            }
-            if(!errorsComplete){
-                Toast.makeText(FinalActivity.this, "Enter other error descriptions", Toast.LENGTH_SHORT).show();
-            }
+                Toast.makeText(FinalActivity.this, "Please answer every question", Toast.LENGTH_SHORT).show();
         }
     }
 
     public boolean validateErrors(){
+        if(alreadyCalculated){
+            return true;
+        }
         boolean a = true;
         SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -224,15 +225,30 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
         /*SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
         boolean phoneCallEnd = sharedPref.getBoolean("phoneCallEnd", false);*/
 
+        SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
         if(radioGroup1.getCheckedRadioButtonId() == radioY.getId()){
             sequencing++;
+            editor.putString("costOfMovie", "1");
+        }else{
+            editor.putString("costOfMovie", "2");
         }
         if(radioGroup2.getCheckedRadioButtonId() == radioY2.getId()){
             sequencing++;
+            editor.putString("recipeRetrieve", "1");
+        }else{
+            editor.putString("recipeRetrieve", "2");
         }
         if(radioGroup3.getCheckedRadioButtonId() ==  radioY3.getId()/* && !phoneCallEnd*/) {
             sequencing++;
+            editor.putString("phoneNearEnd", "1");
+        }else{
+            editor.putString("phoneNearEnd", "2");
         }
+
+        editor.apply();
+
         return sequencing;
     }
 
@@ -288,9 +304,9 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
         int moneyIncom = sharedPref.getInt("monincom", 0);
         int errorTotals = sharedPref.getInt("errorTotals", 0);
         if(changeRecordedText > changeGatheredText){ //didn't get enough money: inaccurate and inefficient
-            if(lessMoney){
+            /*if(lessMoney){
                 //do nothing
-            }else if(moreMoney){
+            }else */if(moreMoney){
                 if(moneyScore == 1 || moneyScore == 2){
                     moneyScore = 3;
                 }
@@ -316,9 +332,9 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
                 lessMoney = true;
             }
         }else if(changeRecordedText < changeGatheredText){ //grabbed too much money
-            if(moreMoney){
+            /*if(moreMoney){
                 //do nothing
-            }else if(lessMoney){
+            }else */if(lessMoney){
                 moneyInac--;
                 moneyIncom--;
                 errorTotals-=2;
@@ -373,6 +389,8 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
         editor.putBoolean("lessMoney", lessMoney);
         //Toast.makeText(FinalActivity.this, "Change Gathered: " + changeRecordedText, Toast.LENGTH_SHORT).show();
         //Toast.makeText(FinalActivity.this, "Change Recorded " + changeGatheredText, Toast.LENGTH_SHORT).show();
+        editor.putString("changeRecorded", changeRecordedText.toString());
+        editor.putString("changeGathered", changeGatheredText.toString());
         editor.apply();
         return true;
     }
@@ -420,6 +438,11 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
         editor.putBoolean("movieLate", movieLate);
         editor.putBoolean("movieEarly", movieEarly);
         editor.putInt("errorTotals", errorTotals);
+
+        //save time
+        editor.putInt("movieHours", hours);
+        editor.putInt("movieMinutes", minutes);
+
         editor.apply();
     }
 }

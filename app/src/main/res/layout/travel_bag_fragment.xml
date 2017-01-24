@@ -17,7 +17,8 @@
             android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp"
             android:textColor="#000000"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:background="#b06ea8" />
         <Button
             android:text="Start"
             android:id="@+id/travelstart"

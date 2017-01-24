@@ -6,24 +6,24 @@
     <Button
         style="@style/MiscButton"
         android:background="@drawable/colorbutton"
-        android:text="additional NTRA"
+        android:text="Double-checking"
         android:id="@+id/misc1" />
 
     <Button
         style="@style/MiscButton"
         android:background="@drawable/colorbutton"
-        android:text="perseveration"
+        android:text="Self-correction"
         android:id="@+id/misc2" />
-
+        <!--SC(Self-correction)-->
     <Button
         style="@style/MiscButton"
         android:background="@drawable/colorbutton"
-        android:text="wandering"
+        android:text="mid-task planning"
         android:id="@+id/misc3" />
-
+        <!--Plan(mid-task planning)-->
     <Button
         style="@style/MiscButton"
         android:background="@drawable/colorbutton"
-        android:text="requests help"
+        android:text="Searching"
         android:id="@+id/misc4" />
 </LinearLayout>

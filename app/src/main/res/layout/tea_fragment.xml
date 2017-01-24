@@ -17,7 +17,8 @@
             android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp"
             android:textColor="#000000"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:background="#f3ff0d" />
         <Button
             android:text="Start"
             android:id="@+id/teastart"
@@ -73,5 +74,10 @@
         android:text="Does not finish task"
         android:id="@+id/tea11"
         style="@style/MainButton"/>
+    <com.example.wesle.wsuuioption1.ToggleButton
+        android:text="Do I Toggle?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/doiwork" />
 
 </LinearLayout>

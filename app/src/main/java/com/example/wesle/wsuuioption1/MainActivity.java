@@ -1,39 +1,19 @@
 package com.example.wesle.wsuuioption1;
 
-import android.app.ActionBar;
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.LightingColorFilter;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.SystemClock;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.Chronometer;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.PopupWindow;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
 
@@ -41,26 +21,49 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 //changed from appcompat to Activity remove titlebar
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+
     //Button btnOnClick;
-    private Button mainStart, movieStart, moviePause, phoneStart, recipeStart, snackStart, teaStart, travelStart, exitStart,
+    private Button mainStart, movieStart, phoneStart, recipeStart, snackStart, teaStart, travelStart, exitStart,
             moneyStart, money1, movie9, money2, money3, money4, money5, money6, money7, money8, exit1, exit2, exit3, exit4,
             movie1, movie2, movie3, movie4, movie5, movie6, movie7, movie8, phone1, phone2, phone3, phone4, phone5,
             phone6, phone7, recipe1, recipe2, recipe3, recipe4, recipe5, recipe6, recipe7, recipe8, recipe9, recipe10,
             recipe11, recipe12, recipe13, recipe14, recipe15, snack1, snack2, snack3, snack4, snack5, snack6, snack7, snack8,
             tea1, tea2, tea3, tea4, tea5, tea6, tea7, tea8, tea9, tea10, tea11, travel1, travel2, travel3, travel4,
             travel5, misc1, misc2, misc3, misc4,
-            continueBtn, recipeComments;
+            continueBtn;
 
-    private EditText recipeComment;
+    ToggleButton customButton;
 
-    //undobutton
     AlertDialog dialog;
     AlertDialog dialog1;
+
+    //time variables
+    private String overallStartTime;
+    private String overallFinishTime;
+    private String recipeStartTime;
+    private String recipeFinishTime;
+    private String exitStartTime;
+    private String exitFinishTime;
+    private String movieStartTime;
+    private String movieFinishTime;
+    private String phoneStartTime;
+    private String phoneFinishTime;
+    private String snackStartTime;
+    private String snackFinishTime;
+    private String changeStartTime;
+    private String changeFinishTime;
+    private String travelStartTime;
+    private String travelFinishTime;
+    private String teaStartTime;
+    private String teaFinishTime;
 
     //completion scores
     private int movieScore = 4;
@@ -78,14 +81,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private long multitaskMoney = 0;
     private long moneyTemp = 0;
     private long moneyTemp2 = 0;
-    private long moneyFinish = 0;
     private long timeExit = 0;
     private long multitaskExit = 0;
     private long exitTemp = 0;
     private long exitTemp2 = 0;
     private long timeMovie = 0;
     private long multitaskMovie = 0;
-    private long movieFinish = 0;
     private long movieTemp = 0;
     private long movieTemp2 = 0;
     private long timePhone = 0;
@@ -114,8 +115,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private String recipeCom, movieCom, phoneCom, snackCom, teaCom, travelCom, exitCom, moneyCom;
 
-    private int taskPlanning, totalExecution, overallQuality, overallAccuracy, correctSequencing, errorTotals;
-
     int totalInefficient, movieInefficient, phoneInefficient, recipeInefficient, snackInefficient, teaInefficient, travelInefficient,
             exitInefficient, moneyInefficient;
 
@@ -125,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int totalInaccurate, movieInaccurate, phoneInaccurate, recipeInaccurate, snackInaccurate, teaInaccurate, travelInaccurate, exitInaccurate,
             moneyInaccurate;
 
-    private int otherErrors = 0;
+    private int otherErrors;
     private String[] otherErrorList = new String[3];
 
     //arrays for sequential score
@@ -136,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String[] finishOrder = new String[ARRAY_SIZE];
     int simultaneousIndex = 0;
     ArrayList<String> simultaneousOrder = new ArrayList<String>();
+    ArrayList<String> finishSequenceOrder = new ArrayList<String>();
 
     private int start = 1;
 
@@ -155,7 +155,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean money = false;
     private boolean exit = false;
     private boolean movie = false;
-    private boolean movPause = false;
     private boolean phone = false;
     private boolean recipe = false;
     private boolean snack = false;
@@ -322,6 +321,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private long misc3T = 0;
     private long misc4T = 0;
 
+    private int misc1Count = 0;
+    private int misc2Count = 0;
+    private int misc3Count = 0;
+    private int misc4Count = 0;
+
     private boolean moreMoney = false;
     private boolean lessMoney = false;
     private boolean movieEarly = false;
@@ -330,183 +334,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private boolean noMoreTiming = false;
 
-    /*private boolean movie1b;
-    private boolean movie9b;
-    private boolean movie2b;
-    private boolean movie3b;
-    private boolean movie4b;
-    private boolean movie5b;
-    private boolean movie6b;
-    private boolean movie7b;
-    private boolean movie8b;
-
-    private long movie1T;
-    private long movie9T;
-    private long movie2T;
-    private long movie3T;
-    private long movie4T;
-    private long movie5T;
-    private long movie6T;
-    private long movie7T;
-    private long movie8T;
-
-    private boolean money1b;
-    private boolean money2b;
-    private boolean money3b;
-    private boolean money4b;
-    private boolean money5b;
-    private boolean money6b;
-    private boolean money7b;
-    private boolean money8b;
-
-    public long money1T;
-    public long money2T;
-    public long money3T;
-    public long money4T;
-    public long money5T;
-    public long money6T;
-    public long money7T;
-    public long money8T;
-
-    private boolean exit1b;
-    private boolean exit2b;
-    private boolean exit3b;
-    private boolean exit4b;
-
-    private long exit1T;
-    private long exit2T;
-    private long exit3T;
-    private long exit4T;
-
-    private boolean phone1b;
-    private boolean phone2b;
-    private boolean phone3b;
-    private boolean phone4b;
-    private boolean phone5b;
-    private boolean phone6b;
-    private boolean phone7b;
-
-    private long phone1T;
-    private long phone2T;
-    private long phone3T;
-    private long phone4T;
-    private long phone5T;
-    private long phone6T;
-    private long phone7T;
-
-    private boolean recipe1b;
-    private boolean recipe2b;
-    private boolean recipe3b;
-    private boolean recipe4b;
-    private boolean recipe5b;
-    private boolean recipe6b;
-    private boolean recipe7b;
-    private boolean recipe8b;
-    private boolean recipe9b;
-    private boolean recipe10b;
-    private boolean recipe11b;
-    private boolean recipe12b;
-    private boolean recipe13b;
-    private boolean recipe14b;
-
-    private long recipe1T;
-    private long recipe2T;
-    private long recipe3T;
-    private long recipe4T;
-    private long recipe5T;
-    private long recipe6T;
-    private long recipe7T;
-    private long recipe8T;
-    private long recipe9T;
-    private long recipe10T;
-    private long recipe11T;
-    private long recipe12T;
-    private long recipe13T;
-    private long recipe14T;
-
-    private boolean snack1b;
-    private boolean snack2b;
-    private boolean snack3b;
-    private boolean snack4b;
-    private boolean snack5b;
-    private boolean snack6b;
-    private boolean snack7b;
-    private boolean snack8b;
-
-    private long snack1T;
-    private long snack2T;
-    private long snack3T;
-    private long snack4T;
-    private long snack5T;
-    private long snack6T;
-    private long snack7T;
-    private long snack8T;
-
-    private boolean tea1b;
-    private boolean tea2b;
-    private boolean tea3b;
-    private boolean tea4b;
-    private boolean tea5b;
-    private boolean tea6b;
-    private boolean tea7b;
-    private boolean tea8b;
-    private boolean tea9b;
-    private boolean tea10b;
-    private boolean tea11b;
-
-    private long tea1T;
-    private long tea2T;
-    private long tea3T;
-    private long tea4T;
-    private long tea5T;
-    private long tea6T;
-    private long tea7T;
-    private long tea8T;
-    private long tea9T;
-    private long tea10T;
-    private long tea11T;
-
-    private boolean travel1b;
-    private boolean travel2b;
-    private boolean travel3b;
-    private boolean travel4b;
-    private boolean travel5b;
-
-    private long travel1T;
-    private long travel2T;
-    private long travel3T;
-    private long travel4T;
-    private long travel5T;
-
-    private boolean misc1b;
-    private boolean misc2b;
-    private boolean misc3b;
-    private boolean misc4b;
-
-    private long misc1T;
-    private long misc2T;
-    private long misc3T;
-    private long misc4T;
-
-    private boolean moreMoney;
-    private boolean lessMoney;
-    private boolean movieEarly;
-    private boolean movieLate;*/
-
     Button lastButtonClicked;
 
-    AlertDialog.Builder builder;
     AlertDialog.Builder builder1;
     AlertDialog.Builder builder3;
-    //AlertDialog.Builder builder4;
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
     private GoogleApiClient client;
-
-    boolean[] ingredientChecked = {false, false, false, false, false, false, false, false};
 
     boolean[] recipeSimultaneous = {false, false, false, false, false, false, false, false};
     boolean[] movieSimultaneous = {false, false, false, false, false, false, false, false};
@@ -519,40 +352,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     boolean[] currentSimultaneous = {false, false, false, false, false, false, false, false};
 
 
+    DateFormat dfDate;
+    DateFormat df;
+    Date dateobj;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //remove title bar to create more space for this activity
-        getSupportActionBar().hide(); //<< this
+        try{
+            getSupportActionBar().hide(); //<< this
+        }catch(NullPointerException e){}
+
+        dfDate = new SimpleDateFormat("dd/MM/yy");
+
+        df = new SimpleDateFormat("HH:mm:ss");
 
         setContentView(R.layout.activity_main);
 
         // Assign button variables
         defineButtons();
 
-        // define buttons for ingredients list
+        otherErrors = 0;
 
-        //make moviePause invisible
-        //moviePause.setVisibility (View.INVISIBLE);
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }*/
-
     public void defineButtons() {
 
-        //change default button colors for inacurate/incomplete buttons
-
-
-        //undobutton = (Button) findViewById(R.id.undobutton);
+        final ToggleButton customButton = (ToggleButton)findViewById(R.id.doiwork);
 
         //start/stop buttons
         mainStart = (Button) findViewById(R.id.mainstart);
@@ -566,9 +396,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         teaStart = (Button) findViewById(R.id.teastart);
         travelStart = (Button) findViewById(R.id.travelstart);
 
-        //moviePause = (Button) findViewById(R.id.moviepause);
-
-        //Define buttons
+        //Define error buttons
         money1 = (Button) findViewById(R.id.money1);
         money2 = (Button) findViewById(R.id.money2);
         money3 = (Button) findViewById(R.id.money3);
@@ -650,12 +478,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         misc3 = (Button) findViewById(R.id.misc3);
         misc4 = (Button) findViewById(R.id.misc4);
 
-        //recipeComments = (Button) findViewById(R.id.recipecomments);
+        customButton.setOnClickListener(MainActivity.this);
 
         //Set on click listeners
-        //moviePause.setOnClickListener(MainActivity.this);
-
-        //mainStart.setOnClickListener(MainActivity.this);
         movieStart.setOnClickListener(MainActivity.this);
         moneyStart.setOnClickListener(MainActivity.this);
         exitStart.setOnClickListener(MainActivity.this);
@@ -746,9 +571,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         misc3.setOnClickListener(MainActivity.this);
         misc4.setOnClickListener(MainActivity.this);
 
-        ///recipeComments.setOnClickListener(MainActivity.this);
+        misc1.setOnLongClickListener(new View.OnLongClickListener() {
 
-        // change default and inaccurate buttons
+            public boolean onLongClick(View v) {
+                misc1Count--;
+                Toast.makeText(getBaseContext(), "misc1 Count: " + misc1Count, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+        // change default color of inaccurate buttons
         movie5.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
         movie6.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
         movie7.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
@@ -787,14 +619,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         exit3.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
         exit4.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
 
-
-        final CharSequence[] items = {" Cereal ", " Chocolate chips ", " Crunchy peanut butter ", " Vanilla ", " Espresso powder ",
-                " Kosher salt ", " Powdered sugar ", " Marshmallows "};
-        // arraylist to keep the selected items
-        final ArrayList seletedItems = new ArrayList();
-
+        // this creates the dialog but does not display it. That way when checked boxes are checked off,
+        // and user closes the window, the checks are saved on the dialog box
         builder1 = new AlertDialog.Builder(this);
-        //builder.setTitle("Ingredients List");
+
         LayoutInflater inflater = this.getLayoutInflater();
         builder1.setView(inflater.inflate(R.layout.fragment_ingredients, null))
                 // Add action buttons
@@ -808,14 +636,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void startNOT(View v) {
+
         if (start == 1) {
             totalExecutionTime = System.currentTimeMillis();
-            //Toast.makeText(MainActivity.this, "NOT started", Toast.LENGTH_SHORT).show();
+
+            // get start timestamp
+            dateobj = new Date();
+            overallStartTime = df.format(dateobj);
+            //Toast.makeText(MainActivity.this, overallStartTime, Toast.LENGTH_SHORT).show();
+
             mainStart.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xf9152f));
             mainStart.setText("Stop NOT");
             start = 2;
             NOTstarted = true;
+
+            //this is for the toggle button class
+            ToggleButton.started = true;
+
         } else if (start == 2) {
+
+            //get finish time of eperinment
+            dateobj = new Date();
+            overallFinishTime = df.format(dateobj);
+            //Toast.makeText(MainActivity.this, overallFinishTime, Toast.LENGTH_SHORT).show();
+
             //stops experinment
             AlertDialog.Builder a_builder = new AlertDialog.Builder(MainActivity.this);
             a_builder.setMessage("Test will end. Are you sure you want to Stop NOT??")
@@ -831,7 +675,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             continueBtn.setVisibility(View.VISIBLE);
                             start = 3;
                             noMoreTiming = true;
-                            //Toast.makeText(MainActivity.this, "sequencing: " + simultaneous("movie"), Toast.LENGTH_SHORT).show();
 
                         }
                     })
@@ -962,6 +805,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         switch (v.getId()) {
 
+            case R.id.doiwork:
+                int state = ((ToggleButton)v).getState();
+                switch(state)
+                {
+                    case 0:
+                        //((ToggleButton)v).setText("CASE 0");
+                        break;
+                    case 1: // Do whatever is needed when the button changes to state 1
+                        //((ToggleButton)v).setText("CASE 1");
+                        break;
+                    case 2: // Do whatever is needed when the button changes to state 2
+                        ((ToggleButton)v).setText("CASE 2");
+                        v.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
+                        break;
+                    default:break; // Should never occur
+                }
+                break;
             case R.id.money1:
                 //Toast.makeText(MainActivity.this, "onClickListener working", Toast.LENGTH_SHORT).show();
                 if (moneyTemp <= 0) {
@@ -2780,6 +2640,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 pauseContinue();
                 break;*/
             case R.id.misc1:
+                // get misc button count
+                misc1Count++;
+                Toast.makeText(MainActivity.this, "Misc1 Count: " + misc1Count, Toast.LENGTH_SHORT).show();
+
                 if (!misc1b) {
                     //Toast.makeText(MainActivity.this, "onClickListener working", Toast.LENGTH_SHORT).show();
                     misc1T = System.currentTimeMillis() - totalExecutionTime;
@@ -2791,6 +2655,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.misc2:
+
+                // get misc button count
+                misc2Count++;
+                Toast.makeText(MainActivity.this, "Misc2 Count: " + misc1Count, Toast.LENGTH_SHORT).show();
+
                 if (!misc2b) {
                     misc2T = System.currentTimeMillis() - totalExecutionTime;
                     misc2.setTextColor(Color.parseColor("#000000"));
@@ -2801,6 +2670,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.misc3:
+
+                // misc button count
+                misc3Count++;
+                Toast.makeText(MainActivity.this, "Misc3 Count: " + misc1Count, Toast.LENGTH_SHORT).show();
+
                 if (!misc3b) {
                     misc3T = System.currentTimeMillis() - totalExecutionTime;
                     misc3.setTextColor(Color.parseColor("#000000"));
@@ -2811,6 +2685,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.misc4:
+
+                // misc button count
+                misc4Count++;
+                Toast.makeText(MainActivity.this, "Misc4 Count: " + misc1Count, Toast.LENGTH_SHORT).show();
+
                 if (!misc4b) {
                     misc4T = System.currentTimeMillis() - totalExecutionTime;
                     misc4.setTextColor(Color.parseColor("#000000"));
@@ -2936,7 +2815,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         SharedPreferences.Editor editor = sharedPref.edit();
 
                         String temp = text.getText().toString();
-                        Toast.makeText(MainActivity.this, temp, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(MainActivity.this, temp, Toast.LENGTH_LONG).show();
                         switch(v.getId()) {
                             case R.id.recipecomments:
                                 recipeCom = text.getText().toString();
@@ -3124,6 +3003,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //this variable is changed in calculateSequencing()
         editor.putBoolean("phoneCallEnd", phoneCallEnd);
 
+        // save start times for tasks
+        editor.putString("movieStartTime", movieStartTime);
+
+        // Save task End times
+        editor.putString("movieFinishTime", movieFinishTime);
+
+        // save misc counts
+        editor.putInt("misc1Count", misc1Count);
+        editor.putInt("misc2Count", misc2Count);
+        editor.putInt("misc3Count", misc3Count);
+        editor.putInt("misc4Count", misc4Count);
+
+        // save start times
+        editor.putString("overallStartTime", overallStartTime);
+        editor.putString("overallFinishTime", overallFinishTime);
+        //private String overallFinishTime;
+        editor.putString("recipeStartTime", recipeStartTime);
+        //private String recipeFinishTime;
+        editor.putString("exitStartTime", exitStartTime);
+        //private String exitFinishTime;
+        editor.putString("movieStartTime", movieStartTime);
+        //private String movieFinishTime;
+        editor.putString("phoneStartTime", phoneStartTime);
+        //private String phoneFinishTime;
+        editor.putString("snackStartTime", snackStartTime);
+        //private String snackFinishTime;
+        editor.putString("changeStartTime", changeStartTime);
+        //private String changeFinishTime;
+        editor.putString("travelStartTime", travelStartTime);
+        //private String travelFinishTime;
+        editor.putString("teaStartTime", teaStartTime);
+        //private String teaFinishTime;
+
         editor.apply();
     }
 
@@ -3154,14 +3066,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (phone) {
             timerPhone();
         }
-        if (money) {
-            timerMoney();
-        }
         if (snack) {
             timerSnack();
         }
         if (recipe) {
             timerRecipe();
+        }
+        if (money) {
+            timerMoney();
         }
         if (tea) {
             timerTea();
@@ -3201,8 +3113,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             movieTemp = System.currentTimeMillis();
             movieScore = 1;
             startSequence("movie");
+
+            // get start timetimestamp
+            dateobj = new Date();
+            movieStartTime = df.format(dateobj);
+            //Toast.makeText(MainActivity.this, movieStartTime, Toast.LENGTH_SHORT).show();
+
         }
         if (!movie) {
+
             movieTemp2 = System.currentTimeMillis();
             movie = true;
             movieStart.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xf9152f));
@@ -3213,6 +3132,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             calculateSimultaneous();
             //Toast.makeText(MainActivity.this, "Start Button Presseddddd!!!", Toast.LENGTH_SHORT).show();
         } else {
+
+            // update finish time
+            dateobj = new Date();
+            movieFinishTime = df.format(dateobj);
+            //Toast.makeText(MainActivity.this, movieFinishTime, Toast.LENGTH_SHORT).show();
+
             //stop timer
             //moneyFinish will be subtracted from multitaskMoney during the summary activity to get total time of completion
             long temp = System.currentTimeMillis();
@@ -3246,6 +3171,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             moneyScore = 1;
             startSequence("money");
+
+            // get start timetimestamp
+            dateobj = new Date();
+            changeStartTime = df.format(dateobj);
+            //Toast.makeText(MainActivity.this, changeStartTime, Toast.LENGTH_SHORT).show();
+
         }
         if (!money) {
             moneyTemp2 = System.currentTimeMillis();
@@ -3290,6 +3221,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             exitScore = 1;
             startSequence("exit");
+
+            // get start timetimestamp
+            dateobj = new Date();
+            exitStartTime = df.format(dateobj);
+            //Toast.makeText(MainActivity.this, exitStartTime, Toast.LENGTH_SHORT).show();
+
         }
         if (!exit) {
             exitTemp2 = System.currentTimeMillis();
@@ -3334,6 +3271,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             phoneScore = 1;
             startSequence("phone");
+
+            // get start timetimestamp
+            dateobj = new Date();
+            phoneStartTime = df.format(dateobj);
+            //Toast.makeText(MainActivity.this, phoneStartTime, Toast.LENGTH_SHORT).show();
+
         }
         if (!phone) {
             phoneTemp2 = System.currentTimeMillis();
@@ -3377,6 +3320,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             recipeScore = 1;
             startSequence("recipe");
+
+            // get start timetimestamp
+            dateobj = new Date();
+            recipeStartTime = df.format(dateobj);
+            //Toast.makeText(MainActivity.this, recipeStartTime, Toast.LENGTH_SHORT).show();
+
         }
         if (!recipe) {
             recipeTemp2 = System.currentTimeMillis();
@@ -3421,6 +3370,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             snackScore = 1;
             startSequence("snack");
+
+            // get start timetimestamp
+            dateobj = new Date();
+            snackStartTime = df.format(dateobj);
+            //Toast.makeText(MainActivity.this, snackStartTime, Toast.LENGTH_SHORT).show();
+
         }
         if (!snack) {
             snackTemp2 = System.currentTimeMillis();
@@ -3464,6 +3419,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             teaScore = 1;
             startSequence("tea");
+
+            // get start timetimestamp
+            dateobj = new Date();
+            teaStartTime = df.format(dateobj);
+            //Toast.makeText(MainActivity.this, teaStartTime, Toast.LENGTH_SHORT).show();
+
         }
         if (!tea) {
             teaTemp2 = System.currentTimeMillis();
@@ -3507,6 +3468,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             travelScore = 1;
             startSequence("travel");
+
+            // get start timetimestamp
+            dateobj = new Date();
+            travelStartTime = df.format(dateobj);
+            //Toast.makeText(MainActivity.this, travelStartTime, Toast.LENGTH_SHORT).show();
+
         }
         if (!travel) {
             travelTemp2 = System.currentTimeMillis();
@@ -3590,7 +3557,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void startSequence(String category) {
         for (int i = 0; i < 8; i++) {
-            if (startOrder[i] == category) {
+            if (startOrder[i] != null && startOrder[i].equals(category)) {
                 return;
             }
         }
@@ -3599,49 +3566,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void finishSequence(String category) {
-        //every time function is called, array must be checked to make sure it is put last
-        int tempIndex = 0;
-        //this loop works
-        //the first time something is added it is added to index two though
-        while (/*category != finishOrder[tempIndex] && */tempIndex < 7) {
-            /*if(tempIndex == 7){
-                finishOrder[finishIndex] = category;
-                if(finishIndex < 7){
-                    finishIndex++;
-                }
-                return;
-            }*/
-            if (finishOrder[tempIndex] == (category)) {
+
+        /*current attempt*/
+        int index = 0;
+        while(index < 8){
+            if(finishOrder[index] == null){
+                finishOrder[index] = category;
                 break;
             }
-            tempIndex++;
-        }
-        //if there was no match or task was already the last in the array
-        if (tempIndex == 7) {
-            finishOrder[finishIndex] = category;
-            if (finishIndex < 7) {
-                finishIndex++;
+            if(finishOrder[index].equals(category)){
+                if(index == 7 || finishOrder[index+1] == null){
+                    break;
+                }
+                finishOrder[index] = finishOrder[index + 1];
+                finishOrder[index + 1] = category;
             }
+            index++;
         }
 
-        //if we found an index and now we need to shift up data
-        for (int i = tempIndex; i < finishIndex; i++) {
-            finishOrder[i] = finishOrder[i + 1];
+        /*current attempt ^^^ */
+
+        //test code
+        String temp = "";
+        for(int i = 0; i < 8; i++){
+            temp += " " + finishOrder[i];
         }
-
-        //// this if statement is basicly the only code that was changed to fix the code.
-        if (finishIndex < 7) {
-            finishOrder[finishIndex - 1] = category;
-        } else {
-            finishOrder[finishIndex] = category;
-        }
-
-
-        /*for(int i = tempIndex; i < 7; i++){
-            finishOrder[i] = finishOrder[i+1];
-        }
-
-        finishOrder[finishIndex] = category;*/
+        Toast.makeText(MainActivity.this, temp, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -3650,17 +3600,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int finish = 0;
         int i = 0;
         int z = 0;
-        while (i < 8 && category != startOrder[i]) {
+        while (i < 8 && !category.equals(startOrder[i])) {
             i++;
             start = i;
         }
 
-        while (z < 8 && category != finishOrder[z]) {
+        while (z < 8 && !category.equals(finishOrder[z])) {
             z++;
             finish = z;
         }
         if (finish == 8 || start == 8) {
-            return "0";
+            return "0 - 0";
         }
         return Integer.toString(start + 1) + " - " + Integer.toString(finish + 1);
 
@@ -3866,147 +3816,305 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.clear();
 
         if (movie1b)
-            editor.putString("movie1b", "Movie: Looks in multiple locations " + Long.toString(movie1T / 1000));
+            editor.putInt("movie1b", 1);//"Movie: Looks in multiple locations " + Long.toString(movie1T / 1000)
+        else
+            editor.putInt("movie1b", 2);
         if (movie9b)
-            editor.putString("movie9b", "Movie: Records leaving before 6:25 " + Long.toString(movie9T / 1000));
+            editor.putInt("movie9b", 1);//Movie: Records leaving before 6:25
+        else
+            editor.putInt("movie9b", 2);
+        if (movie1b)
+            editor.putInt("movie2b", 1);//"Movie: Looks in multiple locations " + Long.toString(movie1T / 1000)
+        else
+            editor.putInt("movie2b", 2);
+        if (movie1b)
+            editor.putInt("movie3b", 1);//"Movie: Looks in multiple locations " + Long.toString(movie1T / 1000)
+        else
+            editor.putInt("movie3b", 2);
+        if (movie1b)
+            editor.putInt("movie4b", 1);//"Movie: Looks in multiple locations " + Long.toString(movie1T / 1000)
+        else
+            editor.putInt("movie4b", 2);
+        if (movie1b)
+            editor.putInt("movie5b", 1);//"Movie: Looks in multiple locations " + Long.toString(movie1T / 1000)
+        else
+            editor.putInt("movie5b", 2);
+        if (movie1b)
+            editor.putInt("movie6b", 1);//"Movie: Looks in multiple locations " + Long.toString(movie1T / 1000)
+        else
+            editor.putInt("movie6b", 2);
         if (movie2b)
-            editor.putString("movie2b", "Movie: Records >$7 senior, >$11 adult " + Long.toString(movie2T / 1000));
-        if (movie3b)
-            editor.putString("movie3b", "Movie: Returns to schedule after finishing task " + Long.toString(movie3T / 1000));
-        if (movie4b)
-            editor.putString("movie4b", "Movie: Records cost for only one person " + Long.toString(movie4T / 1000));
-        if (movie5b)
-            editor.putString("movie5b", "Movie: Does not record answers " + Long.toString(movie5T / 1000));
-        if (movie6b)
-            editor.putString("movie6b", "Movie: Records >$3.50 senior, >$5.50 adult " + Long.toString(movie6T / 1000));
-        if (movie7b)
-            editor.putString("movie7b", "Movie: Records leaving after 6:35 " + Long.toString(movie7T / 1000));
+            editor.putInt("movie7b", 1); //Movie: Records leaving after 6:35
+        else
+            editor.putInt("movie7b", 2);
         if (movie8b)
-            editor.putString("movie8b", "Movie: Does not finish task " + Long.toString(movie8T / 1000));
+            editor.putInt("movie8b", 1);//Movie: Does not finish task
+        else
+            editor.putInt("movie8b", 2);
+
+
         if (money1b)
-            editor.putString("money1b", "Money: Looks in multiple locations " + Long.toString(money1T / 1000));
+            editor.putInt("money1b", 1);//Money: Looks in multiple locations
+        else
+            editor.putInt("money1b", 2);
         if (money2b)
-            editor.putString("money2b", "Money: Gathers $ before checking schedule " + Long.toString(money2T / 1000));
+            editor.putInt("money2b", 1);//Money: Gathers $ before checking schedule
+        else
+            editor.putInt("money2b", 2);
         if (money3b)
-            editor.putString("money3b", "Money: Gathers more $ than recorded " + Long.toString(money3T / 1000));
+            editor.putInt("money3b", 1); //Money: Gathers more $ than recorded
+        else
+            editor.putInt("money3b", 2);
         if (money4b)
-            editor.putString("money4b", "Money: Adjusts $ after finishing task " + Long.toString(money4T / 1000));
+            editor.putInt("money4b", 1);//Money: Adjusts $ after finishing task
+        else
+            editor.putInt("money4b", 2);
         if (money5b)
-            editor.putString("money5b", "Money: Gathers less $ than recorded " + Long.toString(money5T / 1000));
+            editor.putInt("money5b", 1);//Money: Gathers less $ than recorded
+        else
+            editor.putInt("money5b", 2);
         if (money6b)
-            editor.putString("money6b", "Money: Does not take $ out of pocket at end " + Long.toString(money6T / 1000));
+            editor.putInt("money6b", 1);//Money: Does not take $ out of pocket at end
+        else
+            editor.putInt("money6b", 2);
         if (money7b)
-            editor.putString("money7b", "Money: Does not bring $ to door " + Long.toString(money7T / 1000));
+            editor.putInt("money7b", 1);//Money: Does not bring $ to door
+        else
+            editor.putInt("money7b", 2);
         if (money8b)
-            editor.putString("money8b", "Money: Money: Does not finish task " + Long.toString(money8T / 1000));
+            editor.putInt("money8b", 1);//Money: Money: Does not finish task
+        else
+            editor.putInt("money8b", 2);
+
+
         if (exit1b)
-            editor.putString("exit1b", "Exit: Makes multiple trips to door " + Long.toString(exit1T / 1000));
+            editor.putInt("exit1b", 1);//Exit: Makes multiple trips to door
+        else
+            editor.putInt("exit1b", 2);
         if (exit2b)
-            editor.putString("exit2b", "Exit: Not one of last 2 tasks " + Long.toString(exit2T / 1000));
+            editor.putInt("exit2b", 1);//Exit: Not one of last 2 tasks
+        else
+            editor.putInt("exit2b", 2);
         if (exit3b)
-            editor.putString("exit3b", "Exit: Does not bring bag to door " + Long.toString(exit3T / 1000));
+            editor.putInt("exit3b", 1);//Exit: Does not bring bag to door
+        else
+            editor.putInt("exit3b", 2);
         if (exit4b)
-            editor.putString("exit4b", "Exit: Does not finish task " + Long.toString(exit4T / 1000));
+            editor.putInt("exit4b", 1);//Exit: Does not finish task
+        else
+            editor.putInt("exit4b", 2);
+
+
         if (phone1b)
-            editor.putString("phone1b", "Phone: Looks in multiple locations " + Long.toString(phone1T / 1000));
+            editor.putInt("phone1b", 1);//Phone: Looks in multiple locations
+        else
+            editor.putInt("phone1b", 2);
         if (phone2b)
-            editor.putString("phone2b", "Phone: Call is not last task before exit " + Long.toString(phone2T / 1000));
+            editor.putInt("phone2b", 1);//Phone: Call is not last task before exit
+        else
+            editor.putInt("phone2b", 2);
         if (phone3b)
-            editor.putString("phone3b", "Phone: Calls but does not mention leaving " + Long.toString(phone3T / 1000));
+            editor.putInt("phone3b", 1);//Phone: Calls but does not mention leaving
+        else
+            editor.putInt("phone3b", 2);
         if (phone4b)
-            editor.putString("phone4b", "Phone: Makes call more than once " + Long.toString(phone4T / 1000));
+            editor.putInt("phone4b", 1);//Phone: Makes call more than once
+        else
+            editor.putInt("phone4b", 2);
         if (phone5b)
-            editor.putString("phone5b", "Phone: Does not call " + Long.toString(phone5T / 1000));
+            editor.putInt("phone5b", 1);//Phone: Does not call
+        else
+            editor.putInt("phone5b", 2);
         if (phone6b)
-            editor.putString("phone6b", "Phone: Gets phone but does not call " + Long.toString(phone6T / 1000));
+            editor.putInt("phone6b", 1);//Phone: Gets phone but does not call
+        else
+            editor.putInt("phone6b", 2);
         if (phone7b)
-            editor.putString("phone7b", "Phone: Phone Does not finish task " + Long.toString(phone7T / 1000));
+            editor.putInt("phone7b", 1);//Phone: Phone Does not finish task
+        else
+            editor.putInt("phone7b", 2);
+
+
         if (recipe1b)
-            editor.putString("recipe1b", "Recipe: Gathers items before reading recipe " + Long.toString(recipe1T / 1000));
+            editor.putInt("recipe1b", 1);//Recipe: Gathers items before reading recipe
+        else
+            editor.putInt("recipe1b", 2);
         if (recipe2b)
-            editor.putString("recipe2b", "Recipe: Retrieval inefficient (>2 trips each cup.) " + Long.toString(recipe2T / 1000));
+            editor.putInt("recipe2b", 1);//Recipe: Retrieval inefficient (>2 trips each cup.)
+        else
+            editor.putInt("recipe2b", 2);
         if (recipe3b)
-            editor.putString("recipe3b", "Recipe: Does not efficiently locate recipe (index/TOC) " + Long.toString(recipe3T / 1000));
+            editor.putInt("recipe3b", 1);//Recipe: Does not efficiently locate recipe (index/TOC)
+        else
+            editor.putInt("recipe3b", 2);
         if (recipe4b)
-            editor.putString("recipe4b", "Recipe: Gathers creamy PB, not chunky " + Long.toString(recipe4T / 1000));
+            editor.putInt("recipe4b", 1);//Recipe: Gathers creamy PB, not chunky
+        else
+            editor.putInt("recipe4b", 2);
         if (recipe5b)
-            editor.putString("recipe5b", "Recipe: Gathers table salt, not kosher " + Long.toString(recipe5T / 1000));
+            editor.putInt("recipe5b", 1);//Recipe: Gathers table salt, not kosher
+        else
+            editor.putInt("recipe5b", 2);
         if (recipe6b)
-            editor.putString("recipe6b", "Recipe: Gathers espresso, not coffee " + Long.toString(recipe6T / 1000));
+            editor.putInt("recipe6b", 1);//Recipe: Gathers espresso, not coffee
+        else
+            editor.putInt("recipe6b", 2);
         if (recipe7b)
-            editor.putString("recipe7b", "Recipe: Gathers extra items " + Long.toString(recipe7T / 1000));
+            editor.putInt("recipe7b", 1);//Recipe: Gathers extra items
+        else
+            editor.putInt("recipe7b", 2);
         if (recipe8b)
-            editor.putString("recipe8b", "Recipe: Does not gather 1-2 nonessential items " + Long.toString(recipe8T / 1000));
+            editor.putInt("recipe8b", 1);//Recipe: Does not gather 1-2 nonessential items
+        else
+            editor.putInt("recipe8b", 2);
         if (recipe9b)
-            editor.putString("recipe9b", "Recipe: Carries all items to bag, not bag to items " + Long.toString(recipe9T / 1000));
+            editor.putInt("recipe9b", 1);//Recipe: Carries all items to bag, not bag to items
+        else
+            editor.putInt("recipe9b", 2);
         if (recipe10b)
-            editor.putString("recipe10b", "Recipe: Makes change after finishing task " + Long.toString(recipe10T / 1000));
+            editor.putInt("recipe10b", 1);//Recipe: Makes change after finishing task
+        else
+            editor.putInt("recipe10b", 2);
         if (recipe11b)
-            editor.putString("recipe11b", "Recipe: Does not gather 1+ essential items " + Long.toString(recipe11T / 1000));
+            editor.putInt("recipe11b", 1);//Recipe: Does not gather 1+ essential items
+        else
+            editor.putInt("recipe11b", 2);
         if (recipe12b)
-            editor.putString("recipe12b", "Recipe: Does not gather 3+ nonessential items " + Long.toString(recipe12T / 1000));
+            editor.putInt("recipe12b", 1);//Recipe: Does not gather 3+ nonessential items
+        else
+            editor.putInt("recipe12b", 2);
         if (recipe13b)
-            editor.putString("recipe13b", "Recipe: Locates wrong recipe and gathers items " + Long.toString(recipe13T / 1000));
+            editor.putInt("recipe13b", 1);//Recipe: Locates wrong recipe and gathers items
+        else
+            editor.putInt("recipe13b", 2);
         if (recipe14b)
-            editor.putString("recipe14b", "Recipe: Does not finish task " + Long.toString(recipe14T / 1000));
+            editor.putInt("recipe14b", 1);//Recipe: Does not finish task
+        else
+            editor.putInt("recipe14b", 2);
         if (recipe15b)
-            editor.putString("recipe15b", "Gathers granulated sugar, not powdered " + Long.toString(recipe15T / 1000));
+            editor.putInt("recipe15b", 1);//Gathers granulated sugar, not powdered
+        else
+            editor.putInt("recipe15b", 2);
+
+
         if (snack1b)
-            editor.putString("snack1b", "Snack: Looks in multiple locations " + Long.toString(snack1T / 1000));
+            editor.putInt("snack1b", 1);//Snack: Looks in multiple locations
+        else
+            editor.putInt("snack1b", 2);
         if (snack2b)
-            editor.putString("snack2b", "Snack: Takes more than one snack " + Long.toString(snack2T / 1000));
+            editor.putInt("snack2b", 1);
+        else
+            editor.putInt("snack2b", 2);
         if (snack3b)
-            editor.putString("snack3b", "Snack: Chooses candy, not milk choc. " + Long.toString(snack3T / 1000));
+            editor.putInt("snack3b", 1);
+        else
+            editor.putInt("snack3b", 2);
         if (snack4b)
-            editor.putString("snack4b", "Snack: Changes snack after finishing task " + Long.toString(snack4T / 1000));
+            editor.putInt("snack4b", 1);
+        else
+            editor.putInt("snack4b", 2);
         if (snack5b)
-            editor.putString("snack5b", "Snack: Chooses non-snack item " + Long.toString(snack5T / 1000));
+            editor.putInt("snack5b", 1);
+        else
+            editor.putInt("snack5b", 2);
         if (snack6b)
-            editor.putString("snack6b", "Snack: Chooses dark choc. " + Long.toString(snack6T / 1000));
+            editor.putInt("snack6b", 1);
+        else
+            editor.putInt("snack6b", 2);
         if (snack7b)
-            editor.putString("snack7b", "Snack: Does not bring snack to door " + Long.toString(snack7T / 1000));
+            editor.putInt("snack7b", 1);
+        else
+            editor.putInt("snack7b", 2);
         if (snack8b)
-            editor.putString("snack8b", "Snack: Does not finish task " + Long.toString(snack8T / 1000));
+            editor.putInt("snack8b", 1);
+        else
+            editor.putInt("snack8b", 2);
+
+
         if (tea1b)
-            editor.putString("tea1b", "Tea: Looks in multiple locations " + Long.toString(tea1T / 1000));
+            editor.putInt("tea1b", 1);
+        else
+            editor.putInt("tea1b", 2);
         if (tea2b)
-            editor.putString("tea2b", "Tea: Waits for tea, not multitasking " + Long.toString(tea2T / 1000));
+            editor.putInt("tea2b", 1);
+        else
+            editor.putInt("tea2b", 2);
         if (tea3b)
-            editor.putString("tea3b", "Tea: Gets tea, not directly put in thermos " + Long.toString(tea3T / 1000));
+            editor.putInt("tea3b", 1);
+        else
+            editor.putInt("tea3b", 2);
         if (tea4b)
-            editor.putString("tea4b", "Tea: Makes tea more than once " + Long.toString(tea4T / 1000));
+            editor.putInt("tea4b", 1);
+        else
+            editor.putInt("tea4b", 2);
         if (tea5b)
-            editor.putString("tea5b", "Tea: Does not start timer " + Long.toString(tea5T / 1000));
+            editor.putInt("tea5b", 1);
+        else
+            editor.putInt("tea5b", 2);
         if (tea6b)
-            editor.putString("tea6b", "Tea: Does not wait ≥ 3 minutes " + Long.toString(tea6T / 1000));
+            editor.putInt("tea6b", 1);
+        else
+            editor.putInt("tea6b", 2);
         if (tea7b)
-            editor.putString("tea7b", "Tea: No tea in thermos " + Long.toString(tea7T / 1000));
+            editor.putInt("tea7b", 1);
+        else
+            editor.putInt("tea7b", 2);
         if (tea8b)
-            editor.putString("tea8b", "Tea: No water in thermos " + Long.toString(tea8T / 1000));
+            editor.putInt("tea8b", 1);
+        else
+            editor.putInt("tea8b", 2);
         if (tea9b)
-            editor.putString("tea9b", "Tea: Makes coffee " + Long.toString(tea9T / 1000));
+            editor.putInt("tea9b", 1);
+        else
+            editor.putInt("tea9b", 2);
         if (tea10b)
-            editor.putString("tea10b", "Tea: Does not take tea to door " + Long.toString(tea10T / 1000));
+            editor.putInt("tea10b", 1);
+        else
+            editor.putInt("tea10b", 2);
         if (tea11b)
-            editor.putString("tea11b", "Tea: Does not finish task " + Long.toString(tea11T / 1000));
+            editor.putInt("tea11b", 1);
+        else
+            editor.putInt("tea11b", 2);
+
+
         if (travel1b)
-            editor.putString("travel1b", "Travel: Looks in multiple locations " + Long.toString(travel1T / 1000));
+            editor.putInt("travel1b", 1);
+        else
+            editor.putInt("travel1b", 2);
         if (travel2b)
-            editor.putString("travel2b", "Travel: Carries items to door by hand " + Long.toString(travel2T / 1000));
+            editor.putInt("travel2b", 1);
+        else
+            editor.putInt("travel2b", 2);
         if (travel3b)
-            editor.putString("travel3b", "Travel: Uses alternative carrier, not bag " + Long.toString(travel3T / 1000));
+            editor.putInt("travel3b", 1);
+        else
+            editor.putInt("travel3b", 2);
         if (travel4b)
-            editor.putString("travel4b", "Travel: Does not put items in bag (exception: tea, $, phone by hand) " + Long.toString(travel4T / 1000));
+            editor.putInt("travel4b", 1);
+        else
+            editor.putInt("travel4b", 2);
         if (travel5b)
-            editor.putString("travel5b", "Travel: Travel: Does not finish task " + Long.toString(travel5T / 1000));
+            editor.putInt("travel5b", 1);
+        else
+            editor.putInt("travel5b", 2);
+
+
         if (misc1b)
-            editor.putString("misc1b", "Misc: additional NTRA " + Long.toString(misc1T / 1000));
+            editor.putInt("misc1b", 1);
+        else
+            editor.putInt("misc1b", 2);
         if (misc2b)
-            editor.putString("misc2b", "Misc: perseveration " + Long.toString(misc2T / 1000));
+            editor.putInt("misc2b", 1);
+        else
+            editor.putInt("misc2b", 2);
         if (misc3b)
-            editor.putString("misc3b", "Misc: wandering " + Long.toString(misc3T / 1000));
+            editor.putInt("misc3b", 1);
+        else
+            editor.putInt("misc3b", 2);
         if (misc4b)
-            editor.putString("misc4b", "Misc: requests help " + Long.toString(misc4T / 1000));
+            editor.putInt("misc4b", 1);
+        else
+            editor.putInt("misc3b", 2);
 
         editor.apply();
     }
@@ -4053,6 +4161,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void otherButton(final View v){
 
+        if(otherErrors >= 3){
+            Toast.makeText(MainActivity.this, "This system does not allow any more than 3 other error selections", Toast.LENGTH_SHORT).show();
+            return;
+        }
         builder3 = new AlertDialog.Builder(this);
         //builder.setTitle("Ingredients List");
         LayoutInflater inflater = this.getLayoutInflater();
@@ -4064,7 +4176,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // sign in the user ...
-
 
                     }
                 })
@@ -4130,9 +4241,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if(b.getCheckedRadioButtonId() != -1){
                         wantToCloseDialog = true;
                     }
-                }else{
-                    Toast.makeText(MainActivity.this, "This system does not allow any more than 3 other error selections", Toast.LENGTH_SHORT).show();
-                    wantToCloseDialog = true;
                 }
 
                 if(wantToCloseDialog)
@@ -4159,8 +4267,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     editor.putString("errorthree", otherErrorList[i]);
                     break;
             }
-            editor.putInt("othererrortotal", otherErrors);
         }
+        editor.putInt("othererrortotal", otherErrors);
         editor.apply();
     }
 

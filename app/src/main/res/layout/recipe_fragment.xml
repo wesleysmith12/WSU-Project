@@ -18,7 +18,8 @@
             android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp"
             android:textColor="#000000"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:background="#5addbf" />
         <Button
             android:text="Start"
             android:id="@+id/recipestart"
@@ -97,7 +98,7 @@
         style="@style/MainButton"/>
     <Button
 
-        android:text="Locates wrong recipe and gathers items"
+        android:text="Locates no or wrong recipe and gathers items"
         android:id="@+id/recipe13"
         style="@style/MainButton"/>
     <Button

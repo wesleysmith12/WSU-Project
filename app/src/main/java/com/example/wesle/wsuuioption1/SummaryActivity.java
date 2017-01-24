@@ -52,7 +52,7 @@ public class SummaryActivity extends AppCompatActivity {
     File myExternalFile;
     String myData = "";
 
-    int defaultValue = 0;
+    int defaultValue = -1;
     String defaultString = "not found";
     private PopupWindow myPopup;
 
@@ -457,6 +457,31 @@ public class SummaryActivity extends AppCompatActivity {
         String travelSeqF = sharedPref.getString("travelSeq", defaultString);
         String exitSeqF = sharedPref.getString("exitSeq", defaultString);
 
+        if(true){
+            teaSeqF = "0 - 0";
+        }
+        if(movieSeqF.equals("0")){
+            movieSeqF = "0 - 0";
+        }
+        if(snackSeqF.equals("0")){
+            snackSeqF = "0 - 0";
+        }
+        if(changeSeqF.equals("0")){
+            changeSeqF = "0 - 0";
+        }
+        if(phoneSeqF.equals("0")){
+            phoneSeqF = "0 - 0";
+        }
+        if(recipeSeqF.equals("0")){
+            recipeSeqF = "0 - 0";
+        }
+        if(travelSeqF.equals("0")){
+            travelSeqF = "0 - 0";
+        }
+        if(exitSeqF.equals("0")){
+            exitSeqF = "0 - 0";
+        }
+
         String movieSimF = Integer.toString(sharedPref.getInt("movieSim", defaultValue));
         String teaSimF = Integer.toString(sharedPref.getInt("teaSim", defaultValue));
         String snackSimF = Integer.toString(sharedPref.getInt("snackSim", defaultValue));
@@ -524,7 +549,562 @@ public class SummaryActivity extends AppCompatActivity {
             if(isExternalStorageAvailable()){
                 try {
                     FileOutputStream fos = new FileOutputStream(myExternalFile + ".csv");
-                    //fos.write((" , , Movie, Tea, Snack, Change, Phone, Recipe, Travel, Exit,").getBytes());
+
+                    //Participant ID LINE #1
+                    fos.write((enteredName + ",").getBytes());
+
+                    //Condition LINE #2
+                    fos.write(-1);
+
+                    //Total Planning Time LINE #3
+                    fos.write((planningTime + ",").getBytes());
+
+                    //Total Execution Time LINE #4
+                    fos.write((totalExecutionx + ",").getBytes());
+
+                    //Overall Start Time LINE #5
+                    fos.write(((sharedPref.getString("overallStartTime", "-1")) + ",").getBytes());
+
+                    //Overall Quality LINE #6
+                    fos.write((overallQualityx + ",").getBytes());
+
+                    //total accuracy LINE #7
+                    fos.write((totalAccuracyScorex + ",").getBytes());
+
+                    //total Correct Sequencing total LINE #8
+                    fos.write((correctSequencingx + ",").getBytes());
+
+                    //total errors LINE #9
+                    fos.write((errorTotalsx + ",").getBytes());
+
+                    //total inefficient LINE #10
+                    fos.write((totalInefficient + ",").getBytes());
+
+                    //total incomplete LINE #11
+                    fos.write((totalIncomplete + ",").getBytes());
+
+                    //total inaccurate LINE #12
+                    fos.write((totalInaccurate + ",").getBytes());
+
+                    //movie completion score LINE #13
+                    fos.write((movieScoreF + ",").getBytes());
+
+                    //movie active time LINE #14
+                    fos.write((movieTimeF + ",").getBytes());
+
+                    //movie total time LINE #15
+                    fos.write((movieMTimeF + ",").getBytes());
+
+                    //movie start time LINE #16
+                    fos.write(((sharedPref.getString("movieStartTime", "-1")) + ",").getBytes());
+
+                    //MOVIE 17: T1MovieSequenceInitiated
+                    fos.write((movieSeqF.charAt(0) + ",").getBytes());
+
+                    //MOVIE 18: T1MovieSequenceStop
+                    fos.write((movieSeqF.charAt(4) + ",").getBytes());
+
+                    //movie simultaneous LINE #19
+                    fos.write((movieSimF + ",").getBytes());
+
+                    //movie ineff LINE #20
+                    fos.write((movieIneffF + ",").getBytes());
+
+                    //movie incomp LINE #21
+                    fos.write((movieIncomF + ",").getBytes());
+
+                    //movie inac LINE #22
+                    fos.write((movieInacF + ",").getBytes());
+
+                    //MOVIE 23: T1MovieChangeRecord LINE #23
+                    fos.write(((sharedPref.getString("changeRecorded", "-1")) + ",").getBytes());
+
+                    //MOVIE 24: T1MovieTimeLeave LINE #24
+                    fos.write((sharedPref.getInt("movieHours", -1) + ":" + sharedPref.getInt("movieMinutes", -1) + ",").getBytes());
+
+                    //movie 1 ineff
+                    fos.write(((sharedPref.getString("movie1b", "-1")) + ",").getBytes());
+
+                    //movie 2 ineff
+                    fos.write(((sharedPref.getString("movie9b", "-1")) + ",").getBytes());
+
+                    //movie 3 ineff
+                    fos.write(((sharedPref.getString("movie2b", "-1")) + ",").getBytes());
+
+                    //movie 4 ineff
+                    fos.write(((sharedPref.getString("movie3b", "-1")) + ",").getBytes());
+
+                    //movie 5 ineff
+                    fos.write(((sharedPref.getString("movie4b", "-1")) + ",").getBytes());
+
+                    //movie 6 ineff
+                    fos.write(((sharedPref.getString("movie5b", "-1")) + ",").getBytes());
+
+                    //movie 7 ineff
+                    fos.write(((sharedPref.getString("movie6b", "-1")) + ",").getBytes());
+
+                    //movie 8 ineff
+                    fos.write(((sharedPref.getString("movie7b", "-1")) + ",").getBytes());
+
+                    //movie 9 ineff
+                    fos.write(((sharedPref.getString("movie8b", "-1")) + ",").getBytes());
+
+                    //tea completion score LINE #34
+                    fos.write((teaScoreF + ",").getBytes());
+
+                    //tea active time LINE #35
+                    fos.write((teaTimeF + ",").getBytes());
+
+                    //tea total time LINE #36
+                    fos.write((teaMTimeF + ",").getBytes());
+
+                    //tea start time LINE #37
+                    fos.write(((sharedPref.getString("teaStartTime", "-1")) + ",").getBytes());
+
+                    //Tea 38: T1TeaSequenceinitiated LINE #38
+                    fos.write((teaSeqF.charAt(0) + ",").getBytes());
+
+                    //Tea 39: T1TeaSequenceended LINE #39
+                    fos.write((teaSeqF.charAt(4) + ",").getBytes());
+
+                    //Tea Simultaneous LINE #40
+                    fos.write((teaSimF + ",").getBytes());
+
+                    //Tea ineff LINE #41
+                    fos.write((teaIneffF + ",").getBytes());
+
+                    //Tea incom LINE #42
+                    fos.write((teaIncomF + ",").getBytes());
+
+                    //Tea inacc LINE #43
+                    fos.write((teaInacF + ",").getBytes());
+
+                    //tea 1 ineff LINE #44
+                    fos.write(((sharedPref.getString("tea1b", "-1")) + ",").getBytes());
+
+                    //tea 2 ineff
+                    fos.write(((sharedPref.getString("tea2b", "-1")) + ",").getBytes());
+
+                    //tea 3 ineff
+                    fos.write(((sharedPref.getString("tea3b", "-1")) + ",").getBytes());
+
+                    //tea 4 ineff
+                    fos.write(((sharedPref.getString("tea4b", "-1")) + ",").getBytes());
+
+                    //tea 5 ineff
+                    fos.write(((sharedPref.getString("tea5b", "-1")) + ",").getBytes());
+
+                    //tea 6 ineff
+                    fos.write(((sharedPref.getString("tea6b", "-1")) + ",").getBytes());
+
+                    //tea 7 ineff
+                    fos.write(((sharedPref.getString("tea7b", "-1")) + ",").getBytes());
+
+                    //tea 8 ineff
+                    fos.write(((sharedPref.getString("tea8b", "-1")) + ",").getBytes());
+
+                    //tea 9 ineff
+                    fos.write(((sharedPref.getString("tea9b", "-1")) + ",").getBytes());
+
+                    //tea 10 ineff
+                    fos.write(((sharedPref.getString("tea10b", "-1")) + ",").getBytes());
+
+                    //tea 11 ineff
+                    fos.write(((sharedPref.getString("tea11b", "-1")) + ",").getBytes());
+
+
+                    /**/
+
+
+                    //snack score LINE #55
+                    fos.write((snackScoreF + ",").getBytes());
+
+
+                    //snack active time LINE #56
+                    fos.write((snackTimeF + ",").getBytes());
+
+                    //snack total time LINE #57
+                    fos.write((snackMTimeF + ",").getBytes());
+
+                    //snack start time LINE #58
+                    fos.write(((sharedPref.getString("snackStartTime", "-1")) + ",").getBytes());
+
+                    //SNACK 59: T1MovieSequenceInitiated LINE #59
+                    fos.write((snackSeqF.charAt(0) + ",").getBytes());
+
+                    //SNACK 60: T1MovieSequenceStop LINE #60
+                    fos.write((snackSeqF.charAt(4) + ",").getBytes());
+
+                    //snack simultaneous LINE #61
+                    fos.write((snackSimF + ",").getBytes());
+
+                    //snack ineff LINE #62
+                    fos.write((snackIneffF + ",").getBytes());
+
+                    //snack incomp LINE #63
+                    fos.write((snackIncomF + ",").getBytes());
+
+                    //snack inac LINE #64
+                    fos.write((snackInacF + ",").getBytes());
+
+                    //snack 1 ineff
+                    fos.write(((sharedPref.getString("snack1b", "-1")) + ",").getBytes());
+
+                    //snack 2 ineff
+                    fos.write(((sharedPref.getString("snack2b", "-1")) + ",").getBytes());
+
+                    //snack 3 ineff
+                    fos.write(((sharedPref.getString("snack3b", "-1")) + ",").getBytes());
+
+                    //snack 4 ineff
+                    fos.write(((sharedPref.getString("snack4b", "-1")) + ",").getBytes());
+
+                    //snack 5 ineff
+                    fos.write(((sharedPref.getString("snack5b", "-1")) + ",").getBytes());
+
+                    //snack 6 ineff
+                    fos.write(((sharedPref.getString("snack6b", "-1")) + ",").getBytes());
+
+                    //snack 7 ineff
+                    fos.write(((sharedPref.getString("snack7b", "-1")) + ",").getBytes());
+
+                    //snack 8 ineff
+                    fos.write(((sharedPref.getString("snack8b", "-1")) + ",").getBytes());
+                    /**/
+
+
+                    //money completion score LINE #73
+                    fos.write((changeScoreF + ",").getBytes());
+
+                    //money active time LINE #74
+                    fos.write((moneyTimeF + ",").getBytes());
+
+                    //money total time LINE #75
+                    fos.write((moneyTimeF + ",").getBytes());
+
+                    //money start time LINE #76
+                    fos.write(((sharedPref.getString("changeStartTime", "-1")) + ",").getBytes());
+
+                    //change 59: T1MovieSequenceInitiated LINE #77
+                    fos.write((changeSeqF.charAt(0) + ",").getBytes());
+
+                    //change 60: T1MovieSequenceStop LINE #78
+                    fos.write((changeSeqF.charAt(4) + ",").getBytes());
+
+                    //money simultaneous LINE #79
+                    fos.write((changeSimF + ",").getBytes());
+
+                    //money ineff LINE #80
+                    fos.write((changeIneffF + ",").getBytes());
+
+                    //money incomp LINE #81
+                    fos.write((changeIncomF + ",").getBytes());
+
+                    //money inac LINE #82
+                    fos.write((changeInacF + ",").getBytes());
+
+                    //CHANGE GATHERED LINE #83
+                    fos.write(((sharedPref.getString("changeGathered", "-1")) + ",").getBytes());
+
+                    //money 1 ineff LINE #84
+                    fos.write(((sharedPref.getString("money1b", "-1")) + ",").getBytes());
+
+                    //money 2 ineff LINE #85
+                    fos.write(((sharedPref.getString("money2b", "-1")) + ",").getBytes());
+
+                    //money 3 ineff
+                    fos.write(((sharedPref.getString("money3b", "-1")) + ",").getBytes());
+
+                    //money 4 ineff
+                    fos.write(((sharedPref.getString("money4b", "-1")) + ",").getBytes());
+
+                    //money 5 ineff
+                    fos.write(((sharedPref.getString("money5b", "-1")) + ",").getBytes());
+
+                    //money 6 ineff
+                    fos.write(((sharedPref.getString("money6b", "-1")) + ",").getBytes());
+
+                    //money 7 ineff
+                    fos.write(((sharedPref.getString("money7b", "-1")) + ",").getBytes());
+
+                    //money 8 ineff
+                    fos.write(((sharedPref.getString("money8b", "-1")) + ",").getBytes());
+
+                    /**/
+
+                    //phone completion score LINE #92
+                    fos.write((phoneScoreF + ",").getBytes());
+
+                    //phone active time LINE #93
+                    fos.write((phoneTimeF + ",").getBytes());
+
+                    //phone total time LINE #94
+                    fos.write((phoneMTimeF + ",").getBytes());
+
+                    //phone start time LINE #95
+                    fos.write(((sharedPref.getString("phoneStartTime", "-1")) + ",").getBytes());
+
+                    //MOVIE 59: T1MovieSequenceInitiated LINE #96
+                    fos.write((phoneSeqF.charAt(0) + ",").getBytes());
+
+                    //MOVIE 60: T1MovieSequenceStop LINE #97
+                    fos.write((phoneSeqF.charAt(4) + ",").getBytes());
+
+                    //phone simultaneous LINE #98
+                    fos.write((phoneSimF + ",").getBytes());
+
+                    //phone ineff LINE #99
+                    fos.write((phoneIneffF + ",").getBytes());
+
+                    //pnone incomp LINE #100
+                    fos.write((phoneIncomF + ",").getBytes());
+
+                    //phone inac LINE #101
+                    fos.write((phoneInacF + ",").getBytes());
+
+                    //phone 1 ineff
+                    fos.write(((sharedPref.getString("phone1b", "-1")) + ",").getBytes());
+
+                    //phone 2 ineff
+                    fos.write(((sharedPref.getString("phone2b", "-1")) + ",").getBytes());
+
+                    //phone 3 ineff
+                    fos.write(((sharedPref.getString("phone3b", "-1")) + ",").getBytes());
+
+                    //phone 4 ineff
+                    fos.write(((sharedPref.getString("phone4b", "-1")) + ",").getBytes());
+
+                    //phone 5 ineff
+                    fos.write(((sharedPref.getString("phone5b", "-1")) + ",").getBytes());
+
+                    //phone 6 ineff
+                    fos.write(((sharedPref.getString("phone6b", "-1")) + ",").getBytes());
+
+                    //phone 7 ineff
+                    fos.write(((sharedPref.getString("phone7b", "-1")) + ",").getBytes());
+
+                    /**/
+
+                    //recipe completion score LINE #109
+                    fos.write((recipeScoreF + ",").getBytes());
+
+                    //recipe active time LINE #110
+                    fos.write((recipeTimeF + ",").getBytes());
+
+                    //recipe total time LINE #111
+                    fos.write((recipeMTimeF + ",").getBytes());
+
+                    //recipe start time LINE #112
+                    fos.write(((sharedPref.getString("recipeStartTime", "-1")) + ",").getBytes());
+
+                    //MOVIE 59: T1MovieSequenceInitiated LINE #113
+                    fos.write((recipeSeqF.charAt(0) + ",").getBytes());
+
+                    //MOVIE 60: T1MovieSequenceStop LINE #114
+                    fos.write((recipeSeqF.charAt(4) + ",").getBytes());
+
+                    //recipe simultaneous LINE #115
+                    fos.write((recipeSimF + ",").getBytes());
+
+                    //recipe ineff LINE #116
+                    fos.write((recipeIneffF + ",").getBytes());
+
+                    //recipe incomp LINE #117
+                    fos.write((recipeIncomF + ",").getBytes());
+
+                    //recipe inac LINE #118
+                    fos.write((recipeInacF + ",").getBytes());
+
+                    //recipe 1 ineff
+                    fos.write(((sharedPref.getString("recipe1b", "-1")) + ",").getBytes());
+
+                    //recipe 2 ineff
+                    fos.write(((sharedPref.getString("recipe2b", "-1")) + ",").getBytes());
+
+                    //recipe 3 ineff
+                    fos.write(((sharedPref.getString("recipe3b", "-1")) + ",").getBytes());
+
+                    //recipe 4 ineff
+                    fos.write(((sharedPref.getString("recipe4b", "-1")) + ",").getBytes());
+
+                    //recipe 5 ineff
+                    fos.write(((sharedPref.getString("recipe5b", "-1")) + ",").getBytes());
+
+                    //recipe 6 ineff
+                    fos.write(((sharedPref.getString("recipe6b", "-1")) + ",").getBytes());
+
+                    //recipe 7 ineff
+                    fos.write(((sharedPref.getString("recipe7b", "-1")) + ",").getBytes());
+
+                    //recipe 8 ineff
+                    fos.write(((sharedPref.getString("recipe8b", "-1")) + ",").getBytes());
+
+                    //recipe 9 ineff
+                    fos.write(((sharedPref.getString("recipe9b", "-1")) + ",").getBytes());
+
+                    //recipe 10 ineff
+                    fos.write(((sharedPref.getString("recipe10b", "-1")) + ",").getBytes());
+
+                    //recipe 11 ineff
+                    fos.write(((sharedPref.getString("recipe11b", "-1")) + ",").getBytes());
+
+                    //recipe 12 ineff
+                    fos.write(((sharedPref.getString("recipe12b", "-1")) + ",").getBytes());
+
+                    //recipe 13 ineff
+                    fos.write(((sharedPref.getString("recipe13b", "-1")) + ",").getBytes());
+
+                    //recipe 14 ineff
+                    fos.write(((sharedPref.getString("recipe14b", "-1")) + ",").getBytes());
+
+                    //recipe 15 ineff
+                    fos.write(((sharedPref.getString("recipe15b", "-1")) + ",").getBytes());
+
+                    /**/
+
+                    //travel completion score LINE #134
+                    fos.write((travelScoreF + ",").getBytes());
+
+                    //travel active time LINE #135
+                    fos.write((travelTimeF + ",").getBytes());
+
+                    //travel total time LINE #136
+                    fos.write((travelMTimeF + ",").getBytes());
+
+                    //travel start time LINE #137
+                    fos.write(((sharedPref.getString("travelStartTime", "-1")) + ",").getBytes());
+
+                    //MOVIE 59: T1MovieSequenceInitiated LINE #138
+                    fos.write((travelSeqF.charAt(0) + ",").getBytes());
+
+                    //MOVIE 60: T1MovieSequenceStop LINE #139
+                    fos.write((travelSeqF.charAt(4) + ",").getBytes());
+
+                    //travel simultaneous LINE #140
+                    fos.write((travelSimF + ",").getBytes());
+
+                    //travel ineff LINE #141
+                    fos.write((travelIneffF + ",").getBytes());
+
+                    //travel incomp LINE #142
+                    fos.write((travelIncomF + ",").getBytes());
+
+                    //travel inac LINE #143
+                    fos.write((travelInacF + ",").getBytes());
+
+                    //travel 1 ineff LINE #144
+                    fos.write(((sharedPref.getString("travel1b", "-1")) + ",").getBytes());
+
+                    //travel 2 ineff
+                    fos.write(((sharedPref.getString("travel2b", "-1")) + ",").getBytes());
+
+                    //travel 3 ineff
+                    fos.write(((sharedPref.getString("travel3b", "-1")) + ",").getBytes());
+
+                    //travel 4 ineff
+                    fos.write(((sharedPref.getString("travel4b", "-1")) + ",").getBytes());
+
+                    //travel 5 ineff
+                    fos.write(((sharedPref.getString("travel5b", "-1")) + ",").getBytes());
+
+
+                    /**/
+
+                    //exit completion score LINE #149
+                    fos.write((exitScoreF + ",").getBytes());
+
+                    //exit active time LINE #150
+                    fos.write((exitTimeF + ",").getBytes());
+
+                    //exit total time LINE #151
+                    fos.write((exitMTimeF + ",").getBytes());
+
+                    //exit start time LINE #152
+                    fos.write(((sharedPref.getString("exitStartTime", "-1")) + ",").getBytes());
+
+                    //MOVIE 59: T1MovieSequenceInitiated LINE #153
+                    fos.write((exitSeqF.charAt(0) + ",").getBytes());
+
+                    //MOVIE 60: T1MovieSequenceStop LINE #154
+                    fos.write((exitSeqF.charAt(4) + ",").getBytes());
+
+                    //exit simultaneous LINE #155
+                    fos.write((exitSimF + ",").getBytes());
+
+                    //exit ineff LINE #156
+                    fos.write((exitIneffF + ",").getBytes());
+
+                    //exit incomp LINE #157
+                    fos.write((exitIncomF + ",").getBytes());
+
+                    //exit inac LINE #158
+                    fos.write((exitInacF + ",").getBytes());
+
+                    //exit 1 ineff
+                    fos.write(((sharedPref.getString("exit1b", "-1")) + ",").getBytes());
+
+                    //exit 2 ineff
+                    fos.write(((sharedPref.getString("exit2b", "-1")) + ",").getBytes());
+
+                    //exit 3 ineff
+                    fos.write(((sharedPref.getString("exit3b", "-1")) + ",").getBytes());
+
+
+                    //NOT FINISH TIME LINE #162
+                    fos.write(((sharedPref.getString("overallFinishTime", "-1")) + ",").getBytes());
+
+
+                    //exit 4 ineff
+                    fos.write(((sharedPref.getString("exit4b", "-1")) + ",").getBytes());
+
+
+                    /**/
+
+                    //LINE #164
+                    int z = teaSeqF.charAt(0);
+                    if(z < 5 && z > 0){
+                        fos.write(("1,").getBytes());
+                    }else{
+                        fos.write(("2,").getBytes());
+                    }
+
+                    //LINE #165
+                    int y = travelSeqF.charAt(0);
+                    if(y < 5 && y > 0){
+                        fos.write(("1,").getBytes());
+                    }else{
+                        fos.write(("2,").getBytes());
+                    }
+
+                    //LINE #166
+                    fos.write(((sharedPref.getString("costOfMovie", "-1")) + ",").getBytes());
+
+                    //LINE #167
+                    fos.write(((sharedPref.getString("recipeRetrieve", "-1")) + ",").getBytes());
+
+                    //LINE #168
+                    fos.write(((sharedPref.getString("phoneNearEnd", "-1")) + ",").getBytes());
+
+                    //LINE #169
+                    int x = exitSeqF.charAt(0);
+                    if(z == 7 || z == 8){
+                        fos.write(("1,").getBytes());
+                    }else{
+                        fos.write(("2,").getBytes());
+                    }
+
+                    //misc totals
+                    //LINE #170
+                    fos.write(((sharedPref.getInt("misc1Count", -1)) + ",").getBytes());
+                    //LINE #171
+                    fos.write(((sharedPref.getInt("misc2Count", -1)) + ",").getBytes());
+                    //LINE #172
+                    fos.write(((sharedPref.getInt("misc3Count", -1)) + ",").getBytes());
+                    //LINE #173
+                    fos.write(((sharedPref.getInt("misc4Count", -1)) + ",").getBytes());
+
+
+                    /*//fos.write((" , , Movie, Tea, Snack, Change, Phone, Recipe, Travel, Exit,").getBytes());
                     fos.write((" , , Score, Time, Multitask Time, Sequence, Simultaneous, Inefficient, Incomplete, Inaccurate,").getBytes());
                     fos.write("\n".getBytes());
                     //fos.write(("Score, " + movieScoreF + "," + teaScoreF + "," + snackScoreF + "," + changeScoreF + "," + phoneScoreF + "," + recipeScoreF + "," + travelScoreF + "," + exitScoreF + ",").getBytes());
@@ -557,8 +1137,10 @@ public class SummaryActivity extends AppCompatActivity {
                     fos.write("\n".getBytes());
                     fos.write(("COMMENTS: " + "," + comments).getBytes());
                     fos.write("\n".getBytes());
-                    fos.write(("misc buttons" + "," + miscButtons).getBytes());
-                    if(sharedPref.getString("moviecomments", "").length() > 0){
+                    fos.write(("misc buttons" + "," + miscButtons).getBytes());*/
+
+                    //save comments to separate file
+                    /*if(sharedPref.getString("moviecomments", "").length() > 0){
                         fos.write((sharedPref.getString("moviecomments", "")).getBytes());
                         fos.write("\n".getBytes());
                     }
@@ -589,10 +1171,10 @@ public class SummaryActivity extends AppCompatActivity {
                     if(sharedPref.getString("exitcomments", "").length() > 0){
                         fos.write((sharedPref.getString("exitcomments", "")).getBytes());
                         fos.write("\n".getBytes());
-                    }
+                    }*/
 
-                    //write other error data to file
-                    if(!sharedPref.getString("error1", "NOERROR").equals("NOERROR")){
+                    //write other errors data to file
+                    /*if(!sharedPref.getString("error1", "NOERROR").equals("NOERROR")){
 
                         fos.write(("Other errors added by clinician:").getBytes());
                         fos.write("\n".getBytes());
@@ -607,10 +1189,11 @@ public class SummaryActivity extends AppCompatActivity {
                                 fos.write("\n".getBytes());
                             }
                         }
-                    }
+                    }*/
                     fos.close();
 
                     Toast.makeText(SummaryActivity.this, "File is written and saved to external storage", Toast.LENGTH_SHORT).show();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                     Toast.makeText(SummaryActivity.this, "File did not write", Toast.LENGTH_SHORT).show();
@@ -618,6 +1201,72 @@ public class SummaryActivity extends AppCompatActivity {
             }else{
                 Toast.makeText(SummaryActivity.this, "External storage unavailable", Toast.LENGTH_LONG).show();
             }
+
+
+            /**/
+
+            if(isExternalStorageAvailable()){
+                try {
+                    FileOutputStream fos2 = new FileOutputStream(myExternalFile + "Comments " + ".csv");
+
+
+
+                    //save comments to separate file
+
+                    if(sharedPref.getString("comments", "").length() > 0){
+                        fos2.write(("Summary comments: " + sharedPref.getString("comments", "")).getBytes());
+                        fos2.write("\n".getBytes());
+                    }
+
+                    if(sharedPref.getString("moviecomments", "").length() > 0){
+                        fos2.write(("Movie Comments: " + sharedPref.getString("moviecomments", "")).getBytes());
+                        fos2.write("\n".getBytes());
+                    }
+                    if(sharedPref.getString("teacomments", "").length() > 0){
+                        fos2.write(("Tea Comments: " + sharedPref.getString("teacomments", "")).getBytes());
+                        fos2.write("\n".getBytes());
+                    }
+                    if(sharedPref.getString("snackcomments", "").length() > 0){
+                        fos2.write(("Snack Comments: " + sharedPref.getString("snackcomments", "")).getBytes());
+                        fos2.write("\n".getBytes());
+                    }
+                    if(sharedPref.getString("moneycomments", "").length() > 0){
+                        fos2.write(("Money Comments: " + sharedPref.getString("moneycomments", "")).getBytes());
+                        fos2.write("\n".getBytes());
+                    }
+                    if(sharedPref.getString("phonecomments", "").length() > 0){
+                        fos2.write(("Phone Comments: " + sharedPref.getString("phonecomments", "")).getBytes());
+                        fos2.write("\n".getBytes());
+                    }
+                    if(sharedPref.getString("recipecomments", "").length() > 0){
+                        fos2.write(("Recipe Comments" + sharedPref.getString("recipecomments", "")).getBytes());
+                        fos2.write("\n".getBytes());
+                    }
+                    if(sharedPref.getString("travelcomments", "").length() > 0){
+                        fos2.write(("Travel Comments" + sharedPref.getString("travelcomments", "")).getBytes());
+                        fos2.write("\n".getBytes());
+                    }
+                    if(sharedPref.getString("exitcomments", "").length() > 0){
+                        fos2.write(("Exit Comments" + sharedPref.getString("exitcomments", "")).getBytes());
+                        fos2.write("\n".getBytes());
+                    }
+
+
+                    fos2.close();
+
+                    //Toast.makeText(SummaryActivity.this, "File  is written and saved to external storage", Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(SummaryActivity.this, "Comments File did not write", Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                Toast.makeText(SummaryActivity.this, "External storage unavailable", Toast.LENGTH_LONG).show();
+            }
+
+
+
+
+
             ////// save errors file
             /*if (!isExternalStorageAvailable()) {
                 Toast.makeText(SummaryActivity.this, "Storage space unavailable", Toast.LENGTH_SHORT).show();
