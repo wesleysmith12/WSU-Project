@@ -78,6 +78,7 @@
         android:text="Do I Toggle?"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/doiwork" />
+        android:id="@+id/doiwork"
+        android:visibility="gone" />
 
 </LinearLayout>

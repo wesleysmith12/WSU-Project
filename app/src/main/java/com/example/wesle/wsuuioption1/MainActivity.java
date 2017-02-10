@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //time variables
     private String overallStartTime;
     private String overallFinishTime;
+    private String NOTdate;
     private String recipeStartTime;
     private String recipeFinishTime;
     private String exitStartTime;
@@ -368,6 +369,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         df = new SimpleDateFormat("HH:mm:ss");
 
+        dateobj = new Date();
+        NOTdate = dfDate.format(dateobj);
+
         setContentView(R.layout.activity_main);
 
         // Assign button variables
@@ -386,7 +390,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //start/stop buttons
         mainStart = (Button) findViewById(R.id.mainstart);
-        mainStart.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x006600));
+        try{mainStart.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x006600));}catch(NullPointerException e){}
         movieStart = (Button) findViewById(R.id.moviestart);
         moneyStart = (Button) findViewById(R.id.moneystart);
         exitStart = (Button) findViewById(R.id.exitstart);
@@ -478,7 +482,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         misc3 = (Button) findViewById(R.id.misc3);
         misc4 = (Button) findViewById(R.id.misc4);
 
-        customButton.setOnClickListener(MainActivity.this);
+        try{
+            customButton.setOnClickListener(MainActivity.this);
+        }catch(NullPointerException e){
+
+        }
 
         //Set on click listeners
         movieStart.setOnClickListener(MainActivity.this);
@@ -571,14 +579,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         misc3.setOnClickListener(MainActivity.this);
         misc4.setOnClickListener(MainActivity.this);
 
-        misc1.setOnLongClickListener(new View.OnLongClickListener() {
+        /*misc1.setOnLongClickListener(new View.OnLongClickListener() {
 
             public boolean onLongClick(View v) {
                 misc1Count--;
                 Toast.makeText(getBaseContext(), "misc1 Count: " + misc1Count, Toast.LENGTH_SHORT).show();
                 return false;
             }
-        });
+        });*/
 
         // change default color of inaccurate buttons
         movie5.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
@@ -2658,7 +2666,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 // get misc button count
                 misc2Count++;
-                Toast.makeText(MainActivity.this, "Misc2 Count: " + misc1Count, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Misc2 Count: " + misc2Count, Toast.LENGTH_SHORT).show();
 
                 if (!misc2b) {
                     misc2T = System.currentTimeMillis() - totalExecutionTime;
@@ -2673,7 +2681,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 // misc button count
                 misc3Count++;
-                Toast.makeText(MainActivity.this, "Misc3 Count: " + misc1Count, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Misc3 Count: " + misc3Count, Toast.LENGTH_SHORT).show();
 
                 if (!misc3b) {
                     misc3T = System.currentTimeMillis() - totalExecutionTime;
@@ -2688,7 +2696,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 // misc button count
                 misc4Count++;
-                Toast.makeText(MainActivity.this, "Misc4 Count: " + misc1Count, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Misc4 Count: " + misc4Count, Toast.LENGTH_SHORT).show();
 
                 if (!misc4b) {
                     misc4T = System.currentTimeMillis() - totalExecutionTime;
@@ -3587,11 +3595,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         /*current attempt ^^^ */
 
         //test code
-        String temp = "";
+        /*String temp = "";
         for(int i = 0; i < 8; i++){
             temp += " " + finishOrder[i];
         }
-        Toast.makeText(MainActivity.this, temp, Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, temp, Toast.LENGTH_SHORT).show();*/
 
     }
 
@@ -4115,6 +4123,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editor.putInt("misc4b", 1);
         else
             editor.putInt("misc3b", 2);
+
+        editor.putString("date", recipeStartTime);
 
         editor.apply();
     }
