@@ -147,6 +147,16 @@
             android:layout_toEndOf="@+id/fragment9"
             android:visibility="visible" />
 
+        <fragment
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:name="com.example.wesle.wsuuioption1.MidTaskPlanning"
+            android:id="@+id/fragment19"
+            tools:layout="@layout/fragment_mid_task_planning"
+            android:layout_below="@+id/fragment8"
+            android:layout_toRightOf="@+id/fragment2"
+            android:layout_toEndOf="@+id/fragment2" />
+
         <!--android:onClick="onClick2"-->
 
     </RelativeLayout>

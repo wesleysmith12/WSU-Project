@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //Button btnOnClick;
     private Button mainStart, movieStart, phoneStart, recipeStart, snackStart, teaStart, travelStart, exitStart,
-            moneyStart, money1, movie9, money2, money3, money4, money5, money6, money7, money8, exit1, exit2, exit3, exit4,
+            moneyStart, midTaskPlanningStart, money1, movie9, money2, money3, money4, money5, money6, money7, money8, exit1, exit2, exit3, exit4,
             movie1, movie2, movie3, movie4, movie5, movie6, movie7, movie8, phone1, phone2, phone3, phone4, phone5,
             phone6, phone7, recipe1, recipe2, recipe3, recipe4, recipe5, recipe6, recipe7, recipe8, recipe9, recipe10,
             recipe11, recipe12, recipe13, recipe14, recipe15, snack1, snack2, snack3, snack4, snack5, snack6, snack7, snack8,
@@ -50,21 +50,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String overallFinishTime;
     private String NOTdate;
     private String recipeStartTime;
-    private String recipeFinishTime;
     private String exitStartTime;
-    private String exitFinishTime;
     private String movieStartTime;
     private String movieFinishTime;
     private String phoneStartTime;
-    private String phoneFinishTime;
     private String snackStartTime;
-    private String snackFinishTime;
     private String changeStartTime;
-    private String changeFinishTime;
     private String travelStartTime;
-    private String travelFinishTime;
     private String teaStartTime;
-    private String teaFinishTime;
 
     //completion scores
     private int movieScore = 4;
@@ -110,6 +103,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private long multitaskTravel = 0;
     private long travelTemp = 0;
     private long travelTemp2 = 0;
+    private long timeMidTaskPlanning = 0;
+    private long midTaskPlanningTemp = 0;
+
+    private int recipeCount = 0;
+    private int exitCount = 0;
+    private int movieCount = 0;
+    private int phoneCount = 0;
+    private int snackCount = 0;
+    private int moneyCount = 0;
+    private int travelCount = 0;
+    private int teaCount = 0;
+    private int midTaskPlanningCount = 0;
+
 
     private String movieSequencing, phoneSequencing, recipeSequencing, snackSequencing, teaSequencing, travelSequencing, exitSequencing,
             moneySequencing;
@@ -130,28 +136,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //arrays for sequential score
     int startIndex = 0;
-    int finishIndex = 0;
     int ARRAY_SIZE = 8;
     String[] startOrder = new String[ARRAY_SIZE];
     String[] finishOrder = new String[ARRAY_SIZE];
     int simultaneousIndex = 0;
     ArrayList<String> simultaneousOrder = new ArrayList<String>();
-    ArrayList<String> finishSequenceOrder = new ArrayList<String>();
 
     private int start = 1;
 
     private boolean planFinished = false;
     private boolean NOTstarted = false;
-
-    private boolean ingredient0 = false;
-    private boolean ingredient1 = false;
-    private boolean ingredient2 = false;
-    private boolean ingredient3 = false;
-    private boolean ingredient4 = false;
-    private boolean ingredient5 = false;
-    private boolean ingredient6 = false;
-    private boolean ingredient7 = false;
-
 
     private boolean money = false;
     private boolean exit = false;
@@ -161,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean snack = false;
     private boolean tea = false;
     private boolean travel = false;
+    private boolean midTaskPlanning = false;
 
     private boolean movie1b = false;
     private boolean movie9b = false;
@@ -171,16 +166,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean movie6b = false;
     private boolean movie7b = false;
     private boolean movie8b = false;
-
-    private long movie1T = 0;
-    private long movie9T = 0;
-    private long movie2T = 0;
-    private long movie3T = 0;
-    private long movie4T = 0;
-    private long movie5T = 0;
-    private long movie6T = 0;
-    private long movie7T = 0;
-    private long movie8T = 0;
 
     private boolean money1b = false;
     private boolean money2b = false;
@@ -205,11 +190,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean exit3b = false;
     private boolean exit4b = false;
 
-    private long exit1T = 0;
-    private long exit2T = 0;
-    private long exit3T = 0;
-    private long exit4T = 0;
-
     private boolean phone1b = false;
     private boolean phone2b = false;
     private boolean phone3b = false;
@@ -217,14 +197,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean phone5b = false;
     private boolean phone6b = false;
     private boolean phone7b = false;
-
-    private long phone1T = 0;
-    private long phone2T = 0;
-    private long phone3T = 0;
-    private long phone4T = 0;
-    private long phone5T = 0;
-    private long phone6T = 0;
-    private long phone7T = 0;
 
     private boolean recipe1b = false;
     private boolean recipe2b = false;
@@ -242,22 +214,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean recipe14b = false;
     private boolean recipe15b = false;
 
-    private long recipe1T = 0;
-    private long recipe2T = 0;
-    private long recipe3T = 0;
-    private long recipe4T = 0;
-    private long recipe5T = 0;
-    private long recipe6T = 0;
-    private long recipe7T = 0;
-    private long recipe8T = 0;
-    private long recipe9T = 0;
-    private long recipe10T = 0;
-    private long recipe11T = 0;
-    private long recipe12T = 0;
-    private long recipe13T = 0;
-    private long recipe14T = 0;
-    private long recipe15T = 0;
-
     private boolean snack1b = false;
     private boolean snack2b = false;
     private boolean snack3b = false;
@@ -266,15 +222,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean snack6b = false;
     private boolean snack7b = false;
     private boolean snack8b = false;
-
-    private long snack1T = 0;
-    private long snack2T = 0;
-    private long snack3T = 0;
-    private long snack4T = 0;
-    private long snack5T = 0;
-    private long snack6T = 0;
-    private long snack7T = 0;
-    private long snack8T = 0;
 
     private boolean tea1b = false;
     private boolean tea2b = false;
@@ -288,39 +235,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean tea10b = false;
     private boolean tea11b = false;
 
-    private long tea1T = 0;
-    private long tea2T = 0;
-    private long tea3T = 0;
-    private long tea4T = 0;
-    private long tea5T = 0;
-    private long tea6T = 0;
-    private long tea7T = 0;
-    private long tea8T = 0;
-    private long tea9T = 0;
-    private long tea10T = 0;
-    private long tea11T = 0;
-
     private boolean travel1b = false;
     private boolean travel2b = false;
     private boolean travel3b = false;
     private boolean travel4b = false;
     private boolean travel5b = false;
 
-    private long travel1T = 0;
-    private long travel2T = 0;
-    private long travel3T = 0;
-    private long travel4T = 0;
-    private long travel5T = 0;
-
     private boolean misc1b = false;
     private boolean misc2b = false;
     private boolean misc3b = false;
     private boolean misc4b = false;
-
-    private long misc1T = 0;
-    private long misc2T = 0;
-    private long misc3T = 0;
-    private long misc4T = 0;
 
     private int misc1Count = 0;
     private int misc2Count = 0;
@@ -359,7 +283,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         //remove title bar to create more space for this activity
         try{
             getSupportActionBar().hide(); //<< this
@@ -382,6 +308,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+
     }
 
     public void defineButtons() {
@@ -399,6 +327,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         snackStart = (Button) findViewById(R.id.snackstart);
         teaStart = (Button) findViewById(R.id.teastart);
         travelStart = (Button) findViewById(R.id.travelstart);
+        midTaskPlanningStart = (Button) findViewById(R.id.midtaskplanningstart);
 
         //Define error buttons
         money1 = (Button) findViewById(R.id.money1);
@@ -497,6 +426,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         snackStart.setOnClickListener(MainActivity.this);
         travelStart.setOnClickListener(MainActivity.this);
         teaStart.setOnClickListener(MainActivity.this);
+        midTaskPlanningStart.setOnClickListener(MainActivity.this);
 
         money1.setOnClickListener(MainActivity.this);
         money2.setOnClickListener(MainActivity.this);
@@ -579,15 +509,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         misc3.setOnClickListener(MainActivity.this);
         misc4.setOnClickListener(MainActivity.this);
 
-        /*misc1.setOnLongClickListener(new View.OnLongClickListener() {
-
-            public boolean onLongClick(View v) {
-                misc1Count--;
-                Toast.makeText(getBaseContext(), "misc1 Count: " + misc1Count, Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });*/
-
         // change default color of inaccurate buttons
         movie5.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
         movie6.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
@@ -646,6 +567,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void startNOT(View v) {
 
         if (start == 1) {
+
             totalExecutionTime = System.currentTimeMillis();
 
             // get start timestamp
@@ -705,6 +627,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             //restart activity
+                            clearComments();
                             restartMainActivity();
                         }
                     })
@@ -740,11 +663,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         if (teaScore != 4 && Character.getNumericValue(teaSequencing.charAt(0)) <= 4) {
+
             correctSequencing++;
+
         }
         if (travelScore != 4 && Character.getNumericValue(travelSequencing.charAt(0)) <= 4) {
+
             correctSequencing++;
+
         }
+
         // the code below is now entered manually in the next activity
         /*if (phoneScore != 4 && (Character.getNumericValue(phoneSequencing.charAt(0)) == totalTasksAttempted ||
                 (exitScore != 4 && Character.getNumericValue(phoneSequencing.charAt(0)) == (totalTasksAttempted - 1)
@@ -752,22 +680,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             phoneCallEnd = true;
             correctSequencing++;
         }*/
-        //crashing here!!!!!!!!!!!!!!! must press start on any activity with an
+
         if (travelScore != 4 && (Character.getNumericValue(travelSequencing.charAt(4)) == (totalTasksAttempted - 1) ||
                 Character.getNumericValue(travelSequencing.charAt(4)) == totalTasksAttempted)) {
+
             correctSequencing++;
+
         }
         return correctSequencing;
     }
 
     public String calculateQuality() {
+
         int[] scoresArray = {movieScore, moneyScore, travelScore, teaScore, exitScore, phoneScore, recipeScore, snackScore};
         int incomplete = 0;
         int inefficient = 0;
         int unattempted = 0;
 
         for (int i = 0; i < 8; i++) {
+
             switch (scoresArray[i]) {
+
                 case 1:
                     break;
                 case 2:
@@ -782,34 +715,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         if (unattempted + incomplete > 4) {
+
             return "Poor";
+
         } else if (unattempted + incomplete > 2) {
+
             return "Fair";
+
         } else if (unattempted + incomplete > 0) {
+
             return "Good";
+
         } else if (unattempted + incomplete == 0 && inefficient > 0) {
+
             return "Very Good";
+
         } else {
+
             return "Excellent";
+
         }
 
     }
 
     public void calculatePlanning() {
+
         planningTime = System.currentTimeMillis() - totalExecutionTime;
+
         totalExecutionTime = System.currentTimeMillis();
-        //Toast.makeText(MainActivity.this, "Planning time: " + planningTime, Toast.LENGTH_LONG).show();
+
     }
 
     @Override
     public void onClick(View v) {
+
         if (!NOTstarted) {
+
             Toast.makeText(MainActivity.this, "Please select start button before starting any tasks", Toast.LENGTH_SHORT).show();
+
             return;
         }
         if (start == 1) {
-            //Toast.makeText(MainActivity.this, "Please select start button on the top left of this page before starting any tasks", Toast.LENGTH_SHORT).show();
+
             startNOT(v);
+
         }
         switch (v.getId()) {
 
@@ -1075,7 +1024,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 //Toast.makeText(MainActivity.this, "onClickListener working", Toast.LENGTH_SHORT).show();
                 if (!exit1b) {
-                    exit1T = System.currentTimeMillis() - totalExecutionTime;
                     exit1.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //exit1.setTypeface(Typeface.DEFAULT);
                     exitInefficient++;
@@ -1100,7 +1048,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!exit2b) {
-                    exit2T = System.currentTimeMillis() - totalExecutionTime;
                     exit2.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //exit2.setTypeface(Typeface.DEFAULT);
                     exitInefficient++;
@@ -1125,7 +1072,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!exit3b) {
-                    exit3T = System.currentTimeMillis() - totalExecutionTime;
                     exit3.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //exit3.setTypeface(Typeface.DEFAULT);
                     exitIncomplete++;
@@ -1152,7 +1098,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!exit4b) {
-                    exit4T = System.currentTimeMillis() - totalExecutionTime;
                     exit4.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //exit4.setTypeface(Typeface.DEFAULT);
                     exitIncomplete++;
@@ -1180,7 +1125,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 //Toast.makeText(MainActivity.this, "onClickListener working", Toast.LENGTH_SHORT).show();
                 if (!movie1b) {
-                    movie1T = System.currentTimeMillis() - totalExecutionTime;
                     movie1.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //movie1.setTypeface(Typeface.DEFAULT);
                     movieInefficient++;
@@ -1205,7 +1149,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 //Toast.makeText(MainActivity.this, "onClickListener working", Toast.LENGTH_SHORT).show();
                 if (!movie9b) {
-                    movie9T = System.currentTimeMillis() - totalExecutionTime;
                     movie9.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //movie9.setTypeface(Typeface.DEFAULT);
                     movieInefficient++;
@@ -1246,7 +1189,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!movie2b) {
-                    movie2T = System.currentTimeMillis() - totalExecutionTime;
                     movie2.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //movie2.setTypeface(Typeface.DEFAULT);
                     movieInefficient++;
@@ -1271,7 +1213,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!movie3b) {
-                    movie3T = System.currentTimeMillis() - totalExecutionTime;
                     movie3.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //movie3.setTypeface(Typeface.DEFAULT);
                     movieInefficient++;
@@ -1296,7 +1237,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!movie4b) {
-                    movie4T = System.currentTimeMillis() - totalExecutionTime;
                     movie4.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //movie4.setTypeface(Typeface.DEFAULT);
                     movieInefficient++;
@@ -1321,7 +1261,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!movie5b) {
-                    movie5T = System.currentTimeMillis() - totalExecutionTime;
                     movie5.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //movie5.setTypeface(Typeface.DEFAULT);
                     movieIncomplete++;
@@ -1348,7 +1287,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!movie6b) {
-                    movie6T = System.currentTimeMillis() - totalExecutionTime;
                     movie6.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //movie6.setTypeface(Typeface.DEFAULT);
                     movieInaccurate++;
@@ -1375,7 +1313,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!movie7b) {
-                    movie7T = System.currentTimeMillis() - totalExecutionTime;
                     movie7.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //movie7.setTypeface(Typeface.DEFAULT);
                     movieInaccurate++;
@@ -1415,7 +1352,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!movie8b) {
-                    movie8T = System.currentTimeMillis() - totalExecutionTime;
                     movie8.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //movie8.setTypeface(Typeface.DEFAULT);
                     movieIncomplete++;
@@ -1442,7 +1378,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!phone1b) {
-                    phone1T = System.currentTimeMillis() - totalExecutionTime;
                     phone1.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //phone1.setTypeface(Typeface.DEFAULT);
                     phoneInefficient++;
@@ -1467,7 +1402,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!phone2b) {
-                    phone2T = System.currentTimeMillis() - totalExecutionTime;
                     phone2.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //phone2.setTypeface(Typeface.DEFAULT);
                     phoneInefficient++;
@@ -1492,7 +1426,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!phone3b) {
-                    phone3T = System.currentTimeMillis() - totalExecutionTime;
                     phone3.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //phone3.setTypeface(Typeface.DEFAULT);
                     phoneInefficient++;
@@ -1517,7 +1450,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!phone4b) {
-                    phone4T = System.currentTimeMillis() - totalExecutionTime;
                     phone4.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //phone4.setTypeface(Typeface.DEFAULT);
                     phoneInefficient++;
@@ -1542,7 +1474,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!phone5b) {
-                    phone5T = System.currentTimeMillis() - totalExecutionTime;
                     phone5.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //phone5.setTypeface(Typeface.DEFAULT);
                     phoneIncomplete++;
@@ -1569,7 +1500,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!phone6b) {
-                    phone6T = System.currentTimeMillis() - totalExecutionTime;
                     phone6.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //phone6.setTypeface(Typeface.DEFAULT);
                     phoneIncomplete++;
@@ -1596,7 +1526,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!phone7b) {
-                    phone7T = System.currentTimeMillis() - totalExecutionTime;
                     phone7.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //phone7.setTypeface(Typeface.DEFAULT);
                     phoneIncomplete++;
@@ -1623,7 +1552,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!recipe1b) {
-                    recipe1T = System.currentTimeMillis() - totalExecutionTime;
                     recipe1.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //recipe1.setTypeface(Typeface.DEFAULT);
                     recipeInefficient++;
@@ -1648,7 +1576,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!recipe2b) {
-                    recipe2T = System.currentTimeMillis() - totalExecutionTime;
                     recipe2.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //recipe2.setTypeface(Typeface.DEFAULT);
                     recipeInefficient++;
@@ -1673,7 +1600,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!recipe3b) {
-                    recipe3T = System.currentTimeMillis() - totalExecutionTime;
                     recipe3.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //recipe3.setTypeface(Typeface.DEFAULT);
                     recipeInefficient++;
@@ -1698,7 +1624,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!recipe4b) {
-                    recipe4T = System.currentTimeMillis() - totalExecutionTime;
                     recipe4.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //recipe4.setTypeface(Typeface.DEFAULT);
                     recipeInefficient++;
@@ -1723,7 +1648,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!recipe5b) {
-                    recipe5T = System.currentTimeMillis() - totalExecutionTime;
                     recipe5.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //recipe5.setTypeface(Typeface.DEFAULT);
                     recipeInefficient++;
@@ -1748,7 +1672,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!recipe6b) {
-                    recipe6T = System.currentTimeMillis() - totalExecutionTime;
                     recipe6.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //recipe6.setTypeface(Typeface.DEFAULT);
                     recipeInefficient++;
@@ -1772,7 +1695,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!recipe7b) {
-                    recipe7T = System.currentTimeMillis() - totalExecutionTime;
                     recipe7.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //recipe7.setTypeface(Typeface.DEFAULT);
                     recipeInefficient++;
@@ -1797,7 +1719,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!recipe8b) {
-                    recipe8T = System.currentTimeMillis() - totalExecutionTime;
                     recipe8.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //recipe8.setTypeface(Typeface.DEFAULT);
                     recipeInefficient++;
@@ -1822,7 +1743,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!recipe9b) {
-                    recipe9T = System.currentTimeMillis() - totalExecutionTime;
                     recipe9.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //recipe9.setTypeface(Typeface.DEFAULT);
                     recipeInefficient++;
@@ -1848,7 +1768,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 //lastButtonClicked = recipe10;
                 if (!recipe10b) {
-                    recipe10T = System.currentTimeMillis() - totalExecutionTime;
                     recipe10.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //recipe10.setTypeface(Typeface.DEFAULT);
                     recipeInefficient++;
@@ -1873,7 +1792,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 //lastButtonClicked = recipe10;
                 if (!recipe15b) {
-                    recipe15T = System.currentTimeMillis() - totalExecutionTime;
                     recipe15.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //recipe15.setTypeface(Typeface.DEFAULT);
                     recipeInefficient++;
@@ -1897,7 +1815,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!recipe11b) {
-                    recipe11T = System.currentTimeMillis() - totalExecutionTime;
                     recipe11.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //recipe11.setTypeface(Typeface.DEFAULT);
                     recipeInaccurate++;
@@ -1923,7 +1840,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!recipe12b) {
-                    recipe12T = System.currentTimeMillis() - totalExecutionTime;
                     recipe12.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //recipe12.setTypeface(Typeface.DEFAULT);
                     recipeInaccurate++;
@@ -1949,7 +1865,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!recipe13b) {
-                    recipe13T = System.currentTimeMillis() - totalExecutionTime;
                     recipe13.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //recipe13.setTypeface(Typeface.DEFAULT);
                     recipeInaccurate++;
@@ -1975,7 +1890,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!recipe14b) {
-                    recipe14T = System.currentTimeMillis() - totalExecutionTime;
                     recipe14.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //recipe14.setTypeface(Typeface.DEFAULT);
                     recipeIncomplete++;
@@ -2001,7 +1915,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!snack1b) {
-                    snack1T = System.currentTimeMillis() - totalExecutionTime;
                     snack1.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //snack1.setTypeface(Typeface.DEFAULT);
                     snackInefficient++;
@@ -2026,7 +1939,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!snack2b) {
-                    snack2T = System.currentTimeMillis() - totalExecutionTime;
                     snack2.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //snack2.setTypeface(Typeface.DEFAULT);
                     snackInefficient++;
@@ -2051,7 +1963,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!snack3b) {
-                    snack3T = System.currentTimeMillis() - totalExecutionTime;
                     snack3.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //snack3.setTypeface(Typeface.DEFAULT);
                     snackInefficient++;
@@ -2076,7 +1987,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!snack4b) {
-                    snack4T = System.currentTimeMillis() - totalExecutionTime;
                     snack4.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //snack4.setTypeface(Typeface.DEFAULT);
                     snackInefficient++;
@@ -2101,7 +2011,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!snack5b) {
-                    snack5T = System.currentTimeMillis() - totalExecutionTime;
                     snack5.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //snack5.setTypeface(Typeface.DEFAULT);
                     snackInaccurate++;
@@ -2128,7 +2037,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!snack6b) {
-                    snack6T = System.currentTimeMillis() - totalExecutionTime;
                     snack6.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //snack6.setTypeface(Typeface.DEFAULT);
                     snackInaccurate++;
@@ -2155,7 +2063,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!snack7b) {
-                    snack7T = System.currentTimeMillis() - totalExecutionTime;
                     snack7.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //snack7.setTypeface(Typeface.DEFAULT);
                     snackIncomplete++;
@@ -2182,7 +2089,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!snack8b) {
-                    snack8T = System.currentTimeMillis() - totalExecutionTime;
                     snack8.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //snack8.setTypeface(Typeface.DEFAULT);
                     snackIncomplete++;
@@ -2209,7 +2115,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!tea1b) {
-                    tea1T = System.currentTimeMillis() - totalExecutionTime;
                     tea1.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //tea1.setTypeface(Typeface.DEFAULT);
                     teaInefficient++;
@@ -2234,7 +2139,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!tea2b) {
-                    tea2T = System.currentTimeMillis() - totalExecutionTime;
                     tea2.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //tea2.setTypeface(Typeface.DEFAULT);
                     teaInefficient++;
@@ -2259,7 +2163,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!tea3b) {
-                    tea3T = System.currentTimeMillis() - totalExecutionTime;
                     tea3.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //tea3.setTypeface(Typeface.DEFAULT);
                     teaInefficient++;
@@ -2284,7 +2187,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!tea4b) {
-                    tea4T = System.currentTimeMillis() - totalExecutionTime;
                     tea4.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //tea4.setTypeface(Typeface.DEFAULT);
                     teaInefficient++;
@@ -2309,7 +2211,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!tea5b) {
-                    tea5T = System.currentTimeMillis() - totalExecutionTime;
                     tea5.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //tea5.setTypeface(Typeface.DEFAULT);
                     teaInefficient++;
@@ -2334,7 +2235,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!tea6b) {
-                    tea6T = System.currentTimeMillis() - totalExecutionTime;
                     //tea6T = System.currentTimeMillis() - totalExecutionTime;
                     tea6.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //tea6.setTypeface(Typeface.DEFAULT);
@@ -2360,7 +2260,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!tea7b) {
-                    tea7T = System.currentTimeMillis() - totalExecutionTime;
                     tea7.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //tea7.setTypeface(Typeface.DEFAULT);
                     teaIncomplete++;
@@ -2388,7 +2287,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!tea8b) {
-                    tea8T = System.currentTimeMillis() - totalExecutionTime;
                     tea8.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //tea8.setTypeface(Typeface.DEFAULT);
                     teaIncomplete++;
@@ -2416,7 +2314,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!tea9b) {
-                    tea9T = System.currentTimeMillis() - totalExecutionTime;
                     tea9.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //tea9.setTypeface(Typeface.DEFAULT);
                     teaInaccurate++;
@@ -2444,7 +2341,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!tea10b) {
-                    tea10T = System.currentTimeMillis() - totalExecutionTime;
                     tea10.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //tea10.setTypeface(Typeface.DEFAULT);
                     teaIncomplete++;
@@ -2472,7 +2368,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!tea11b) {
-                    tea11T = System.currentTimeMillis() - totalExecutionTime;
                     tea11.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //tea11.setTypeface(Typeface.DEFAULT);
                     teaIncomplete++;
@@ -2499,7 +2394,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!travel1b) {
-                    travel1T = System.currentTimeMillis() - totalExecutionTime;
                     travel1.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //travel1.setTypeface(Typeface.DEFAULT);
                     travelInefficient++;
@@ -2524,7 +2418,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!travel2b) {
-                    travel2T = System.currentTimeMillis() - totalExecutionTime;
                     travel2.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //travel2.setTypeface(Typeface.DEFAULT);
                     travelInefficient++;
@@ -2549,7 +2442,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!travel3b) {
-                    travel3T = System.currentTimeMillis() - totalExecutionTime;
                     travel3.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //travel3.setTypeface(Typeface.DEFAULT);
                     travelInefficient++;
@@ -2574,7 +2466,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!travel4b) {
-                    travel4T = System.currentTimeMillis() - totalExecutionTime;
                     travel4.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //travel4.setTypeface(Typeface.DEFAULT);
                     travelIncomplete++;
@@ -2601,7 +2492,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (!travel5b) {
-                    travel5T = System.currentTimeMillis() - totalExecutionTime;
                     travel5.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //travel5.setTypeface(Typeface.DEFAULT);
                     travelIncomplete++;
@@ -2654,11 +2544,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 if (!misc1b) {
                     //Toast.makeText(MainActivity.this, "onClickListener working", Toast.LENGTH_SHORT).show();
-                    misc1T = System.currentTimeMillis() - totalExecutionTime;
                     misc1.setTextColor(Color.parseColor("#000000"));
                     misc1b = true;
                 } else if (misc1b) {
-                    misc1.setTextColor(Color.parseColor("#FFFFFF"));
+                    //misc1.setTextColor(Color.parseColor("#FFFFFF"));
                     misc1b = false;
                 }
                 break;
@@ -2669,11 +2558,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(MainActivity.this, "Misc2 Count: " + misc2Count, Toast.LENGTH_SHORT).show();
 
                 if (!misc2b) {
-                    misc2T = System.currentTimeMillis() - totalExecutionTime;
                     misc2.setTextColor(Color.parseColor("#000000"));
                     misc2b = true;
                 } else if (misc2b) {
-                    misc2.setTextColor(Color.parseColor("#FFFFFF"));
+                    //misc2.setTextColor(Color.parseColor("#FFFFFF"));
                     misc2b = false;
                 }
                 break;
@@ -2684,11 +2572,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(MainActivity.this, "Misc3 Count: " + misc3Count, Toast.LENGTH_SHORT).show();
 
                 if (!misc3b) {
-                    misc3T = System.currentTimeMillis() - totalExecutionTime;
                     misc3.setTextColor(Color.parseColor("#000000"));
                     misc3b = true;
                 } else if (misc3b) {
-                    misc3.setTextColor(Color.parseColor("#FFFFFF"));
+                    //misc3.setTextColor(Color.parseColor("#FFFFFF"));
                     misc3b = false;
                 }
                 break;
@@ -2699,8 +2586,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(MainActivity.this, "Misc4 Count: " + misc4Count, Toast.LENGTH_SHORT).show();
 
                 if (!misc4b) {
-                    misc4T = System.currentTimeMillis() - totalExecutionTime;
-                    misc4.setTextColor(Color.parseColor("#000000"));
+                    //misc4.setTextColor(Color.parseColor("#000000"));
                     misc4b = true;
                 } else if (misc4b) {
                     misc4.setTextColor(Color.parseColor("#FFFFFF"));
@@ -2747,13 +2633,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 timerTravel();
                 lastButtonClicked = travelStart;
                 break;
+            case R.id.midtaskplanningstart:
+                //stopLastTimer();
+                timerMidTaskPlanning();
+                //lastButtonClicked = travelStart;
+                break;
             case R.id.Continue:
                 /*this code saves buttons that were pressed, which is saved to file in the summary activity
                 saveButtons();*/
                 saveData();
                 saveOtherErrors();
+                saveButtons();
                 nextActivity();
-                //stopTimers();
+
                 break;
 
 
@@ -2818,45 +2710,64 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+
                         // sign in the user ...
                         SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPref.edit();
 
                         String temp = text.getText().toString();
+
                         //Toast.makeText(MainActivity.this, temp, Toast.LENGTH_LONG).show();
                         switch(v.getId()) {
+
                             case R.id.recipecomments:
+
                                 recipeCom = text.getText().toString();
                                 editor.putString("recipecomments", recipeCom);
                                 break;
+
                             case R.id.travelcomments:
+
                                 travelCom = text.getText().toString();
                                 editor.putString("travelcomments", travelCom);
                                 break;
+
                             case R.id.teacomments:
+
                                 teaCom = text.getText().toString();
                                 editor.putString("teacomments", teaCom);
                                 break;
+
                             case R.id.moviecomments:
+
                                 movieCom = text.getText().toString();
                                 editor.putString("moviecomments", movieCom);
                                 break;
+
                             case R.id.moneycomments:
+
                                 moneyCom = text.getText().toString();
                                 editor.putString("moneycomments", moneyCom);
                                 break;
+
                             case R.id.phonecomments:
+
                                 phoneCom = text.getText().toString();
                                 editor.putString("phonecomments", phoneCom);
                                 break;
+
                             case R.id.snackcomments:
+
                                 snackCom = text.getText().toString();
                                 editor.putString("snackcomments", snackCom);
                                 break;
+
                             case R.id.exitcomments:
+
                                 exitCom = text.getText().toString();
                                 editor.putString("exitComments", exitCom);
                                 break;
+
                         }
 
                         editor.apply();
@@ -2864,21 +2775,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+
                         //LoginDialogFragment.this.getDialog().cancel();
+
                     }
                 });
+
         builder2.create();
         builder2.show();
     }
 
+    public void clearComments(){
+        SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        editor.putString("recipecomments", "");
+
+        editor.putString("travelcomments", "");
+
+        editor.putString("teacomments", "");
+
+        editor.putString("moviecomments", "");
+
+        editor.putString("moneycomments", "");
+
+        editor.putString("phonecomments", "");
+
+        editor.putString("snackcomments", "");
+
+        editor.putString("exitComments", "");
+
+        editor.apply();
+    }
+
     public void restartMainActivity() {
+
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
+
     }
 
     public void nextActivity() {
+
         Intent i = new Intent(this, FinalActivity.class);
         startActivity(i);
+
     }
 
     public void ingredients(View v) {
@@ -2929,7 +2870,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putInt("monincom", moneyIncomplete);
         editor.putInt("moninac", moneyInaccurate);
 
-
         editor.putInt("phoneScore", phoneScore);
         editor.putLong("phoneActive", timePhone / 1000);
         editor.putLong("multiPhone", multitaskPhone / 1000);
@@ -2949,7 +2889,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putInt("teaineff", teaInefficient);
         editor.putInt("teaincom", teaIncomplete);
         editor.putInt("teainac", teaInaccurate);
-
 
         editor.putInt("snackScore", snackScore);
         editor.putLong("snackActive", timeSnack / 1000);
@@ -3023,6 +2962,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putInt("misc3Count", misc3Count);
         editor.putInt("misc4Count", misc4Count);
 
+        // save task counts
+        editor.putInt("recipeCount", recipeCount);
+        editor.putInt("exitCount", exitCount);
+        editor.putInt("movieCount", movieCount);
+        editor.putInt("phoneCount", phoneCount);
+        editor.putInt("snackCount", snackCount);
+        editor.putInt("moneyCount", moneyCount);
+        editor.putInt("travelCount", travelCount);
+        editor.putInt("teaCount", teaCount);
+        editor.putInt("midTaskPlanningCount", midTaskPlanningCount);
+
+        editor.putInt("totalInterruptions", recipeCount + exitCount + movieCount + phoneCount + snackCount + moneyCount + travelCount + teaCount);
+
+        // total midTaskPlanningCount
+        editor.putLong("timeMidTaskPlanning", timeMidTaskPlanning/1000);
+
         // save start times
         editor.putString("overallStartTime", overallStartTime);
         editor.putString("overallFinishTime", overallFinishTime);
@@ -3044,30 +2999,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putString("teaStartTime", teaStartTime);
         //private String teaFinishTime;
 
+        editor.putString("date", NOTdate);
+        //Toast.makeText(getBaseContext(), NOTdate, Toast.LENGTH_SHORT).show();
+
         editor.apply();
     }
 
     public void stopLastTimer() {
-        /*if(lastButtonClicked == movieStart){
-            timerMovie();
-        }else if(lastButtonClicked ==phoneStart ){
-            timerPhone();
-        }else if(lastButtonClicked ==teaStart ) {
-            timerTea();
-        }else if(lastButtonClicked == travelStart){
-            timerTravel();
-        }else if(lastButtonClicked == moneyStart){
-            timerMoney();
-        }else if(lastButtonClicked == snackStart){
-            timerSnack();
-        }else if(lastButtonClicked == exitStart){
-            timerExit();
-        }else if(lastButtonClicked == recipeStart){
-            timerRecipe();
-        }*/
+        // not used
     }
 
     public void stopTimers() {
+
         if (movie) {
             timerMovie();
         }
@@ -3104,6 +3047,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }*/
 
     public void timerMovie() {
+
         if (noMoreTiming) {
             return;
         }
@@ -3130,6 +3074,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (!movie) {
 
+            movieCount++;
             movieTemp2 = System.currentTimeMillis();
             movie = true;
             movieStart.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xf9152f));
@@ -3158,11 +3103,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             finishSequence("movie");
             simultaneousOrder.add("movie");
             currentSimultaneous[1] = false;
-            //Toast.makeText(MainActivity.this, timeMoney + "movie task stopped", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     public void timerMoney() {
+
         if (noMoreTiming) {
             return;
         }
@@ -3183,10 +3129,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // get start timetimestamp
             dateobj = new Date();
             changeStartTime = df.format(dateobj);
-            //Toast.makeText(MainActivity.this, changeStartTime, Toast.LENGTH_SHORT).show();
 
         }
         if (!money) {
+            moneyCount++;
             moneyTemp2 = System.currentTimeMillis();
             money = true;
             moneyStart.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xf9152f));
@@ -3209,9 +3155,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             simultaneousOrder.add("money");
             currentSimultaneous[6] = false;
         }
+
     }
 
     public void timerExit() {
+
         if (noMoreTiming) {
             return;
         }
@@ -3233,10 +3181,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // get start timetimestamp
             dateobj = new Date();
             exitStartTime = df.format(dateobj);
-            //Toast.makeText(MainActivity.this, exitStartTime, Toast.LENGTH_SHORT).show();
 
         }
         if (!exit) {
+            exitCount++;
             exitTemp2 = System.currentTimeMillis();
             exit = true;
             exitStart.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xf9152f));
@@ -3259,9 +3207,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             simultaneousOrder.add("exit");
             currentSimultaneous[4] = false;
         }
+
     }
 
     public void timerPhone() {
+
         if (noMoreTiming) {
             return;
         }
@@ -3283,10 +3233,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // get start timetimestamp
             dateobj = new Date();
             phoneStartTime = df.format(dateobj);
-            //Toast.makeText(MainActivity.this, phoneStartTime, Toast.LENGTH_SHORT).show();
 
         }
         if (!phone) {
+            phoneCount++;
             phoneTemp2 = System.currentTimeMillis();
             phone = true;
             phoneStart.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xf9152f));
@@ -3312,6 +3262,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void timerRecipe() {
+
         if (noMoreTiming) {
             return;
         }
@@ -3332,10 +3283,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // get start timetimestamp
             dateobj = new Date();
             recipeStartTime = df.format(dateobj);
-            //Toast.makeText(MainActivity.this, recipeStartTime, Toast.LENGTH_SHORT).show();
 
         }
         if (!recipe) {
+            recipeCount++;
             recipeTemp2 = System.currentTimeMillis();
             recipe = true;
             recipeStart.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xf9152f));
@@ -3382,10 +3333,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // get start timetimestamp
             dateobj = new Date();
             snackStartTime = df.format(dateobj);
-            //Toast.makeText(MainActivity.this, snackStartTime, Toast.LENGTH_SHORT).show();
 
         }
         if (!snack) {
+
+            snackCount++;
             snackTemp2 = System.currentTimeMillis();
             snack = true;
             snackStart.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xf9152f));
@@ -3431,10 +3383,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // get start timetimestamp
             dateobj = new Date();
             teaStartTime = df.format(dateobj);
-            //Toast.makeText(MainActivity.this, teaStartTime, Toast.LENGTH_SHORT).show();
 
         }
         if (!tea) {
+            teaCount++;
             teaTemp2 = System.currentTimeMillis();
             tea = true;
             teaStart.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xf9152f));
@@ -3480,10 +3432,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // get start timetimestamp
             dateobj = new Date();
             travelStartTime = df.format(dateobj);
-            //Toast.makeText(MainActivity.this, travelStartTime, Toast.LENGTH_SHORT).show();
 
         }
         if (!travel) {
+            travelCount++;
             travelTemp2 = System.currentTimeMillis();
             travel = true;
             travelStart.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xf9152f));
@@ -3508,67 +3460,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    /*
-    public void timer(){
-        moviePause.setVisibility (View.VISIBLE);
-        if(timeMovie > 0){
-            //start time for movie
-            multitaskMovie = System.currentTimeMillis();
+    public void timerMidTaskPlanning(){
+        if (noMoreTiming) {
+            return;
         }
-        if(!movie){
-            movie = true;
-            movieStart.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xf9152f));
-            movieStart.setText("Finish");
-            //activate pause/ continue button
-            moviePause.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xf9152f));
-        }else{
+
+        if (!midTaskPlanning) {
+
+            midTaskPlanningCount++;
+            midTaskPlanningTemp = System.currentTimeMillis();
+            midTaskPlanning = true;
+            midTaskPlanningStart.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xf9152f));
+            midTaskPlanningStart.setText("Stop");
+
+        } else {
             //stop timer
             //moneyFinish will be subtracted from multitaskMoney during the summary activity to get total time of completion
-            multitaskMovie = System.currentTimeMillis() - multitaskMovie;
-            //timeMoney /= 1000;
-            movieStart.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x006600));
-            moviePause.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xD7D7D7));
-            movieStart.setText("Restart");
-            movie = false;
-            moviePause.setVisibility (View.INVISIBLE);
+            long temp = System.currentTimeMillis();
+            long temp2 = (temp - midTaskPlanningTemp);
+            timeMidTaskPlanning += temp2;
+            midTaskPlanningStart.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x006600));
+            midTaskPlanningStart.setText("Continue");
+            midTaskPlanning = false;
+
         }
     }
 
-    public void pauseContinue(){
-        if(!movie){
-            //tell user that task must be started before they can pause timer
-            Toast.makeText(MainActivity.this, "Must press start first", Toast.LENGTH_SHORT).show();
-        }else{
-            if(!movPause){
-                //start timer
-                movieTemp += System.currentTimeMillis();
-                //update button with color and new text
-                moviePause.setText("Continue");
-                moviePause.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x006600));
-                movPause = true;
-            }else{
-                timeMoney += System.currentTimeMillis() - movieTemp;
-                moviePause.setText("Pause");
-                moviePause.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xf9152f));
-                movPause = false;
-            }
-        }
-    }*/
-    //use two arrays to determine sequence scores in this activity or the summary activity
-    //how do we know when activities are completed
-
-    /*int startIndex = 0;
-    int finishIndex = 0;
-    int ARRAY_SIZE = 8;
-    String[] startOrder = new String[ARRAY_SIZE];
-    String[] finishOrder = new String[ARRAY_SIZE];*/
 
     public void startSequence(String category) {
+
         for (int i = 0; i < 8; i++) {
             if (startOrder[i] != null && startOrder[i].equals(category)) {
                 return;
             }
         }
+
         startOrder[startIndex] = category;
         startIndex++;
     }
@@ -3591,15 +3517,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             index++;
         }
-
-        /*current attempt ^^^ */
-
-        //test code
-        /*String temp = "";
-        for(int i = 0; i < 8; i++){
-            temp += " " + finishOrder[i];
-        }
-        Toast.makeText(MainActivity.this, temp, Toast.LENGTH_SHORT).show();*/
 
     }
 
@@ -3626,13 +3543,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public int calculateIndividualSimultaneous(int category){
+
         int total = 0;
         switch(category){
             case 0:
                 for(int i = 0; i < 8; i++){
                     if(recipeSimultaneous[i] && i!=0){
                         total++;
-                    }//movie 1
+                    }
+                    //key:
+                    //movie 1
                     //recipe 0
                     //money 6
                     //snack 2
@@ -3692,8 +3612,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
         }
-        //if(total > 0)
-            //total -= 1;
+
         return total;
     }
 
@@ -3753,75 +3672,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public int simultaneous(String category) {
-        int total = 0;
-        boolean[] isSimultaneous = {false, false, false, false, false, false, false, false};
-
-        int last = simultaneousOrder.lastIndexOf(category);
-        int first = simultaneousOrder.indexOf(category);
-        if (last == -1 || last == first + 1) {
-            return 0;
-        }
-        boolean exists = false;
-
-        //movie is 1
-        //money is 2
-        //phone is 3
-        //tea is 4
-        //travel is 5
-        //recipe is 6
-        //snack is 7
-        //exit is 8
-        // if not found return -1
-
-        for (int i = first + 1; i < last; i++) {
-            if (simultaneousOrder.get(i).equals(category)) {
-                exists = true;
-            }
-            switch (simultaneousOrder.get(i)) {
-                case "movie":
-                    isSimultaneous[0] = true;
-                    break;
-                case "money":
-                    isSimultaneous[1] = true;
-                    break;
-                case "phone":
-                    isSimultaneous[2] = true;
-                    break;
-                case "tea":
-                    isSimultaneous[3] = true;
-                    break;
-                case "travel":
-                    isSimultaneous[4] = true;
-                    break;
-                case "recipe":
-                    isSimultaneous[5] = true;
-                    break;
-                case "snack":
-                    isSimultaneous[6] = true;
-                    break;
-                case "exit":
-                    isSimultaneous[7] = true;
-                    break;
-            }
-        }
-        for (int i = 0; i < 8; i++) {
-            if (isSimultaneous[i]) {
-                total++;
-            }
-        }
-        if (exists) {
-            total--;
-        }
-        return total;
-    }
-
     public void saveButtons() {
 
         SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-
-        editor.clear();
 
         if (movie1b)
             editor.putInt("movie1b", 1);//"Movie: Looks in multiple locations " + Long.toString(movie1T / 1000)
@@ -4124,8 +3978,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else
             editor.putInt("misc3b", 2);
 
-        editor.putString("date", recipeStartTime);
-
         editor.apply();
     }
 
@@ -4172,7 +4024,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void otherButton(final View v){
 
         if(otherErrors >= 3){
-            Toast.makeText(MainActivity.this, "This system does not allow any more than 3 other error selections", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "This app does not allow any more than 3 other error selections", Toast.LENGTH_SHORT).show();
             return;
         }
         builder3 = new AlertDialog.Builder(this);
@@ -4210,6 +4062,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(otherErrors < 3){
 
                     switch(b.getCheckedRadioButtonId()){
+
                         case -1:
                             Toast.makeText(MainActivity.this, "No task selected", Toast.LENGTH_SHORT).show();
                             //call function again so that window is still up for user to select category
@@ -4282,8 +4135,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.apply();
     }
 
-    /*public void onClick2(View view){
-        Intent i = new Intent(this, FinalActivity.class);
-        startActivity(i);
-    }*/
+    // method to make toasts easier
+    public void message(String x){
+        Toast.makeText(MainActivity.this, x, Toast.LENGTH_SHORT).show();
+    }
+
 }

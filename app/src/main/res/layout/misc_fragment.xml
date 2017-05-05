@@ -18,12 +18,12 @@
     <Button
         style="@style/MiscButton"
         android:background="@drawable/colorbutton"
-        android:text="mid-task planning"
+        android:text="NTRA"
         android:id="@+id/misc3" />
         <!--Plan(mid-task planning)-->
     <Button
         style="@style/MiscButton"
         android:background="@drawable/colorbutton"
-        android:text="Searching"
+        android:text="QUESTION"
         android:id="@+id/misc4" />
 </LinearLayout>

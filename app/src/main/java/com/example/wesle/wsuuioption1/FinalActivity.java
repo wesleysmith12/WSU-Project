@@ -9,6 +9,7 @@ import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -26,9 +27,7 @@ import java.io.IOException;
 
 public class FinalActivity extends AppCompatActivity implements View.OnClickListener{
 
-    //FileOutputStream fos;
-    //String FILENAME = "internalString";
-    private TextView gathered, recorded, leavesHouse;
+    private TextView gathered, recorded, leavesHouse, orText;
     private EditText changeRecorded, changeGathered, comments;
     private TimePicker time;
     private RadioGroup radioGroup1, radioGroup2, radioGroup3;
@@ -37,7 +36,8 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
     private boolean alreadyCalculated = false;
     private boolean checkBoxesChecked = false;
     private RadioButton radioY, radioY2, radioY3;
-    private TimePicker timePicker;
+    private Button naButton;
+    private boolean timeNotApplicable = false;
 
     TextView errorsHeader;
     TextView error1;
@@ -52,8 +52,10 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_final);
 
-        //SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
         time = (TimePicker) findViewById(R.id.timePicker);
+
+        orText = (TextView) findViewById(R.id.or);
+        naButton = (Button) findViewById(R.id.timena);
 
         //this code makes so that the clock is pm by default
         try{
@@ -80,10 +82,7 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
         radioY = (RadioButton) findViewById(R.id.radioButton);
         radioY2 = (RadioButton) findViewById(R.id.radioButton3);
         radioY3 = (RadioButton) findViewById(R.id.radioButton5);
-        /*if(sharedPref.getInt("movieScore", 1) == 4){
-                time.setVisibility(View.GONE);
-            leavesHouse.setVisibility(View.GONE);
-        }*/
+
         if(sharedPref.getInt("moneyScore", 1) == 4){
             gathered.setVisibility(View.GONE);
             recorded.setVisibility(View.GONE);
@@ -125,11 +124,6 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
             }
         }
 
-        //timePicker = (TimePicker) findViewById(R.id.timePicker);
-//        leavesHouse.setInputType(InputType.TYPE_CLASS_DATETIME);
-//        String leavesHouseTime = leavesHouse.getText().toString();
-
-       /* if(leavesHouse.getT())*/
         editor.apply();
     }
 
@@ -169,7 +163,6 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
             alreadyCalculated = true;
 
             Intent i = new Intent(this, SummaryActivity.class);
-            //save sequencing with calculateSequencing()
             startActivity(i);
         }else{
                 Toast.makeText(FinalActivity.this, "Please answer every question", Toast.LENGTH_SHORT).show();
@@ -221,9 +214,6 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
             return 0;
         }
         int sequencing = 0;
-        //this portion is no longer calculated, it is done manually by user
-        /*SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
-        boolean phoneCallEnd = sharedPref.getBoolean("phoneCallEnd", false);*/
 
         SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -251,29 +241,6 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
 
         return sequencing;
     }
-
-    //public void uploadDataToFile() throws IOException{
-        // Save data via file
-        /*
-        File f = new File(FILENAME);
-        try {
-            fos = new FileOutputStream(f);
-            fos.close();
-        } catch (FileNotFoundException e){
-            e.printStackTrace();
-        }*/
-
-        //other file writing method
-        /*
-        try{
-            fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-            fos.write(data.getBytes());
-            fos.close();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
-    }*/
 
     @Override
     public void onClick(View v) {
@@ -303,10 +270,9 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
         int moneyInac = sharedPref.getInt("moninac", 0);
         int moneyIncom = sharedPref.getInt("monincom", 0);
         int errorTotals = sharedPref.getInt("errorTotals", 0);
-        if(changeRecordedText > changeGatheredText){ //didn't get enough money: inaccurate and inefficient
-            /*if(lessMoney){
-                //do nothing
-            }else */if(moreMoney){
+        if(changeRecordedText > changeGatheredText){
+
+            if(moreMoney){
                 if(moneyScore == 1 || moneyScore == 2){
                     moneyScore = 3;
                 }
@@ -387,17 +353,35 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
         editor.putInt("errorTotals", errorTotals);
         editor.putBoolean("moreMoney", moreMoney);
         editor.putBoolean("lessMoney", lessMoney);
-        //Toast.makeText(FinalActivity.this, "Change Gathered: " + changeRecordedText, Toast.LENGTH_SHORT).show();
-        //Toast.makeText(FinalActivity.this, "Change Recorded " + changeGatheredText, Toast.LENGTH_SHORT).show();
         editor.putString("changeRecorded", changeRecordedText.toString());
         editor.putString("changeGathered", changeGatheredText.toString());
         editor.apply();
         return true;
     }
 
+
+    public void timeNA(View v){
+        if(naButton.getText().equals("N/A")){
+            orText.setText("Time is not applicable");
+            naButton.setText("UNDO");
+            time.setVisibility(View.GONE);
+            timeNotApplicable = true;
+        }else{
+            orText.setText("OR");
+            naButton.setText("N/A");
+            timeNotApplicable = false;
+            time.setVisibility(View.VISIBLE);
+        }
+
+        //orText.setVisibility(View.GONE);
+
+    }
+
+
+
     public void calculateTime(View v){
 
-        if(alreadyCalculated){
+        if(alreadyCalculated || timeNotApplicable){
             return;
         }
         SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
@@ -422,14 +406,14 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
             }
             movieInef++;
             errorTotals++;
-            //Toast.makeText(FinalActivity.this, "early", Toast.LENGTH_SHORT).show();
+
         }else if(minutes > 35 && (hours == 18 || hours == 19 || hours == 20 || hours == 21 || hours == 22 || hours == 23) && !movieLate){
             if(movieScore == 1 || movieScore == 2){
                 movieScore = 3;
             }
             movieInac++;
             errorTotals++;
-            //Toast.makeText(FinalActivity.this, "late", Toast.LENGTH_SHORT).show();
+
         }
         editor.putInt("movieScore", movieScore);
         editor.putInt("movineff", movieInef);

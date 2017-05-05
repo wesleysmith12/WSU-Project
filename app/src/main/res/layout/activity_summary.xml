@@ -44,7 +44,8 @@
             android:name="com.example.wesle.wsuuioption1.OverallSumFragment"
             android:id="@+id/fragment18"
             tools:layout="@layout/fragment_overall_sum"
-            android:layout_marginLeft="40dp" />
+            android:layout_marginLeft="40dp"
+            android:layout_weight="10.10" />
 
         <Button
             android:layout_width="wrap_content"
@@ -52,7 +53,8 @@
             android:text="Restart"
             android:id="@+id/restart"
             android:focusable="true"
-            android:layout_weight="2.60" />
+            android:layout_weight="13.02"
+            android:layout_marginLeft="300dp" />
 
     </LinearLayout>
 

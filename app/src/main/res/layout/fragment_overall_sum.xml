@@ -112,7 +112,7 @@
                 android:id="@+id/correctsequencingtotal" />
         </LinearLayout>
 
-        <LinearLayout
+        <!--<LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -169,9 +169,9 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="0"
                 android:id="@+id/inaccurate" />
-        </LinearLayout>
+        </LinearLayout>-->
 
-        <LinearLayout
+        <!--<LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -233,7 +233,14 @@
 
 
 
-        </LinearLayout>
+        </LinearLayout>-->
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Details..."
+            android:id="@+id/details"
+            android:onClick="details"/>
 
     </LinearLayout>
 </FrameLayout>
