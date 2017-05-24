@@ -3012,6 +3012,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void stopTimers() {
 
         if (movie) {
+            
             timerMovie();
         }
         if (phone) {
