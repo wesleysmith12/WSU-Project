@@ -2586,10 +2586,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(MainActivity.this, "Misc4 Count: " + misc4Count, Toast.LENGTH_SHORT).show();
 
                 if (!misc4b) {
-                    //misc4.setTextColor(Color.parseColor("#000000"));
+                    misc4.setTextColor(Color.parseColor("#000000"));
                     misc4b = true;
                 } else if (misc4b) {
-                    misc4.setTextColor(Color.parseColor("#FFFFFF"));
+                    //misc4.setTextColor(Color.parseColor("#FFFFFF"));
                     misc4b = false;
                 }
                 break;
@@ -3034,6 +3034,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (exit) {
             timerExit();
+        }
+        if(midTaskPlanning){
+            timerMidTaskPlanning();
         }
     }
 

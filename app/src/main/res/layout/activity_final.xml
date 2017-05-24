@@ -266,7 +266,7 @@
 
         <EditText
             android:layout_width="347dp"
-            android:layout_height="126dp"
+            android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:ems="10"
             android:id="@+id/comments"

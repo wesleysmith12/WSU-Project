@@ -52,6 +52,12 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_final);
 
+        try{
+            getSupportActionBar().hide();
+        }catch(NullPointerException e){
+
+        }
+
         time = (TimePicker) findViewById(R.id.timePicker);
 
         orText = (TextView) findViewById(R.id.or);

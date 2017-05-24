@@ -1202,6 +1202,10 @@ public class SummaryActivity extends AppCompatActivity {
                     //LINE #184
                     fos.write(((sharedPref.getInt("misc4Count", -1)) + ",").getBytes());
 
+                    // other error count #185
+//                  Toast.makeText(SummaryActivity.this, Integer.toString(sharedPref.getInt("othererrortotal", 0)), Toast.LENGTH_SHORT).show();
+                    fos.write((Integer.toString(sharedPref.getInt("othererrortotal", -1))).getBytes());
+
 
                     /*//fos.write((" , , Movie, Tea, Snack, Change, Phone, Recipe, Travel, Exit,").getBytes());
                     fos.write((" , , Score, Time, Multitask Time, Sequence, Simultaneous, Inefficient, Incomplete, Inaccurate,").getBytes());
