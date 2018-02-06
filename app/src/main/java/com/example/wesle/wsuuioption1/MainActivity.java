@@ -24,6 +24,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 //changed from appcompat to Activity remove titlebar
@@ -281,8 +282,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     DateFormat df;
     Date dateobj;
 
+    //start and stop miliseconds for simultaneous
+    long recipeStartMilisecond, movieStartMilisecond, snackStartMilisecond, travelStartMilisecond, exitStartMilisecond, phoneStartMilisecond,
+            changeStartMilisecond, teaStartMilisecond, recipeStopMilisecond, movieStopMilisecond, snackStopMilisecond,
+            travelStopMilisecond, exitStopMilisecond, phoneStopMilisecond, changeStopMilisecond, teaStopMilisecond;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //milisecond times for start and stop are set to -1 if the task is not started
+        recipeStartMilisecond = -1;
+        movieStartMilisecond = -1;
+        snackStartMilisecond = -1;
+        travelStartMilisecond = -1;
+        exitStartMilisecond = -1;
+        phoneStartMilisecond = -1;
+        changeStartMilisecond = -1;
+        teaStartMilisecond = -1;
+        recipeStopMilisecond = -1;
+        movieStopMilisecond = -1;
+        snackStopMilisecond = -1;
+        travelStopMilisecond = -1;
+        exitStopMilisecond = -1;
+        phoneStopMilisecond = -1;
+        changeStopMilisecond = -1;
+        teaStopMilisecond = -1;
 
         super.onCreate(savedInstanceState);
 
@@ -291,7 +315,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             getSupportActionBar().hide(); //<< this
         }catch(NullPointerException e){}
 
-        dfDate = new SimpleDateFormat("dd/MM/yy");
+        dfDate = new SimpleDateFormat("MM/dd/yy");
 
         df = new SimpleDateFormat("HH:mm:ss");
 
@@ -535,7 +559,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         phone6.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
         phone7.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
 
-        recipe10.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
+        //recipe10.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
         recipe11.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
         recipe12.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
         recipe13.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
@@ -690,53 +714,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return correctSequencing;
     }
 
-    public String calculateQuality() {
-
-        int[] scoresArray = {movieScore, moneyScore, travelScore, teaScore, exitScore, phoneScore, recipeScore, snackScore};
-        int incomplete = 0;
-        int inefficient = 0;
-        int unattempted = 0;
-
-        for (int i = 0; i < 8; i++) {
-
-            switch (scoresArray[i]) {
-
-                case 1:
-                    break;
-                case 2:
-                    inefficient++;
-                    break;
-                case 3:
-                    incomplete++;
-                    break;
-                case 4:
-                    unattempted++;
-                    break;
-            }
-        }
-        if (unattempted + incomplete > 4) {
-
-            return "Poor";
-
-        } else if (unattempted + incomplete > 2) {
-
-            return "Fair";
-
-        } else if (unattempted + incomplete > 0) {
-
-            return "Good";
-
-        } else if (unattempted + incomplete == 0 && inefficient > 0) {
-
-            return "Very Good";
-
-        } else {
-
-            return "Excellent";
-
-        }
-
-    }
+//    public String calculateQuality() {
+//
+//        int[] scoresArray = {movieScore, moneyScore, travelScore, teaScore, exitScore, phoneScore, recipeScore, snackScore};
+//        int incomplete = 0;
+//        int inefficient = 0;
+//        int unattempted = 0;
+//
+//        for (int i = 0; i < 8; i++) {
+//
+//            switch (scoresArray[i]) {
+//
+//                case 1:
+//                    break;
+//                case 2:
+//                    inefficient++;
+//                    break;
+//                case 3:
+//                    incomplete++;
+//                    break;
+//                case 4:
+//                    unattempted++;
+//                    break;
+//            }
+//        }
+//        if (unattempted + incomplete > 4) {
+//
+//            return "Poor";
+//
+//        } else if (unattempted + incomplete > 2) {
+//
+//            return "Fair";
+//
+//        } else if (unattempted + incomplete > 0) {
+//
+//            return "Good";
+//
+//        } else if (unattempted + incomplete == 0 && inefficient > 0) {
+//
+//            return "Very Good";
+//
+//        } else {
+//
+//            return "Excellent";
+//
+//        }
+//
+//    }
 
     public void calculatePlanning() {
 
@@ -1263,7 +1287,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (!movie5b) {
                     movie5.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //movie5.setTypeface(Typeface.DEFAULT);
-                    movieIncomplete++;
+                    movieInaccurate++;
                     movie5b = true;
                     if (movieScore != 3) {
                         movieScore = 3;
@@ -1271,7 +1295,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else if (movie5b) {
                     movie5.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
                     //movie5.setTypeface(null, Typeface.BOLD);
-                    movieIncomplete--;
+                    movieInaccurate--;
                     movie5b = false;
                     //lower score based on which other buttons have already been pressed
                     if (movieScore == 3 && movieIncomplete == 0 && movieInaccurate == 0 && movieInefficient == 0) {
@@ -1279,6 +1303,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     } else if (movieScore == 3 && movieIncomplete == 0 && movieInaccurate == 0 && movieInefficient > 0) {
                         movieScore = 2;
                     }
+
                 }
                 //lastButtonClicked = movie5;
                 break;
@@ -1772,8 +1797,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     //recipe10.setTypeface(Typeface.DEFAULT);
                     recipeInefficient++;
                     recipe10b = true;
-                    if (recipeScore != 3) {
-                        recipeScore = 3;
+                    if (recipeScore == 1) {
+                        recipeScore = 2;
                     }
                 } else if (recipe10b) {
                     recipe10.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xD7D7D7));
@@ -1794,7 +1819,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (!recipe15b) {
                     recipe15.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //recipe15.setTypeface(Typeface.DEFAULT);
-                    recipeInefficient++;
+                    recipeInaccurate++;
                     recipe15b = true;
                     if (recipeScore != 3) {
                         recipeScore = 3;
@@ -1802,12 +1827,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else if (recipe15b) {
                     recipe15.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
                     //recipe15.setTypeface(null, Typeface.BOLD);
-                    recipeInefficient--;
+                    recipeInaccurate--;
                     recipe15b = false;
                     //lower score based on which other buttons have already been pressed
-                    if (recipeScore == 2 && recipeInefficient == 0) {
+                    if (recipeScore == 3 && recipeIncomplete == 0 && recipeInefficient == 0) {
                         recipeScore = 1;
+                    } else if (recipeScore == 3 && recipeIncomplete == 0 && recipeInefficient > 0) {
+                        recipeScore = 2;
                     }
+
                 }
                 break;
             case R.id.recipe11:
@@ -2198,7 +2226,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     tea4.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xD7D7D7));
                     //tea4.setTypeface(null, Typeface.BOLD);
                     teaInefficient--;
-                    tea1b = false;
+                    tea4b = false;
                     //lower score based on which other buttons have already been pressed
                     if (teaScore == 2 && teaInefficient == 0) {
                         teaScore = 1;
@@ -2262,7 +2290,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (!tea7b) {
                     tea7.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //tea7.setTypeface(Typeface.DEFAULT);
-                    teaIncomplete++;
+                    teaInaccurate++;
                     tea7b = true;
                     if (teaScore != 3) {
                         teaScore = 3;
@@ -2270,15 +2298,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else if (tea7b) {
                     tea7.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
                     //tea7.setTypeface(null, Typeface.BOLD);
-                    teaIncomplete--;
+                    teaInaccurate--;
                     tea7b = false;
                     //lower score based on which other buttons have already been pressed
                     //lower score based on which other buttons have already been pressed
-                    if (teaScore == 3 && teaIncomplete == 0 && teaInefficient == 0) {
+                    if (teaScore == 3 && teaIncomplete == 0 && teaInefficient == 0 && teaInaccurate == 0) {
                         teaScore = 1;
-                    } else if (teaScore == 3 && teaIncomplete == 0 && teaInefficient > 0) {
+                    } else if (teaScore == 3 && teaIncomplete == 0 && teaInaccurate == 0 && teaInefficient > 0) {
                         teaScore = 2;
                     }
+
                 }
                 //lastButtonClicked = tea7;
                 break;
@@ -2316,7 +2345,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (!tea9b) {
                     tea9.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0x981e32));
                     //tea9.setTypeface(Typeface.DEFAULT);
-                    teaInaccurate++;
+                    teaIncomplete++;
                     tea9b = true;
                     if (teaScore != 3) {
                         teaScore = 3;
@@ -2324,9 +2353,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else if (tea9b) {
                     tea9.getBackground().setColorFilter(new LightingColorFilter(0x00000000, 0xA9A9A9));
                     //tea9.setTypeface(null, Typeface.BOLD);
-                    teaInaccurate--;
+                    teaIncomplete--;
                     tea9b = false;
-                    //lower score based on which other buttons have already been pressed
                     //lower score based on which other buttons have already been pressed
                     if (teaScore == 3 && teaIncomplete == 0 && teaInefficient == 0 && teaInaccurate == 0) {
                         teaScore = 1;
@@ -2855,7 +2883,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putLong("multiMovie", multitaskMovie / 1000);
         movieSequencing = sequence("movie");
         editor.putString("movieSeq", movieSequencing);
-        editor.putInt("movieSim", calculateIndividualSimultaneous(1));
+        editor.putInt("movieSim", simultaneous("movie", movieStartMilisecond, movieStopMilisecond));
         editor.putInt("movineff", movieInefficient);
         editor.putInt("movincom", movieIncomplete);
         editor.putInt("movinac", movieInaccurate);
@@ -2865,7 +2893,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putLong("multiMoney", multitaskMoney / 1000);
         moneySequencing = sequence("money");
         editor.putString("moneySeq", moneySequencing);
-        editor.putInt("moneySim", calculateIndividualSimultaneous(6));
+        editor.putInt("moneySim",simultaneous("change", changeStartMilisecond, changeStopMilisecond));
         editor.putInt("monineff", moneyInefficient);
         editor.putInt("monincom", moneyIncomplete);
         editor.putInt("moninac", moneyInaccurate);
@@ -2875,7 +2903,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putLong("multiPhone", multitaskPhone / 1000);
         phoneSequencing = sequence("phone");
         editor.putString("phoneSeq", phoneSequencing);
-        editor.putInt("phoneSim", calculateIndividualSimultaneous(5));
+        editor.putInt("phoneSim", simultaneous("phone", phoneStartMilisecond, phoneStopMilisecond));
         editor.putInt("phoineff", phoneInefficient);
         editor.putInt("phoincom", phoneIncomplete);
         editor.putInt("phoinac", phoneInaccurate);
@@ -2885,7 +2913,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putLong("multiTea", multitaskTea / 1000);
         teaSequencing = sequence("tea");
         editor.putString("teaSeq", teaSequencing);
-        editor.putInt("teaSim", calculateIndividualSimultaneous(7));
+        editor.putInt("teaSim", simultaneous("tea", teaStartMilisecond, teaStopMilisecond));
         editor.putInt("teaineff", teaInefficient);
         editor.putInt("teaincom", teaIncomplete);
         editor.putInt("teainac", teaInaccurate);
@@ -2895,7 +2923,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putLong("multiSnack", multitaskSnack / 1000);
         snackSequencing = sequence("snack");
         editor.putString("snackSeq", snackSequencing);
-        editor.putInt("snackSim", calculateIndividualSimultaneous(2));
+        editor.putInt("snackSim", simultaneous("snack", snackStartMilisecond, snackStopMilisecond));
         editor.putInt("snaineff", snackInefficient);
         editor.putInt("snaincom", snackIncomplete);
         editor.putInt("snainac", snackInaccurate);
@@ -2905,7 +2933,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putLong("multiTravel", multitaskTravel / 1000);
         travelSequencing = sequence("travel");
         editor.putString("travelSeq", travelSequencing);
-        editor.putInt("travelSim", calculateIndividualSimultaneous(3));
+        editor.putInt("travelSim", simultaneous("travel", travelStartMilisecond, travelStopMilisecond));
         editor.putInt("traineff", travelInefficient);
         editor.putInt("traincom", travelIncomplete);
         editor.putInt("trainac", travelInaccurate);
@@ -2915,7 +2943,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putLong("multiRecipe", multitaskRecipe / 1000);
         recipeSequencing = sequence("recipe");
         editor.putString("recipeSeq", recipeSequencing);
-        editor.putInt("recipeSim", calculateIndividualSimultaneous(0));
+        editor.putInt("recipeSim", simultaneous("recipe", recipeStartMilisecond, recipeStopMilisecond));
         editor.putInt("recineff", recipeInefficient);
         editor.putInt("recincom", recipeIncomplete);
         editor.putInt("recinac", recipeInaccurate);
@@ -2925,7 +2953,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putLong("multiExit", multitaskExit / 1000);
         exitSequencing = sequence("exit");
         editor.putString("exitSeq", exitSequencing);
-        editor.putInt("exitSim", calculateIndividualSimultaneous(4));
+        editor.putInt("exitSim", simultaneous("exit", exitStartMilisecond, exitStopMilisecond));
         editor.putInt("exiineff", exitInefficient);
         editor.putInt("exiincom", exitIncomplete);
         editor.putInt("exiinac", exitInaccurate);
@@ -2939,7 +2967,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putLong("totalexecution", totalExecutionTime / 1000);
         //editor.putInt("overallquality", overallQuality);
 
-        editor.putString("overallQuality", calculateQuality());
+        //editor.putString("overallQuality", calculateQuality());
         editor.putInt("correctSequencing", calculateSequencing());
         editor.putInt("errorTotals", totalErrors);
         editor.putInt("totalIncomplete", totalIncomplete);
@@ -3012,7 +3040,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void stopTimers() {
 
         if (movie) {
-            
+
             timerMovie();
         }
         if (phone) {
@@ -3060,6 +3088,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             lastButtonClicked = movieStart;
         }
         if (movieScore == 4) {
+
             //start time for movie
             //Toast.makeText(MainActivity.this, "Movie first Started", Toast.LENGTH_SHORT).show();
             if (!planFinished) {
@@ -3073,6 +3102,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // get start timetimestamp
             dateobj = new Date();
             movieStartTime = df.format(dateobj);
+
+            //start miliseconds
+            movieStartMilisecond = System.currentTimeMillis();
+
             //Toast.makeText(MainActivity.this, movieStartTime, Toast.LENGTH_SHORT).show();
 
         }
@@ -3094,6 +3127,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             dateobj = new Date();
             movieFinishTime = df.format(dateobj);
             //Toast.makeText(MainActivity.this, movieFinishTime, Toast.LENGTH_SHORT).show();
+
+            //stop miliseconds
+            movieStopMilisecond = System.currentTimeMillis();
 
             //stop timer
             //moneyFinish will be subtracted from multitaskMoney during the summary activity to get total time of completion
@@ -3134,6 +3170,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             dateobj = new Date();
             changeStartTime = df.format(dateobj);
 
+            //start miliseconds
+            changeStartMilisecond = System.currentTimeMillis();
+
         }
         if (!money) {
             moneyCount++;
@@ -3146,6 +3185,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             currentSimultaneous[6] = true;
             calculateSimultaneous();
         } else {
+
+            //stop miliseconds
+            changeStopMilisecond = System.currentTimeMillis();
+
             //stop timer
             //moneyFinish will be subtracted from multitaskMoney during the summary activity to get total time of completion
             long temp = System.currentTimeMillis();
@@ -3186,6 +3229,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             dateobj = new Date();
             exitStartTime = df.format(dateobj);
 
+            //start miliseconds
+            exitStartMilisecond = System.currentTimeMillis();
+
         }
         if (!exit) {
             exitCount++;
@@ -3198,6 +3244,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             currentSimultaneous[4] = true;
             calculateSimultaneous();
         } else {
+
+            //stop miliseconds
+            exitStopMilisecond = System.currentTimeMillis();
+
             //stop timer
             //moneyFinish will be subtracted from multitaskMoney during the summary activity to get total time of completion
             long temp = System.currentTimeMillis();
@@ -3238,6 +3288,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             dateobj = new Date();
             phoneStartTime = df.format(dateobj);
 
+            //start miliseconds
+            phoneStartMilisecond = System.currentTimeMillis();
+
         }
         if (!phone) {
             phoneCount++;
@@ -3250,6 +3303,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             currentSimultaneous[5] = true;
             calculateSimultaneous();
         } else {
+
+            //stop miliseconds
+            phoneStopMilisecond = System.currentTimeMillis();
+
             //stop timer
             //moneyFinish will be subtracted from multitaskMoney during the summary activity to get total time of completion
             long temp = System.currentTimeMillis();
@@ -3288,6 +3345,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             dateobj = new Date();
             recipeStartTime = df.format(dateobj);
 
+            //start miliseconds
+            recipeStartMilisecond = System.currentTimeMillis();
+
         }
         if (!recipe) {
             recipeCount++;
@@ -3300,6 +3360,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             currentSimultaneous[0] = true;
             calculateSimultaneous();
         } else {
+
+            //stop miliseconds
+            recipeStopMilisecond = System.currentTimeMillis();
+
             //stop timer
             //moneyFinish will be subtracted from multitaskMoney during the summary activity to get total time of completion
             long temp = System.currentTimeMillis();
@@ -3338,6 +3402,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             dateobj = new Date();
             snackStartTime = df.format(dateobj);
 
+            //start miliseconds
+            snackStartMilisecond = System.currentTimeMillis();
+
         }
         if (!snack) {
 
@@ -3351,6 +3418,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             currentSimultaneous[2] = true;
             calculateSimultaneous();
         } else {
+
+            //stop miliseconds
+            snackStopMilisecond = System.currentTimeMillis();
+
             //stop timer
             //moneyFinish will be subtracted from multitaskMoney during the summary activity to get total time of completion
             long temp = System.currentTimeMillis();
@@ -3388,6 +3459,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             dateobj = new Date();
             teaStartTime = df.format(dateobj);
 
+            //start miliseconds
+            teaStartMilisecond = System.currentTimeMillis();
+
         }
         if (!tea) {
             teaCount++;
@@ -3400,6 +3474,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             currentSimultaneous[7] = true;
             calculateSimultaneous();
         } else {
+
+            //stop miliseconds
+            teaStopMilisecond = System.currentTimeMillis();
+
             //stop timer
             //moneyFinish will be subtracted from multitaskMoney during the summary activity to get total time of completion
             long temp = System.currentTimeMillis();
@@ -3412,6 +3490,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             finishSequence("tea");
             simultaneousOrder.add("tea");
             currentSimultaneous[7] = false;
+            //Toast.makeText(MainActivity.this, "Tea Score " + teaScore, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -3437,6 +3516,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             dateobj = new Date();
             travelStartTime = df.format(dateobj);
 
+            //start miliseconds
+            travelStartMilisecond = System.currentTimeMillis();
+
         }
         if (!travel) {
             travelCount++;
@@ -3449,6 +3531,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             currentSimultaneous[3] = true;
             calculateSimultaneous();
         } else {
+
+            //stop miliseconds
+            travelStopMilisecond = System.currentTimeMillis();
+
             //stop timer
             //moneyFinish will be subtracted from multitaskMoney during the summary activity to get total time of completion
             long temp = System.currentTimeMillis();
@@ -3546,6 +3632,227 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public int simultaneous(String category, long start, long stop) {
+
+        int simultaneousCount = 0;
+
+        //recipe
+        if(!category.equals("recipe") && recipeStartMilisecond != -1 &&
+                ((start < recipeStartMilisecond && stop > recipeStartMilisecond) ||
+                        (start > recipeStartMilisecond && start < recipeStopMilisecond) ||
+                        (stop > recipeStartMilisecond && stop < recipeStopMilisecond) ||
+                        (start > recipeStartMilisecond && stop < recipeStopMilisecond))){
+            simultaneousCount++;
+        }
+
+        //movie
+        if(!category.equals("movie") && movieStartMilisecond != -1 &&
+                ((start < movieStartMilisecond && stop > movieStartMilisecond) ||
+                        (start > movieStartMilisecond && start < movieStopMilisecond) ||
+                        (stop > movieStartMilisecond && stop < movieStopMilisecond) ||
+                        (start > movieStartMilisecond && stop < movieStopMilisecond))){
+            simultaneousCount++;
+        }
+
+        //snack
+        if(!category.equals("snack") && snackStartMilisecond != -1 &&
+                ((start < snackStartMilisecond && stop > snackStartMilisecond) ||
+                        (start > snackStartMilisecond && start < snackStopMilisecond) ||
+                        (stop > snackStartMilisecond && stop < snackStopMilisecond) ||
+                        (start > snackStartMilisecond && stop < snackStopMilisecond))){
+            simultaneousCount++;
+        }
+
+        //travel
+        if(!category.equals("travel") && travelStartMilisecond != -1 &&
+                ((start < travelStartMilisecond && stop > travelStartMilisecond) ||
+                        (start > travelStartMilisecond && start < travelStopMilisecond) ||
+                        (stop > travelStartMilisecond && stop < travelStopMilisecond) ||
+                        (start > travelStartMilisecond && stop < travelStopMilisecond))){
+            simultaneousCount++;
+        }
+
+        //exit
+        if(!category.equals("exit") && exitStartMilisecond != -1 &&
+                ((start < exitStartMilisecond && stop > exitStartMilisecond) ||
+                        (start > exitStartMilisecond && start < exitStopMilisecond) ||
+                        (stop > exitStartMilisecond && stop < exitStopMilisecond) ||
+                        (start > exitStartMilisecond && stop < exitStopMilisecond))){
+            simultaneousCount++;
+        }
+
+        //phone
+        if(!category.equals("phone") && phoneStartMilisecond != -1 &&
+                ((start < phoneStartMilisecond && stop > phoneStartMilisecond) ||
+                        (start > phoneStartMilisecond && start < phoneStopMilisecond) ||
+                        (stop > phoneStartMilisecond && stop < phoneStopMilisecond) ||
+                        (start > phoneStartMilisecond && stop < phoneStopMilisecond))){
+            simultaneousCount++;
+        }
+
+        //change
+        if(!category.equals("change") && changeStartMilisecond != -1 &&
+                ((start < changeStartMilisecond && stop > changeStartMilisecond) ||
+                        (start > changeStartMilisecond && start < changeStopMilisecond) ||
+                        (stop > changeStartMilisecond && stop < changeStopMilisecond) ||
+                        (start > changeStartMilisecond && stop < changeStopMilisecond))){
+            simultaneousCount++;
+        }
+
+        //tea
+        if(!category.equals("tea") && teaStartMilisecond != -1 &&
+                ((start < teaStartMilisecond && stop > teaStartMilisecond) ||
+                        (start > teaStartMilisecond && start < teaStopMilisecond) ||
+                        (stop > teaStartMilisecond && stop < teaStopMilisecond) ||
+                        (start > teaStartMilisecond && stop < teaStopMilisecond))){
+            simultaneousCount++;
+        }
+
+        return simultaneousCount;
+
+        // commented out code is an alternative way to calculate simultaneous
+        /*
+        int total = 0;
+        boolean[] isSimultaneous = {false, false, false, false, false, false, false, false};
+
+        //Toast.makeText(MainActivity.this, "here i am", Toast.LENGTH_SHORT).show();
+
+        int last = simultaneousOrder.lastIndexOf(category);
+        int first = simultaneousOrder.indexOf(category);
+        if (last == -1 || first == -1) {
+            return 0;
+        }
+        boolean exists = false;
+
+        //key:
+        //movie 1
+        //recipe 0
+        //money 6
+        //snack 2
+        //phone 5
+        //exit 4
+        //tea 7
+        //travel 3
+
+        for (int i = first + 1; i < last; i++) {
+            if (simultaneousOrder.get(i).equals(category)) {
+                exists = true;
+            }
+            switch (simultaneousOrder.get(i)) {
+                case "recipe":
+                    isSimultaneous[0] = true;
+                    break;
+                case "movie":
+                    isSimultaneous[1] = true;
+                    break;
+                case "snack":
+                    isSimultaneous[2] = true;
+                    break;
+                case "travel":
+                    isSimultaneous[3] = true;
+                    break;
+                case "exit":
+                    isSimultaneous[4] = true;
+                    break;
+                case "phone":
+                    isSimultaneous[5] = true;
+                    break;
+                case "money":
+                    isSimultaneous[6] = true;
+                    break;
+                case "tea":
+                    isSimultaneous[7] = true;
+                    break;
+            }
+        }
+        for (int i = 0; i < 8; i++) {
+            if (isSimultaneous[i]) {
+                total++;
+            }
+        }
+        if (exists) {
+            total--;
+        }
+
+        //Toast.makeText(MainActivity.this, "score after first half of function: " + total, Toast.LENGTH_LONG).show();
+
+
+
+
+        //int total = 0;
+        switch(category){
+            case "recipe":
+                for(int i = 0; i < 8; i++){
+                    if(recipeSimultaneous[i] && i!=0 && !isSimultaneous[i]){
+                        total++;
+                    }
+                    //key:
+                    //movie 1
+                    //recipe 0
+                    //money 6
+                    //snack 2
+                    //phone 5
+                    //exit 4
+                    //tea 7
+                    //travel 3
+                }
+                break;
+            case "movie":
+                for(int i = 0; i < 8; i++){
+                    if(movieSimultaneous[i] && i!=1 && !isSimultaneous[i]){
+                        total++;
+                    }
+                }
+                break;
+            case "snack":
+                for(int i = 0; i < 8; i++){
+                    if(snackSimultaneous[i] && i!=2 && !isSimultaneous[i]){
+                        total++;
+                    }
+                }
+                break;
+            case "travel":
+                for(int i = 0; i < 8; i++){
+                    if(travelSimultaneous[i] && i!=3 && !isSimultaneous[i]){
+                        total++;
+                    }
+                }
+                break;
+            case "exit":
+                for(int i = 0; i < 8; i++){
+                    if(exitSimultaneous[i] && i!=4 && !isSimultaneous[i]){
+                        total++;
+                    }
+                }
+                break;
+            case "phone":
+                for(int i = 0; i < 8; i++){
+                    if(phoneSimultaneous[i] && i!=5 && !isSimultaneous[i]){
+                        total++;
+                    }
+                }
+                break;
+            case "money":
+                for(int i = 0; i < 8; i++){
+                    if(moneySimultaneous[i] && i!=6 && !isSimultaneous[i]){
+                        total++;
+                    }
+                }
+                break;
+            case "tea":
+                for(int i = 0; i < 8; i++){
+                    if(teaSimultaneous[i] && i!=7 && !isSimultaneous[i]){
+                        total++;
+                    }
+                }
+                break;
+        }
+
+        return total;
+
+        */
+    }
+
     public int calculateIndividualSimultaneous(int category){
 
         int total = 0;
@@ -3624,11 +3931,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for(int i = 0; i < 8; i++){
             if(currentSimultaneous[i]){
                 if(i == 0){
-                   for(int z = 0; z < 8; z++){
-                       if(currentSimultaneous[z] && !recipeSimultaneous[z]){
-                           recipeSimultaneous[z] = true;
-                       }
-                   }
+                    for(int z = 0; z < 8; z++){
+                        if(currentSimultaneous[z] && !recipeSimultaneous[z]){
+                            recipeSimultaneous[z] = true;
+                        }
+                    }
                 }else if(i == 1){
                     for(int z = 0; z < 8; z++){
                         if(currentSimultaneous[z] && !movieSimultaneous[z]){
@@ -3689,27 +3996,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editor.putInt("movie9b", 1);//Movie: Records leaving before 6:25
         else
             editor.putInt("movie9b", 2);
-        if (movie1b)
+        if (movie2b)
             editor.putInt("movie2b", 1);//"Movie: Looks in multiple locations " + Long.toString(movie1T / 1000)
         else
             editor.putInt("movie2b", 2);
-        if (movie1b)
+        if (movie3b)
             editor.putInt("movie3b", 1);//"Movie: Looks in multiple locations " + Long.toString(movie1T / 1000)
         else
             editor.putInt("movie3b", 2);
-        if (movie1b)
+        if (movie4b)
             editor.putInt("movie4b", 1);//"Movie: Looks in multiple locations " + Long.toString(movie1T / 1000)
         else
             editor.putInt("movie4b", 2);
-        if (movie1b)
+        if (movie5b)
             editor.putInt("movie5b", 1);//"Movie: Looks in multiple locations " + Long.toString(movie1T / 1000)
         else
             editor.putInt("movie5b", 2);
-        if (movie1b)
+        if (movie6b)
             editor.putInt("movie6b", 1);//"Movie: Looks in multiple locations " + Long.toString(movie1T / 1000)
         else
             editor.putInt("movie6b", 2);
-        if (movie2b)
+        if (movie7b)
             editor.putInt("movie7b", 1); //Movie: Records leaving after 6:35
         else
             editor.putInt("movie7b", 2);
@@ -4037,7 +4344,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final View view = inflater.inflate(R.layout.fragment_other_button, null);
         builder3.setView(view)
                 // Add action buttons
-                .setTitle("Which task the error belongs to?")
+                .setTitle("Which task does the error belongs to?")
                 .setPositiveButton("Add Error", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {

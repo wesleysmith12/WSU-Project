@@ -53,7 +53,7 @@
         android:id="@+id/movie4"
         style="@style/MainButton"/>
     <Button
-        android:text="Does not record answers"
+        android:text="Does not record all answers"
         android:id="@+id/movie5"
         style="@style/MainButton"/>
     <Button

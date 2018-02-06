@@ -27,7 +27,7 @@ import java.io.IOException;
 
 public class FinalActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private TextView gathered, recorded, leavesHouse, orText;
+    private TextView gathered, recorded, leavesHouse, orText, changenatv;
     private EditText changeRecorded, changeGathered, comments;
     private TimePicker time;
     private RadioGroup radioGroup1, radioGroup2, radioGroup3;
@@ -36,8 +36,9 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
     private boolean alreadyCalculated = false;
     private boolean checkBoxesChecked = false;
     private RadioButton radioY, radioY2, radioY3;
-    private Button naButton;
+    private Button naButton, na2Button;
     private boolean timeNotApplicable = false;
+    private boolean changeNotApplicable = false;
 
     TextView errorsHeader;
     TextView error1;
@@ -61,7 +62,11 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
         time = (TimePicker) findViewById(R.id.timePicker);
 
         orText = (TextView) findViewById(R.id.or);
+        //recorded = (TextView) findViewById(R.id.recorded);
+        changenatv = (TextView) findViewById(R.id.changenatv);
+        //gathered = (TextView) findViewById(R.id.gathered);
         naButton = (Button) findViewById(R.id.timena);
+        na2Button = (Button) findViewById(R.id.changena);
 
         //this code makes so that the clock is pm by default
         try{
@@ -94,8 +99,19 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
             recorded.setVisibility(View.GONE);
             changeGathered.setVisibility(View.GONE);
             changeRecorded.setVisibility(View.GONE);
+            na2Button.setVisibility(View.GONE);
+
+            changeNotApplicable = true;
         }
 
+        if(sharedPref.getInt("movieScore", 1) == 4){
+
+            naButton.setText("UNDO");
+            time.setVisibility(View.GONE);
+            orText.setVisibility(View.VISIBLE);
+            timeNotApplicable = true;
+
+        }
 
         errorsHeader = (TextView) findViewById(R.id.othererrorsheader);
         error1 = (TextView) findViewById(R.id.error1catagory);
@@ -171,7 +187,7 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
             Intent i = new Intent(this, SummaryActivity.class);
             startActivity(i);
         }else{
-                Toast.makeText(FinalActivity.this, "Please answer every question", Toast.LENGTH_SHORT).show();
+            Toast.makeText(FinalActivity.this, "Please answer every question", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -251,12 +267,22 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
-        Toast.makeText(FinalActivity.this, "onClickListener working", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(FinalActivity.this, "onClickListener working", Toast.LENGTH_SHORT).show();
 
     }
 
     public boolean compareChange(){
         if(alreadyCalculated){
+            return true;
+        }
+
+        SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        if(changeNotApplicable){
+            //pass in values for change
+            editor.putString("changeRecorded", "-1");
+            editor.putString("changeGathered", "-1");
             return true;
         }
 
@@ -266,8 +292,7 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
         Double changeRecordedText = Double.parseDouble(changeRecorded.getText().toString());
         Double changeGatheredText = Double.parseDouble(changeGathered.getText().toString());
 
-        SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
+
 
         boolean moreMoney = sharedPref.getBoolean("moreMoney", false);
         boolean lessMoney = sharedPref.getBoolean("lessMoney", false);
@@ -367,31 +392,67 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
 
 
     public void timeNA(View v){
-        if(naButton.getText().equals("N/A")){
-            orText.setText("Time is not applicable");
+        if(naButton.getText().equals("TIME N/A")){
+            //orText.setText("Time is not applicable");
             naButton.setText("UNDO");
             time.setVisibility(View.GONE);
+            orText.setVisibility(View.VISIBLE);
             timeNotApplicable = true;
+
         }else{
-            orText.setText("OR");
-            naButton.setText("N/A");
+            //orText.setText("OR");
+            naButton.setText("TIME N/A");
             timeNotApplicable = false;
             time.setVisibility(View.VISIBLE);
+            orText.setVisibility(View.GONE);
         }
 
         //orText.setVisibility(View.GONE);
 
     }
 
+    public void changeNA(View v){
+        if(na2Button.getText().equals("CHANGE N/A")){
+            na2Button.setText("UNDO");
+            changeRecorded.setVisibility(View.GONE);
+            changeGathered.setVisibility(View.GONE);
+            recorded.setVisibility(View.GONE);
+            gathered.setVisibility(View.GONE);
+            changenatv.setVisibility(View.VISIBLE);
+            changeNotApplicable = true;
+            SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.apply();
+        }else{
+            //orText.setText("OR");
+            na2Button.setText("CHANGE N/A");
+            changeNotApplicable = false;
+            changeRecorded.setVisibility(View.VISIBLE);
+            changeGathered.setVisibility(View.VISIBLE);
+            recorded.setVisibility(View.VISIBLE);
+            gathered.setVisibility(View.VISIBLE);
+            changenatv.setVisibility(View.GONE);
 
+        }
+
+        //orText.setVisibility(View.GONE);
+
+    }
 
     public void calculateTime(View v){
 
-        if(alreadyCalculated || timeNotApplicable){
-            return;
-        }
         SharedPreferences sharedPref = getSharedPreferences("FILENAME", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
+
+        if(alreadyCalculated){
+            return;
+        }
+        if(timeNotApplicable){
+            editor.putInt("movieHoursx", -1);
+            editor.putInt("movieMinutesx", -1);
+            return;
+        }
+
         int movieScore = sharedPref.getInt("movieScore", 0);
         if(movieScore == 4){
             return;
@@ -403,24 +464,88 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
         boolean movieLate = sharedPref.getBoolean("movieLate", false);
         int errorTotals = sharedPref.getInt("errorTotals", 0);
 
+        int totalIncomplete = sharedPref.getInt("totalIncomplete", 0);
+        int totalInaccurate = sharedPref.getInt("totalInaccurate", 0);
+        int totalInefficient = sharedPref.getInt("totalInefficient", 0);
+
+        // this is necessary so that the time picker reads the right time if the time was entered manually and focus/cursor is on hours or minutes
+        time.clearFocus();
+
         minutes = time.getCurrentMinute();
         hours = time.getCurrentHour();
-        if(minutes < 25 && (hours == 18 || hours == 17 || hours == 16 || hours == 15 || hours == 14 || hours == 13 || hours == 12 || hours == 11 ||
-                hours == 10 || hours == 9 || hours == 8 || hours == 7 || hours == 6) && !movieEarly){
+        if((minutes < 25 && hours == 18) || (hours <= 17)){
+
+            //Toast.makeText(FinalActivity.this, "time was early " + hours + ":" + minutes, Toast.LENGTH_SHORT).show();
+
             if(movieScore == 1){
                 movieScore = 2;
             }
-            movieInef++;
-            errorTotals++;
+            //if the leave early error was not pressed we add the error
+            if(sharedPref.getInt("movie9b", 1) == 2){
+                editor.putInt("movie9b", 1);
+                movieInef++;
+                errorTotals++;
+                totalInefficient++;
+            }
+            // if leave late error was pressed
+            if(sharedPref.getInt("movie7b", 1) == 1) {
+                // undo error error
+                editor.putInt("money7b", 2);
+                movieInac--;
+                errorTotals--;
+                totalInaccurate--;
 
-        }else if(minutes > 35 && (hours == 18 || hours == 19 || hours == 20 || hours == 21 || hours == 22 || hours == 23) && !movieLate){
+            }
+        }else if((minutes > 35 && hours == 18) || (hours == 19 || hours == 20 || hours == 21 || hours == 22 || hours == 23)){
+
+            //Toast.makeText(FinalActivity.this, "time was late " + hours + ":" + minutes, Toast.LENGTH_SHORT).show();
+
+
             if(movieScore == 1 || movieScore == 2){
                 movieScore = 3;
             }
-            movieInac++;
-            errorTotals++;
+            //if the leave late error was not pressed we add the error
+            if(sharedPref.getInt("movie7b", 1) == 2){
+                editor.putInt("money7b", 1);
+                movieInac++;
+                errorTotals++;
+                totalInaccurate++;
+            }
+            //if leave early error was pressed
+            if(sharedPref.getInt("movie9b", 1) == 1){
+                editor.putInt("movie9b", 2);
+                movieInef--;
+                errorTotals--;
+                totalInefficient--;
+            }
+        }else{
 
+            //Toast.makeText(FinalActivity.this, "time was correct " + hours + ":" + minutes, Toast.LENGTH_SHORT).show();
+
+            // undo error
+            if(sharedPref.getInt("movie9b", 1) == 1){
+                editor.putInt("movie9b", 2);
+                movieInef--;
+                errorTotals--;
+                totalInefficient--;
+            }
+            if(sharedPref.getInt("movie7b", 1) == 1) {
+                // undo error error
+                editor.putInt("money7b", 2);
+                movieInac--;
+                errorTotals--;
+                totalInaccurate--;
+            }
         }
+
+        // adjust the score if necessary
+        if(movieScore == 3 && movieInac == 0 && movieIncom == 0){
+            movieScore = 2;
+        }
+        if(movieScore == 2 && movieInef == 0 && movieInac == 0 && movieIncom == 0){
+            movieScore = 1;
+        }
+
         editor.putInt("movieScore", movieScore);
         editor.putInt("movineff", movieInef);
         editor.putInt("movincom", movieIncom);
@@ -429,10 +554,33 @@ public class FinalActivity extends AppCompatActivity implements View.OnClickList
         editor.putBoolean("movieEarly", movieEarly);
         editor.putInt("errorTotals", errorTotals);
 
+        editor.putInt("totalIncomplete", totalIncomplete);
+        editor.putInt("totalInaccurate", totalInaccurate);
+        editor.putInt("totalInefficient", totalInefficient);
+
         //save time
-        editor.putInt("movieHours", hours);
-        editor.putInt("movieMinutes", minutes);
+        editor.putInt("movieHoursx", hours);
+        editor.putInt("movieMinutesx", minutes);
 
         editor.apply();
     }
+
+//    public void getTimexx(View v){
+//
+//        int hrs, mins;
+//
+//        hrs = time.getCurrentHour();
+//        mins = time.getCurrentMinute();
+//
+//        if(alreadyCalculated){
+//            Toast.makeText(FinalActivity.this, "time already calculated" + hrs + ":" + mins, Toast.LENGTH_SHORT).show();
+//        }
+//        else if(timeNotApplicable){
+//            Toast.makeText(FinalActivity.this, "time not applicable" + hrs + ":" + mins, Toast.LENGTH_SHORT).show();
+//        }
+//
+//        Toast.makeText(FinalActivity.this, "Time is: " + hrs + ":" + mins, Toast.LENGTH_SHORT).show();
+//
+//
+//    }
 }
